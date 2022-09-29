@@ -7,8 +7,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.sep.viewModel.LoginViewModel;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class ActivityLogin extends AppCompatActivity {
 
@@ -23,6 +26,10 @@ public class ActivityLogin extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         /*----------- UI -----------*/
+        TextInputLayout tiPassword = findViewById(R.id.ti_password);
+        TextInputLayout tiUsername = findViewById(R.id.ti_username);
+        TextInputEditText etUsername = findViewById(R.id.et_username);
+        TextInputEditText etPassword = findViewById(R.id.et_password);
         Button login = findViewById(R.id.btn_login);
 
         /*--------- view models ---------*/
@@ -32,10 +39,47 @@ public class ActivityLogin extends AppCompatActivity {
 
         /*--------- listeners ---------*/
         login.setOnClickListener(v -> {
-            Intent intent = new Intent(this, BaseActivity.class);
-            //TODO: add name and function as extra
-            //intent.putExtra(Stops.TIME, time);
-            startActivity(intent);
+            if (!isFieldEmpty(String.valueOf(etPassword.getText()))) {
+                tiPassword.setError("Password required");
+            } if (!isFieldEmpty(String.valueOf(etUsername.getText()))) {
+                tiUsername.setError("Name required");
+            } else {
+                tiPassword.setError(null);
+                tiUsername.setError(null);
+                loginVM.login(String.valueOf(etUsername.getText()), String.valueOf(etPassword.getText()));
+            }
         });
+
+        loginVM.setLoginListener((loggedIn, errorMessage, user) -> {
+            if (loggedIn) {
+                Intent intent = new Intent(this, BaseActivity.class);
+                intent.putExtra("name", user.getName());
+                intent.putExtra("role", user.getRole());
+                startActivity(intent);
+            } else {
+                Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                if (errorMessage.equals("Wrong password")) tiPassword.setError("Wrong password");
+                else tiUsername.setError("Wrong name");
+            }
+        });
+
+        // removes error messages
+        etPassword.setOnKeyListener((view1, i, keyEvent) -> {
+            if(isFieldEmpty(String.valueOf(etPassword.getText()))) {
+                tiPassword.setError(null);
+            }
+            return false;
+        });
+        etUsername.setOnKeyListener((view1, i, keyEvent) -> {
+            if(isFieldEmpty(String.valueOf(etUsername.getText()))) {
+                tiUsername.setError(null);
+            }
+            return false;
+        });
+    }
+
+    private Boolean isFieldEmpty(String text) {
+        // for error messages in text fields
+        return text != null && text.length() > 1;
     }
 }
