@@ -33,7 +33,7 @@ To run the app, there are 2 options:
 
 ## Known issues
 
-- [1](https://github.com/elisakaisa/SEP/issues/1) the logged in user is not saved into the loginVM
+- 
 
 ## Authors
 

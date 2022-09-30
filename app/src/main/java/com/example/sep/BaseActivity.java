@@ -3,19 +3,15 @@ package com.example.sep;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.example.sep.viewModel.LoginViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
@@ -49,11 +45,6 @@ public class BaseActivity extends AppCompatActivity {
         tv_username.setText(s);
         tv_role.setText(role);
 
-        /*--------- view models ---------*/
-        // Create a ViewModel the first time the system calls an activity's onCreate() method.
-        // Re-created activities receive the same MyViewModel instance created by the first activity.
-        LoginViewModel loginVM = new ViewModelProvider(this).get(LoginViewModel.class);
-
         /*---------- LISTENERS ----------*/
         btnLogout.setOnClickListener(v -> {
 
@@ -61,7 +52,6 @@ public class BaseActivity extends AppCompatActivity {
             ActivityLogin.sharedPref.edit().remove("name").apply();
             ActivityLogin.sharedPref.edit().remove("role").apply();
 
-            loginVM.deleteUser();
 
             startActivity(new Intent(this, ActivityLogin.class));
             finish();
