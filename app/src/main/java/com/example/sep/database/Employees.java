@@ -6,9 +6,11 @@ Mockup database
 import com.example.sep.model.Employee;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.stream.IntStream;
 
 public class Employees {
+
+    ArrayList<Employee> dbEmployees = new ArrayList<>();
 
     // Administration department
     Employee SCSO = new Employee("Janet", "Senior Customer Service Officer", "password");
@@ -50,42 +52,55 @@ public class Employees {
     // top management
     Employee VP = new Employee("Charlie", "Vice president", "password");
     Employee Sec1 = new Employee("Jennifer", "Secretary", "password");
-    Employee Sec2 = new Employee("Jennifer", "Secretary", "password");
+    Employee Sec2 = new Employee("Jennifer2", "Secretary", "password");
 
-    public List<Employee> getEmployees() {
-        List<Employee> employees = new ArrayList<>();
-        employees.add(SCSO);
-        employees.add(CS1);
-        employees.add(CS2);
-        employees.add(CS3);
-        employees.add(CS4);
-        employees.add(HRM);
-        employees.add(HRA);
-        employees.add(AD);
-        employees.add(MO);
-        employees.add(MA);
-        employees.add(FM);
-        employees.add(Acc1);
-        employees.add(Acc2);
-        employees.add(PM);
-        employees.add(Photo1);
-        employees.add(Photo2);
-        employees.add(Audio1);
-        employees.add(Audio2);
-        employees.add(Graphic1);
-        employees.add(Graphic2);
-        employees.add(Deco1);
-        employees.add(Deco2);
-        employees.add(Network1);
-        employees.add(Network2);
-        employees.add(Network3);
-        employees.add(Network4);
-        employees.add(SM);
-        employees.add(Chef);
-        employees.add(SW);
-        employees.add(VP);
-        employees.add(Sec1);
-        employees.add(Sec2);
-        return employees;
+    public void initEmployees() {
+        dbEmployees.add(SCSO);
+        dbEmployees.add(CS1);
+        dbEmployees.add(CS2);
+        dbEmployees.add(CS3);
+        dbEmployees.add(CS4);
+        dbEmployees.add(HRM);
+        dbEmployees.add(HRA);
+        dbEmployees.add(AD);
+        dbEmployees.add(MO);
+        dbEmployees.add(MA);
+        dbEmployees.add(FM);
+        dbEmployees.add(Acc1);
+        dbEmployees.add(Acc2);
+        dbEmployees.add(PM);
+        dbEmployees.add(Photo1);
+        dbEmployees.add(Photo2);
+        dbEmployees.add(Audio1);
+        dbEmployees.add(Audio2);
+        dbEmployees.add(Graphic1);
+        dbEmployees.add(Graphic2);
+        dbEmployees.add(Deco1);
+        dbEmployees.add(Deco2);
+        dbEmployees.add(Network1);
+        dbEmployees.add(Network2);
+        dbEmployees.add(Network3);
+        dbEmployees.add(Network4);
+        dbEmployees.add(SM);
+        dbEmployees.add(Chef);
+        dbEmployees.add(SW);
+        dbEmployees.add(VP);
+        dbEmployees.add(Sec1);
+        dbEmployees.add(Sec2);
+    }
+
+    public ArrayList<Employee> getEmployees() {
+        // function useed to test the database
+        return dbEmployees;
+    }
+
+    public Employee getEmployeeFromDb(final String searchedName) {
+        // funxion to return the Employee from the database based on the searched name
+        int index = IntStream.range(0, dbEmployees.size())
+                .filter(i -> dbEmployees.get(i).getName().equals(searchedName))
+                .findFirst()
+                .orElse(-1);
+        if (index == -1) return null;
+        else return dbEmployees.get(index);
     }
 }
