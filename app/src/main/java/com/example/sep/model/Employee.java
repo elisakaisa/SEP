@@ -1,7 +1,14 @@
 package com.example.sep.model;
 
-public class User {
+public class Employee {
     String name, role, password;
+
+    public Employee(String newName, String newRole, String newPassword) {
+        // Constructor
+        name = newName;
+        role = newRole;
+        password = newPassword;
+    }
 
     public String getRole() { return role; }
 
