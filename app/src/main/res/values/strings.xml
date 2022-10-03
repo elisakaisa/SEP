@@ -9,4 +9,15 @@
     <string name="welcome_text">Welcome to SEP</string>
     <string name="welcome">Welcome</string>
     <string name="log_out">Log out</string>
+    <string name="submit">Submit</string>
+    <string name="priority">Priority</string>
+
+
+
+    <string-array name="priority_options">
+        <item>high</item>
+        <item>medium</item>
+    </string-array>
+
+
 </resources>
