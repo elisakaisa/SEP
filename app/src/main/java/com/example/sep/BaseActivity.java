@@ -30,12 +30,6 @@ public class BaseActivity extends AppCompatActivity {
         TextView tv_role = findViewById(R.id.tv_role);
         ImageButton btnLogout = findViewById(R.id.img_btn_login);
 
-        // default fragment
-        // TODO: set default fragment depending on user role
-        loadFragment(new FragmentHome());
-        // highlight the correct icon
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
-
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
@@ -44,6 +38,16 @@ public class BaseActivity extends AppCompatActivity {
         String s = "Welcome " + name;
         tv_username.setText(s);
         tv_role.setText(role);
+
+        // default fragment
+        // TODO: figure out how we can do the menu
+        if (role.equals("Customer Service")) {
+            loadFragment(new FragmentCreateEvent());
+        } else {
+            loadFragment(new FragmentHome());
+        }
+        // highlight the correct icon
+        bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
         /*---------- LISTENERS ----------*/
         btnLogout.setOnClickListener(v -> {
