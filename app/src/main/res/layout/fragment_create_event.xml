@@ -268,33 +268,38 @@
             </TableRow>
             <TableRow>
                 <CheckBox
+                    android:id="@+id/cb_decorations"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/decorations"/>
                 <CheckBox
+                    android:id="@+id/cb_food"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/breakfast_lunch_dinner"/>
             </TableRow>
             <TableRow>
                 <CheckBox
+                    android:id="@+id/cb_parties"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/parties"/>
                 <CheckBox
+                    android:id="@+id/cb_drinks"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/soft_hot_drinks"/>
             </TableRow>
             <TableRow>
                 <CheckBox
+                    android:id="@+id/cb_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:checked="true"
+                    android:checked="false"
                     android:text="@string/video_filming"/>
             </TableRow>
 
