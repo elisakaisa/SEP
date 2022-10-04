@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
@@ -33,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
         // default fragment
         // TODO: set default fragment depending on user role
         loadFragment(new FragmentHome());
+        //loadFragment(new FragmentTaskDistribution());
         // highlight the correct icon
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
@@ -40,6 +42,8 @@ public class BaseActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
         String role = intent.getStringExtra("role");
+
+        RoleTransfer.setRole(role);
 
         String s = "Welcome " + name;
         tv_username.setText(s);
@@ -65,6 +69,8 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_home:
                 //load home fragment
                 loadFragment(new FragmentHome());
+                //loadFragment(new FragmentTaskDistribution());
+
                 return true;
 
             // add additional menus here

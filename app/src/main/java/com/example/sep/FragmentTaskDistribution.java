@@ -2,8 +2,6 @@ package com.example.sep;
 
 import static java.lang.Integer.parseInt;
 
-import androidx.lifecycle.ViewModelProvider;
-
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,13 +14,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.sep.model.Task;
+import com.example.sep.viewModel.RoleTransfer;
+import com.example.sep.viewModel.TaskDistributionViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -32,7 +30,7 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
     TextInputLayout projectReferenceEditText, taskDescriptionEditText;
     Spinner subTeamMembersSpinner, taskPrioritySpinner;
     MaterialButton submitTaskButton;
-    TabLayout subTeamsTabLayout;
+    TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLoayout;
 
 
     String taskPriority;
@@ -50,10 +48,20 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
+        // get role
+        String role = RoleTransfer.getRole();
+
         View view = inflater.inflate(R.layout.fragment_task_distribution, container, false);
-        subTeamsTabLayout = view.findViewById(R.id.tabs);
-        departmentName =  view.findViewById(R.id.department_name);
-        loggedInPersonName =  view.findViewById(R.id.logged_in_person);
+
+        productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
+        serviceSubTeamsTabLoayout = view.findViewById(R.id.tabs_service);
+        if (role.equals("Production department manager")) {
+            productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
+            serviceSubTeamsTabLoayout.setVisibility(View.INVISIBLE);
+        } else if (role.equals("Services department manager")) {
+            serviceSubTeamsTabLoayout.setVisibility(View.VISIBLE);
+            productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
+        }
         projectReferenceEditText = view.findViewById(R.id.project_reference_text_input);
         taskDescriptionEditText =  view.findViewById(R.id.description_text_input);
         subTeamMembersSpinner =  view.findViewById(R.id.spinner_sub_team_people);
@@ -65,7 +73,7 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
 
         // Spinners
         // TODO: Get the members from the department and sub-team
-        String [] members = {"Elisa, Giota"};
+        String [] members = {"Elisa", "Giota"};
         ArrayAdapter<String> adapterSubTeamMembers = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, members);
         ArrayAdapter<CharSequence> adapterPriorities = ArrayAdapter.createFromResource(getContext(), R.array.priority_options, android.R.layout.simple_spinner_item);
 
@@ -74,12 +82,12 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
         adapterPriorities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinners
-        subTeamMembersSpinner.setAdapter(adapterPriorities);
+        subTeamMembersSpinner.setAdapter(adapterSubTeamMembers);
         taskPrioritySpinner.setAdapter(adapterPriorities);
 
         submitTaskButton.setOnClickListener(v -> submitTask());
 
-        subTeamsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        productionSubTeamsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab!=null){

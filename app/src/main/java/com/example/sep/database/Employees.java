@@ -12,6 +12,9 @@ public class Employees {
 
     ArrayList<Employee> dbEmployees = new ArrayList<>();
 
+    // deprtments
+    private final String ADMINISTRATION = "Administration";
+
     // Administration department
     Employee SCSO = new Employee("Janet", "Senior Customer Service Officer", "password");
     Employee CS1 = new Employee("Sarah", "Customer Service", "password");
@@ -30,7 +33,7 @@ public class Employees {
     Employee Acc2 = new Employee("Sophia", "Accountant", "password");
 
     // Production department
-    Employee PM = new Employee("Jack", "Production manager", "password");
+    Employee PM = new Employee("Jack", "Production department manager", "password");
     Employee Photo1 = new Employee("Tobias", "Photographer", "password");
     Employee Photo2 = new Employee("Magdalena", "Photographer", "password");
     Employee Audio1 = new Employee("Antony", "Audio specialist", "password");
@@ -103,4 +106,20 @@ public class Employees {
         if (index == -1) return null;
         else return dbEmployees.get(index);
     }
+
+
+    /*public Employee getEmployeeFromDbByDepartment(final String searchedDepartment) {
+        ArrayList<Employees> employees = new ArrayList<>();
+        // funxion to return the Employee from the database based on the searched name
+        int index = IntStream.range(0, dbEmployees.size())
+                .filter(i -> {
+                    Integer idx = dbEmployees.get(i).getRole().equals(searchedDepartment));
+                    employees.add(dbEmployees.get(index));
+                }
+                .findFirst()
+                .orElse(-1);
+        if (index == -1) return null;
+        else return employeeName;
+    }*/
 }
+

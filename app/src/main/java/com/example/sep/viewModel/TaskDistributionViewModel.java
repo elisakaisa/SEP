@@ -1,4 +1,5 @@
-package com.example.sep;
+package com.example.sep.viewModel;
+
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
