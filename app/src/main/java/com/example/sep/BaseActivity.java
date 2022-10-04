@@ -41,6 +41,7 @@ public class BaseActivity extends AppCompatActivity {
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
+        String department = intent.getStringExtra("department");
         String role = intent.getStringExtra("role");
 
         RoleTransfer.setRole(role);
@@ -54,6 +55,7 @@ public class BaseActivity extends AppCompatActivity {
 
             // remove user from local storage
             ActivityLogin.sharedPref.edit().remove("name").apply();
+            ActivityLogin.sharedPref.edit().remove("department").apply();
             ActivityLogin.sharedPref.edit().remove("role").apply();
 
 

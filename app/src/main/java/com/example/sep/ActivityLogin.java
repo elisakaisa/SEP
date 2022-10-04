@@ -45,12 +45,13 @@ public class ActivityLogin extends AppCompatActivity {
 
         /* ----- USER FROM STORAGE ------*/
         sharedPref = getPreferences(Context.MODE_PRIVATE);
-        Employee userFromStorage = new Employee(null, null, null);
+        Employee userFromStorage = new Employee(null, null, null, null);
         if (sharedPref.contains("name")) {
             Log.i("login", sharedPref.getString("name", null));
+            userFromStorage.setName(sharedPref.getString("department", null));
             userFromStorage.setName(sharedPref.getString("name", null));
             userFromStorage.setRole(sharedPref.getString("role", null));
-            startActivityAfterLogin(userFromStorage.getName(), userFromStorage.getRole());
+            startActivityAfterLogin(userFromStorage.getName(), userFromStorage.getDepartment(), userFromStorage.getRole());
         }
 
         /*--------- listeners ---------*/
@@ -72,10 +73,11 @@ public class ActivityLogin extends AppCompatActivity {
                 // save the logged in user into local storage so no need to relog in every time the app starts
                 SharedPreferences.Editor prefsEditor = sharedPref.edit();
                 prefsEditor.putString("name", user.getName());
+                prefsEditor.putString("department", user.getDepartment());
                 prefsEditor.putString("role", user.getRole());
                 prefsEditor.apply();
 
-                startActivityAfterLogin(user.getName(), user.getRole());
+                startActivityAfterLogin(user.getName(), user.getDepartment(), user.getRole());
             } else {
                 Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
                 if (errorMessage.equals("Wrong password")) tiPassword.setError("Wrong password");
@@ -103,9 +105,10 @@ public class ActivityLogin extends AppCompatActivity {
         return text != null && text.length() > 1;
     }
 
-    private void startActivityAfterLogin(String name, String role) {
+    private void startActivityAfterLogin(String name, String department, String role) {
         Intent intent = new Intent(this, BaseActivity.class);
         intent.putExtra("name", name);
+        intent.putExtra("department", department);
         intent.putExtra("role", role);
         startActivity(intent);
     }
