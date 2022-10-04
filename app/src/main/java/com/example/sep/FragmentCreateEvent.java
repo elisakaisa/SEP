@@ -1,10 +1,12 @@
 package com.example.sep;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,9 @@ import com.example.sep.model.Event;
 import com.example.sep.utils.HelperFunctions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -130,6 +135,7 @@ public class FragmentCreateEvent extends Fragment {
     }
 
     private void submitEvent() {
+        // TODO add safety feature if numbers emptySara
         Event newEvent = new Event(
                 "todoId",
                 String.valueOf(etRecordNumber.getText()),
@@ -145,7 +151,22 @@ public class FragmentCreateEvent extends Fragment {
                 parties,
                 drinks,
                 photo);
-        //TODO
+        saveResultList(newEvent);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, new FragmentHome(), "");
+        fragmentTransaction.commit();
+    }
+
+    private void saveResultList(Event event) {
+        BaseActivity.eventList.addEvent(event);
+        try {
+            FileOutputStream fos = getActivity().openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(BaseActivity.eventList);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private boolean onCheckboxClicked(boolean preferences) {

@@ -1,6 +1,8 @@
 package com.example.sep.model;
 
-public class Event {
+import java.io.Serializable;
+
+public class Event implements Serializable {
     String id, recordNumber, clientName, eventType, fromDate, toDate, comments;
     int attendees, budget;
     boolean decorations, food, parties, drinks, photo;

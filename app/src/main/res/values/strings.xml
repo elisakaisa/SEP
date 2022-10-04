@@ -30,4 +30,6 @@
     <string name="any_additional_information">Any additional information</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="create_event">Create event</string>
+    <string name="event">Event</string>
 </resources>
