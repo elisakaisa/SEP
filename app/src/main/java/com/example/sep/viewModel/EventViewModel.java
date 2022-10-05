@@ -9,7 +9,7 @@ import com.example.sep.view.eventRecyclerView.EventItem;
 
 public class EventViewModel extends ViewModel {
 
-    // TODO: see if it can be refactored for Evnet instead of eventItem
+    // TODO: see if it can be refactored for Event instead of eventItem
 
     public MutableLiveData<EventItem> event;
     public LiveData<EventItem> getEvent() {
