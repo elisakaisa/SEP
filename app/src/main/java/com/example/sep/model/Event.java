@@ -1,20 +1,98 @@
 package com.example.sep.model;
 
-public class Event {
-    String id, clientName, eventType, startDate, enDate, preferences;
-    int attendees, budget;
+import java.io.Serializable;
 
-    public String getId() {
-        return id;
+public class Event implements Serializable {
+    String id, recordNumber, clientName, eventType, fromDate, toDate, comments;
+    int attendees, budget, level;
+    boolean decorations, food, parties, drinks, photo;
+    // level: variable to set at which level of the company the request is going
+
+    public Event(
+            /* constructor */
+            String newId,
+            String newRecordNumber,
+            String newClientName,
+            String newEventType,
+            String newFromDate,
+            String newToDate,
+            String newComments,
+            int newAttendees,
+            int newBudget,
+            boolean newDecorations,
+            boolean newFood,
+            boolean newParties,
+            boolean newDrinks,
+            boolean newPhoto,
+            int newLevel) {
+        id = newId;
+        recordNumber = newRecordNumber;
+        clientName = newClientName;
+        eventType = newEventType;
+        fromDate = newFromDate;
+        toDate = newToDate;
+        comments = newComments;
+        attendees = newAttendees;
+        budget = newBudget;
+        decorations = newDecorations;
+        food = newFood;
+        parties = newParties;
+        drinks = newDrinks;
+        photo = newPhoto;
+        level = newLevel;
     }
+
+    public boolean isDecorations() {
+        return decorations;
+    }
+
+    public void setDecorations(boolean decorations) {
+        this.decorations = decorations;
+    }
+
+    public boolean isFood() {
+        return food;
+    }
+
+    public void setFood(boolean food) {
+        this.food = food;
+    }
+
+    public boolean isParties() {
+        return parties;
+    }
+
+    public void setParties(boolean parties) {
+        this.parties = parties;
+    }
+
+    public boolean isDrinks() {
+        return drinks;
+    }
+
+    public void setDrinks(boolean drinks) {
+        this.drinks = drinks;
+    }
+
+    public boolean isPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(boolean photo) {
+        this.photo = photo;
+    }
+
+    public String getId() { return id; }
 
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getClientName() {
-        return clientName;
-    }
+    public String getRecordNumber() { return recordNumber; }
+
+    public void setRecordNumber(String recordNumber) { this.recordNumber = recordNumber; }
+
+    public String getClientName() { return clientName; }
 
     public void setClientName(String clientName) {
         this.clientName = clientName;
@@ -28,28 +106,28 @@ public class Event {
         this.eventType = eventType;
     }
 
-    public String getStartDate() {
-        return startDate;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    public void setStartDate(String startDate) {
-        this.startDate = startDate;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public String getEnDate() {
-        return enDate;
+    public String getToDate() {
+        return toDate;
     }
 
-    public void setEnDate(String enDate) {
-        this.enDate = enDate;
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
-    public String getPreferences() {
-        return preferences;
+    public String getComments() {
+        return comments;
     }
 
-    public void setPreferences(String preferences) {
-        this.preferences = preferences;
+    public void setComments(String comments) {
+        this.comments = comments;
     }
 
     public int getAttendees() {
@@ -67,4 +145,14 @@ public class Event {
     public void setBudget(int budget) {
         this.budget = budget;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void addLevel() { this.level = level + 1; }
 }

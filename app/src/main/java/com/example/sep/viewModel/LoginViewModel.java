@@ -25,10 +25,14 @@ public class LoginViewModel extends ViewModel {
         cEmployees.initEmployees();
         Employee loggedInEmployee = cEmployees.getEmployeeFromDb(name);
 
-        if (loggedInEmployee.getName().equals(name)) {
-            if (loggedInEmployee.getPassword().equals(password)) {
-                listener.onLoggedIn(true, null, loggedInEmployee);
-            } else listener.onLoggedIn(false, "Wrong password", null);
+        if (loggedInEmployee != null) {
+            if (loggedInEmployee.getName().equals(name)) {
+                if (loggedInEmployee.getPassword().equals(password)) {
+                    listener.onLoggedIn(true, null, loggedInEmployee);
+                } else listener.onLoggedIn(false, "Wrong password", null);
+            } else {
+                listener.onLoggedIn(false, "Employee " + name + " does not exist", null);
+            }
         } else {
             listener.onLoggedIn(false, "Employee " + name + " does not exist", null);
         }

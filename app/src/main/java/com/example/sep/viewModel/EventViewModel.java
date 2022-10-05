@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sep.model.Event;
+import com.example.sep.view.eventRecyclerView.EventItem;
 
 public class EventViewModel extends ViewModel {
 
-    public MutableLiveData<Event> event;
+    // TODO: see if it can be refactored for Event instead of eventItem
 
-    public LiveData<Event> getEvent() {
+    public MutableLiveData<EventItem> event;
+    public LiveData<EventItem> getEvent() {
         if(event == null) {
             event = new MutableLiveData<>();
             loadEvent();
@@ -20,6 +22,12 @@ public class EventViewModel extends ViewModel {
 
     private void loadEvent() {
         // asynchronous call to load the event
-        //TODO
+    }
+
+    public void setEvent(EventItem eventObj) {
+        if(event == null) {
+            event = new MutableLiveData<>();
+        }
+        event.postValue(eventObj);
     }
 }
