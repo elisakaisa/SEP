@@ -150,10 +150,11 @@ public class FragmentCreateEvent extends Fragment {
                 food,
                 parties,
                 drinks,
-                photo);
+                photo,
+                0);
         saveResultList(newEvent);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentHome(), "");
+        fragmentTransaction.replace(R.id.content_container, new FragmentEventList(), "");
         fragmentTransaction.commit();
     }
 

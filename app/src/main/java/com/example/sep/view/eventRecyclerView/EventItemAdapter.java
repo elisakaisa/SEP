@@ -1,4 +1,4 @@
-package com.example.sep.eventRecyclerView;
+package com.example.sep.view.eventRecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.EventItemViewHolder> {
     private ArrayList<EventItem> mEventItem;
+    private View.OnClickListener mOnItemClickListener;
 
     @NonNull
     @Override
@@ -41,10 +42,17 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
         public EventItemViewHolder(@NonNull View itemView) {
             super(itemView);
             iClientName = itemView.findViewById(R.id.tv_cell_client_name);
+
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 
     public EventItemAdapter(ArrayList<EventItem> eventItem) {
         mEventItem = eventItem;
+    }
+
+    public void setOnItemclickListener(View.OnClickListener itemClickListener){
+        mOnItemClickListener = itemClickListener;
     }
 }

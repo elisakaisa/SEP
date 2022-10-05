@@ -1,4 +1,4 @@
-package com.example.sep.eventRecyclerView;
+package com.example.sep.view.eventRecyclerView;
 
 import com.example.sep.model.Event;
 

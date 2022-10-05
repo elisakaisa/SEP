@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 public class Event implements Serializable {
     String id, recordNumber, clientName, eventType, fromDate, toDate, comments;
-    int attendees, budget;
+    int attendees, budget, level;
     boolean decorations, food, parties, drinks, photo;
+    // level: variable to set at which level of the company the request is going
 
     public Event(
             /* constructor */
@@ -22,7 +23,8 @@ public class Event implements Serializable {
             boolean newFood,
             boolean newParties,
             boolean newDrinks,
-            boolean newPhoto) {
+            boolean newPhoto,
+            int newLevel) {
         id = newId;
         recordNumber = newRecordNumber;
         clientName = newClientName;
@@ -37,6 +39,7 @@ public class Event implements Serializable {
         parties = newParties;
         drinks = newDrinks;
         photo = newPhoto;
+        level = newLevel;
     }
 
     public boolean isDecorations() {
@@ -142,4 +145,14 @@ public class Event implements Serializable {
     public void setBudget(int budget) {
         this.budget = budget;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public void addLevel() { this.level = level + 1; }
 }

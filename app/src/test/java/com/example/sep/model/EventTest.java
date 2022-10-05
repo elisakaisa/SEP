@@ -22,7 +22,8 @@ public class EventTest {
                 true,
                 true,
                 true,
-                false);
+                false,
+                0);
         assertEquals(event.getId(), "id");
         assertEquals(event.getRecordNumber(), "recordNumber");
         assertEquals(event.getEventType(), "eventType");
@@ -33,10 +34,15 @@ public class EventTest {
         assertEquals(event.getBudget(), 1000);
         assertFalse(event.isDecorations());
         assertTrue(event.isFood());
+        assertEquals(event.getLevel(), 0);
 
         // test change of data
         event.setComments("changed comment");
         assertEquals(event.getComments(), "changed comment");
+
+        // test level changes from 0 to 1 (from customer service to senior customer service
+        event.addLevel();
+        assertEquals(event.getLevel(), 1);
     }
 
 }

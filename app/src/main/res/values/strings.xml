@@ -32,4 +32,7 @@
     <string name="cancel">Cancel</string>
     <string name="create_event">Create event</string>
     <string name="event">Event</string>
+    <string name="delete">Delete</string>
+    <string name="event_details">Event details</string>
+    <string name="approve">Approve</string>
 </resources>

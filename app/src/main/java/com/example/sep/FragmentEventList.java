@@ -3,23 +3,23 @@ package com.example.sep;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.EventLogTags;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sep.database.EventList;
-import com.example.sep.eventRecyclerView.EventItem;
-import com.example.sep.eventRecyclerView.EventItemAdapter;
+import com.example.sep.view.eventRecyclerView.EventItem;
+import com.example.sep.view.eventRecyclerView.EventItemAdapter;
 import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventListViewModel;
+import com.example.sep.viewModel.EventViewModel;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +30,8 @@ public class FragmentEventList extends Fragment {
 
     RecyclerView rv_events;
     public ArrayList<EventItem> itemList;
+    EventViewModel eventVM;
+    FloatingActionButton fabAdd;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -77,9 +79,17 @@ public class FragmentEventList extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
 
+        /*------------ UI ------------*/
         rv_events = view.findViewById(R.id.rv_events);
+        fabAdd = view.findViewById(R.id.fab_add);
 
+        // TODO: make this visible only for customer service
+        fabAdd.setVisibility(View.VISIBLE);
+
+        eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
         EventListViewModel eventListVM = new ViewModelProvider(requireActivity()).get(EventListViewModel.class);
+
+
         eventListVM.getEvent().observe(requireActivity(), events -> {
             itemList = new ArrayList<>();
             Integer i = 0;
@@ -91,7 +101,31 @@ public class FragmentEventList extends Fragment {
             EventItemAdapter resultItemAdapter = new EventItemAdapter(itemList);
             rv_events.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_events.setAdapter(resultItemAdapter);
+            resultItemAdapter.setOnItemclickListener(onItemClickListener);
         });
+
+        fabAdd.setOnClickListener(v -> {
+            loadFragment(new FragmentCreateEvent());
+        });
+
         return view;
+    }
+
+    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            int position = viewHolder.getAdapterPosition();
+            EventItem eventItem = itemList.get(position);
+            eventVM.setEvent(eventItem);
+
+            loadFragment(new FragmentEventDetails());
+        }
+    };
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, fragment, "");
+        fragmentTransaction.commit();
     }
 }

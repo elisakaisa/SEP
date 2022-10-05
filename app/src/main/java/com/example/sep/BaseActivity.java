@@ -22,7 +22,6 @@ public class BaseActivity extends AppCompatActivity {
     public static EventList eventList; // referenced from everywhere, needs to be static
 
     BottomNavigationView bottomNavigationView;
-    FloatingActionButton fabAdd;
     String role;
 
     @Override
@@ -36,7 +35,6 @@ public class BaseActivity extends AppCompatActivity {
         TextView tv_username = findViewById(R.id.tv_logged_as);
         TextView tv_role = findViewById(R.id.tv_role);
         ImageButton btnLogout = findViewById(R.id.img_btn_login);
-        fabAdd = findViewById(R.id.fab_add);
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
@@ -50,7 +48,6 @@ public class BaseActivity extends AppCompatActivity {
         // default fragment
         // TODO: figure out how we can do the menu
         if (role.equals("Customer Service")) {
-            fabAdd.setVisibility(View.VISIBLE);
             loadFragment(new FragmentEventList());
         } else if (role.equals("Senior Customer Service Officer")){
             loadFragment(new FragmentEventList());
@@ -71,20 +68,12 @@ public class BaseActivity extends AppCompatActivity {
             finish();
         });
 
-        fabAdd.setOnClickListener(v -> {
-            loadFragment(new FragmentCreateEvent());
-            fabAdd.setVisibility(View.INVISIBLE);
-        });
-
     }
 
     @SuppressLint("NonConstantResourceId")
     private boolean listener(MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_home:
-                if (role.equals("Customer Service")) {
-                    fabAdd.setVisibility(View.VISIBLE);
-                }
                 //load home fragment
                 loadFragment(new FragmentHome());
                 return true;

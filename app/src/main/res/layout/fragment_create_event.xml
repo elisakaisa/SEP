@@ -264,7 +264,8 @@
                 android:gravity="start">
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/tv_preferences"
-                android:text="@string/preferences" />
+                android:text="@string/preferences"
+                android:padding="4dp"/>
             </TableRow>
             <TableRow>
                 <CheckBox
