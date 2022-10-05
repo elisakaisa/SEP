@@ -49,5 +49,10 @@
     <string name="delete">Delete</string>
     <string name="event_details">Event details</string>
     <string name="approve">Approve</string>
+    <string name="review">Review</string>
+    <string name="add_comment">Add comment</string>
+    <string name="approved_by">Approved by</string>
+    <string name="fm_review">FM review</string>
+    <string name="not_yet_reviewed">not yet reviewed</string>
 
 </resources>

@@ -43,6 +43,10 @@ public class EventTest {
         // test level changes from 0 to 1 (from customer service to senior customer service
         event.addLevel();
         assertEquals(event.getLevel(), 1);
+
+        //test add FM review to created object
+        event.setFMReview("budget good");
+        assertEquals(event.getFMReview(), "budget good");
     }
 
 }

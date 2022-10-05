@@ -20,4 +20,9 @@ public class EventList implements Serializable {
 
     public void addEvent(Event event) { theEvents.add(event); }
     public void deleteEvent(Integer idx) { theEvents.remove(idx.intValue());}
+
+    public void updateEvent(Event event, Integer idx) {
+        deleteEvent(idx);
+        addEvent(event);
+    }
 }

@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     String role;
+    String department;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,9 +48,9 @@ public class BaseActivity extends AppCompatActivity {
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String department = intent.getStringExtra("department");
-        String role = intent.getStringExtra("role");
+        String name = intent.getStringExtra(ActivityLogin.NAME);
+        department = intent.getStringExtra(ActivityLogin.DEPARTMENT);
+        role = intent.getStringExtra(ActivityLogin.ROLE);
 
         RoleTransfer.setRole(role);
         RoleTransfer.setDepartment(department);
@@ -60,13 +61,8 @@ public class BaseActivity extends AppCompatActivity {
 
         // default fragment
         // TODO: figure out how we can do the menu
-        if (department.equals(Employees.ADMINISTRATION)) {
-            loadFragment(new FragmentEventList());
-        } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
-            loadFragment(new FragmentTaskDistribution());
-        } else {
-            loadFragment(new FragmentHome());
-        }
+        setDefaultFragment(role, department);
+
         // highlight the correct icon
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
@@ -74,9 +70,9 @@ public class BaseActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> {
 
             // remove user from local storage
-            ActivityLogin.sharedPref.edit().remove("name").apply();
-            ActivityLogin.sharedPref.edit().remove("department").apply();
-            ActivityLogin.sharedPref.edit().remove("role").apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.NAME).apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.DEPARTMENT).apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.ROLE).apply();
 
             startActivity(new Intent(this, ActivityLogin.class));
             finish();
@@ -84,12 +80,22 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
+    private void setDefaultFragment(String role, String department) {
+        if (department.equals(Employees.ADMINISTRATION) || (department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))) {
+            loadFragment(new FragmentEventList());
+        } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
+            loadFragment(new FragmentTaskDistribution());
+        } else {
+            loadFragment(new FragmentHome());
+        }
+    }
+
     @SuppressLint("NonConstantResourceId")
     private boolean listener(MenuItem menuItem) {
         switch (menuItem.getItemId()){
             case R.id.nav_home:
                 //load home fragment
-                loadFragment(new FragmentHome());
+                setDefaultFragment(role, department);
                 //loadFragment(new FragmentTaskDistribution());
 
                 return true;

@@ -3,7 +3,7 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class Event implements Serializable {
-    String id, recordNumber, clientName, eventType, fromDate, toDate, comments;
+    String id, recordNumber, clientName, eventType, fromDate, toDate, comments, FMreview;
     int attendees, budget, level;
     boolean decorations, food, parties, drinks, photo;
     // level: variable to set at which level of the company the request is going
@@ -155,4 +155,9 @@ public class Event implements Serializable {
     }
 
     public void addLevel() { this.level = level + 1; }
+
+    public void setFMReview(String review) {
+        FMreview = review;
+    }
+    public String getFMReview() { return FMreview; }
 }
