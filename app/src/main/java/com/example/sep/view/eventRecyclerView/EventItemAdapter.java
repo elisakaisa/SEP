@@ -26,9 +26,9 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
 
     @Override
     public void onBindViewHolder(@NonNull EventItemViewHolder holder, int position) {
-        EventItem currentItem =mEventItem.get(position);
-        holder.iClientName.setText(mEventItem.get(position).getiClientName());
-
+        EventItem currentItem = mEventItem.get(position);
+        holder.iClientName.setText(mEventItem.get(position).getClientName());
+        holder.iLevel.setText(String.valueOf(mEventItem.get(position).getLevel()));
     }
 
     @Override
@@ -37,11 +37,12 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
     }
 
     public class EventItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView iClientName;
+        public TextView iClientName, iLevel;
 
         public EventItemViewHolder(@NonNull View itemView) {
             super(itemView);
             iClientName = itemView.findViewById(R.id.tv_cell_client_name);
+            iLevel = itemView.findViewById(R.id.tv_cell_level);
 
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
@@ -52,7 +53,7 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
         mEventItem = eventItem;
     }
 
-    public void setOnItemclickListener(View.OnClickListener itemClickListener){
+    public void setOnItemClickListener(View.OnClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
     }
 }

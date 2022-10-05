@@ -21,6 +21,10 @@ public class ActivityLogin extends AppCompatActivity {
 
     public static SharedPreferences sharedPref; // needs to be static for the same preferences to be accessed form other classes
 
+    public static final String NAME = "name";
+    public static final String ROLE = "role";
+    public static final String DEPARTMENT = "department";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,11 +50,10 @@ public class ActivityLogin extends AppCompatActivity {
         /* ----- USER FROM STORAGE ------*/
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         Employee userFromStorage = new Employee(null, null, null, null);
-        if (sharedPref.contains("name")) {
-            Log.i("login", sharedPref.getString("name", null));
-            userFromStorage.setName(sharedPref.getString("department", null));
-            userFromStorage.setName(sharedPref.getString("name", null));
-            userFromStorage.setRole(sharedPref.getString("role", null));
+        if (sharedPref.contains(NAME)) {
+            userFromStorage.setDepartment(sharedPref.getString(DEPARTMENT, null));
+            userFromStorage.setName(sharedPref.getString(NAME, null));
+            userFromStorage.setRole(sharedPref.getString(ROLE, null));
             startActivityAfterLogin(userFromStorage.getName(), userFromStorage.getDepartment(), userFromStorage.getRole());
         }
 
@@ -72,9 +75,9 @@ public class ActivityLogin extends AppCompatActivity {
 
                 // save the logged in user into local storage so no need to relog in every time the app starts
                 SharedPreferences.Editor prefsEditor = sharedPref.edit();
-                prefsEditor.putString("name", user.getName());
-                prefsEditor.putString("department", user.getDepartment());
-                prefsEditor.putString("role", user.getRole());
+                prefsEditor.putString(NAME, user.getName());
+                prefsEditor.putString(DEPARTMENT, user.getDepartment());
+                prefsEditor.putString(ROLE, user.getRole());
                 prefsEditor.apply();
 
                 startActivityAfterLogin(user.getName(), user.getDepartment(), user.getRole());
@@ -107,9 +110,9 @@ public class ActivityLogin extends AppCompatActivity {
 
     private void startActivityAfterLogin(String name, String department, String role) {
         Intent intent = new Intent(this, BaseActivity.class);
-        intent.putExtra("name", name);
-        intent.putExtra("department", department);
-        intent.putExtra("role", role);
+        intent.putExtra(NAME, name);
+        intent.putExtra(DEPARTMENT, department);
+        intent.putExtra(ROLE, role);
         startActivity(intent);
     }
 }

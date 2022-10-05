@@ -47,9 +47,9 @@ public class BaseActivity extends AppCompatActivity {
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String department = intent.getStringExtra("department");
-        String role = intent.getStringExtra("role");
+        String name = intent.getStringExtra(ActivityLogin.NAME);
+        String department = intent.getStringExtra(ActivityLogin.DEPARTMENT);
+        String role = intent.getStringExtra(ActivityLogin.ROLE);
 
         RoleTransfer.setRole(role);
         RoleTransfer.setDepartment(department);
@@ -60,7 +60,7 @@ public class BaseActivity extends AppCompatActivity {
 
         // default fragment
         // TODO: figure out how we can do the menu
-        if (department.equals(Employees.ADMINISTRATION)) {
+        if (department.equals(Employees.ADMINISTRATION) || (department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))) {
             loadFragment(new FragmentEventList());
         } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
             loadFragment(new FragmentTaskDistribution());
@@ -74,9 +74,9 @@ public class BaseActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> {
 
             // remove user from local storage
-            ActivityLogin.sharedPref.edit().remove("name").apply();
-            ActivityLogin.sharedPref.edit().remove("department").apply();
-            ActivityLogin.sharedPref.edit().remove("role").apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.NAME).apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.DEPARTMENT).apply();
+            ActivityLogin.sharedPref.edit().remove(ActivityLogin.ROLE).apply();
 
             startActivity(new Intent(this, ActivityLogin.class));
             finish();

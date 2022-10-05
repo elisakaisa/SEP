@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventViewModel;
+import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -29,6 +30,8 @@ public class FragmentEventDetails extends Fragment {
 
     /*__________ SAVING/DELETING __________*/
     Integer itemIdentifier;
+
+    Event event;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -76,20 +79,53 @@ public class FragmentEventDetails extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_details, container, false);
 
+        /* ------- HOOKS --------*/
         MaterialTextView tvClientName = view.findViewById(R.id.tv_client_name_view2);
         MaterialButton btnDelete = view.findViewById(R.id.btn_event_details_delete);
+        MaterialButton btnApprove = view.findViewById(R.id.btn_event_details_approve);
 
+        if (RoleTransfer.getRole().equals("Customer Service")) {
+            btnDelete.setVisibility(View.INVISIBLE);
+            btnApprove.setVisibility(View.INVISIBLE);
+        }
+        else if (RoleTransfer.getRole().equals("Senior Customer Service Officer")) {
+            btnDelete.setVisibility(View.VISIBLE);
+            btnApprove.setVisibility(View.VISIBLE);
+        } else {
+            btnDelete.setVisibility(View.INVISIBLE);
+            btnApprove.setVisibility(View.INVISIBLE);
+        }
+
+        /* ------- VM --------*/
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
+        /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(getActivity(), eventItem -> {
-            Event event = eventItem.getiEvent();
+            event = eventItem.getEvent();
+            if (event.getLevel() >= 1) btnApprove.setEnabled(false);
             tvClientName.setText(event.getClientName());
             itemIdentifier = eventItem.getIdx();
         });
 
         btnDelete.setOnClickListener(v -> onDelete());
 
+        btnApprove.setOnClickListener(v -> onApprove());
+
         return view;
+    }
+
+    private void onApprove() {
+        if (RoleTransfer.getRole().equals("Senior Customer Service Officer")) {
+            if (event != null) {
+                event.addLevel();
+                BaseActivity.eventList.updateEvent(event, itemIdentifier);
+
+                //Update list in local storage
+                saveResultList();
+                Toast.makeText(getActivity(), "Event is approved", Toast.LENGTH_SHORT).show();
+                loadFragment(new FragmentEventList());
+            }
+        }
     }
 
     private void onDelete() {
@@ -98,9 +134,7 @@ public class FragmentEventDetails extends Fragment {
         saveResultList();
         Toast.makeText(getActivity(), "Event is deleted", Toast.LENGTH_SHORT).show();
 
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentEventList(), "");
-        fragmentTransaction.commit();
+        loadFragment(new FragmentEventList());
     }
 
     private void saveResultList() {
@@ -112,5 +146,11 @@ public class FragmentEventDetails extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, fragment, "");
+        fragmentTransaction.commit();
     }
 }

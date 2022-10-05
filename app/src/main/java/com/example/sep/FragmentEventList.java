@@ -17,6 +17,7 @@ import com.example.sep.view.eventRecyclerView.EventItemAdapter;
 import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventListViewModel;
 import com.example.sep.viewModel.EventViewModel;
+import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -83,25 +84,46 @@ public class FragmentEventList extends Fragment {
         rv_events = view.findViewById(R.id.rv_events);
         fabAdd = view.findViewById(R.id.fab_add);
 
-        // TODO: make this visible only for customer service
-        fabAdd.setVisibility(View.VISIBLE);
+        int accessLevel = 0;
+        String role = RoleTransfer.getRole();
+        switch (role) {
+            case "Customer Service":
+                fabAdd.setVisibility(View.VISIBLE);
+                break;
+            case "Senior Customer Service Officer":
+                accessLevel = 1;
+                fabAdd.setVisibility(View.INVISIBLE);
+                break;
+            case "Financial manager":
+                accessLevel = 2;
+                fabAdd.setVisibility(View.INVISIBLE);
+                break;
+            case "Administration department manager":
+                accessLevel = 3;
+                fabAdd.setVisibility(View.INVISIBLE);
+                break;
+        }
 
+        /*------------ VM ------------*/
         eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
         EventListViewModel eventListVM = new ViewModelProvider(requireActivity()).get(EventListViewModel.class);
 
-
+        /*---------- LISTENERS ----------*/
+        int finalAccessLevel = accessLevel-1;
         eventListVM.getEvent().observe(requireActivity(), events -> {
             itemList = new ArrayList<>();
             Integer i = 0;
             for (Event singleEvent : events){
-                itemList.add(new EventItem(singleEvent, i));
+                if (singleEvent.getLevel() >= finalAccessLevel) {
+                    itemList.add(new EventItem(singleEvent, i));
+                }
                 i++;
             }
 
             EventItemAdapter resultItemAdapter = new EventItemAdapter(itemList);
             rv_events.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_events.setAdapter(resultItemAdapter);
-            resultItemAdapter.setOnItemclickListener(onItemClickListener);
+            resultItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
         fabAdd.setOnClickListener(v -> {

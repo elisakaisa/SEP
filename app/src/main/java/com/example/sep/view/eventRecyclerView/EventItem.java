@@ -5,22 +5,27 @@ import com.example.sep.model.Event;
 import java.io.Serializable;
 
 public class EventItem implements Serializable {
-    String iClientName;
     Integer idx;
     Event iEvent;
 
+    String iClientName;
+    Integer iLevel;
+
     public EventItem(Event event, Integer idx) {
         iEvent = event;
+
         iClientName = event.getClientName();
+        iLevel = event.getLevel();
 
         this.idx = idx;
     }
 
-    public String getiClientName(){
+    public String getClientName(){
         return iClientName;
     }
+    public Integer getLevel() { return iLevel; }
 
-    public Event getiEvent(){
+    public Event getEvent(){
         return iEvent;
     }
 
