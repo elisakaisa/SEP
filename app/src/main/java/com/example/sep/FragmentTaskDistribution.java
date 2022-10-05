@@ -16,12 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.sep.database.Employees;
+import com.example.sep.model.Employee;
 import com.example.sep.model.Task;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.TaskDistributionViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 
 public class FragmentTaskDistribution extends Fragment implements AdapterView.OnItemSelectedListener{
@@ -51,17 +57,21 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
         // get role
         String role = RoleTransfer.getRole();
 
+
         View view = inflater.inflate(R.layout.fragment_task_distribution, container, false);
 
         productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
         serviceSubTeamsTabLoayout = view.findViewById(R.id.tabs_service);
+
         if (role.equals("Production department manager")) {
             productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
             serviceSubTeamsTabLoayout.setVisibility(View.INVISIBLE);
+
         } else if (role.equals("Services department manager")) {
             serviceSubTeamsTabLoayout.setVisibility(View.VISIBLE);
             productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
         }
+
         projectReferenceEditText = view.findViewById(R.id.project_reference_text_input);
         taskDescriptionEditText =  view.findViewById(R.id.description_text_input);
         subTeamMembersSpinner =  view.findViewById(R.id.spinner_sub_team_people);
@@ -71,27 +81,12 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
         subTeamMembersSpinner.setOnItemSelectedListener(this);
         taskPrioritySpinner.setOnItemSelectedListener(this);
 
-        // Spinners
-        // TODO: Get the members from the department and sub-team
-        String [] members = {"Elisa", "Giota"};
-        ArrayAdapter<String> adapterSubTeamMembers = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, members);
-        ArrayAdapter<CharSequence> adapterPriorities = ArrayAdapter.createFromResource(getContext(), R.array.priority_options, android.R.layout.simple_spinner_item);
-
-        // Specify the layout to use when the list of choices appears - from android library
-        adapterSubTeamMembers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapterPriorities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        // Apply the adapter to the spinners
-        subTeamMembersSpinner.setAdapter(adapterSubTeamMembers);
-        taskPrioritySpinner.setAdapter(adapterPriorities);
-
-        submitTaskButton.setOnClickListener(v -> submitTask());
-
         productionSubTeamsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab!=null){
                     assignedToTeam = String.valueOf(tab.getText());
+                    setSpinnerSubTeam(assignedToTeam);
                 }
             }
 
@@ -102,13 +97,15 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
 
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
-
             }
         });
 
+        if (assignedToTeam == null){
+            assignedToTeam = "Decor";
+            setSpinnerSubTeam(assignedToTeam);
+        }
 
-
-
+        submitTaskButton.setOnClickListener(v -> submitTask());
         return view;
     }
 
@@ -142,6 +139,31 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
                 assignedToMember,
                 taskPriority
                 );
+
+    }
+
+    private void setSpinnerSubTeam(String assignedToTeam){
+        Employees cEmployees = new Employees();
+        cEmployees.initEmployees();
+        String subTeam = cEmployees.assignRoleToSubTeam(assignedToTeam);
+        ArrayList<Employee> employeesSubTeam = cEmployees.getEmployeesFromDbBySubTeam(RoleTransfer.getDepartment(), subTeam);
+
+        ArrayList<String> members = new ArrayList<>();
+
+        for (int i=0 ; i< employeesSubTeam.size() ; i++) {
+            members.add(employeesSubTeam.get(i).getName());
+        }
+
+        ArrayAdapter<String> adapterSubTeamMembers = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, members);
+        ArrayAdapter<CharSequence> adapterPriorities = ArrayAdapter.createFromResource(getContext(), R.array.priority_options, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears - from android library
+        adapterSubTeamMembers.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapterPriorities.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinners
+        subTeamMembersSpinner.setAdapter(adapterSubTeamMembers);
+        taskPrioritySpinner.setAdapter(adapterPriorities);
 
     }
 

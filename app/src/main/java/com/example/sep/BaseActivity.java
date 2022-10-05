@@ -83,7 +83,7 @@ public class BaseActivity extends AppCompatActivity {
     private void setDefaultFragment(String role, String department) {
         if (department.equals(Employees.ADMINISTRATION) || (department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))) {
             loadFragment(new FragmentEventList());
-        } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
+        } else if (department.equals(Employees.SERVICE_DEP) || department.equals(Employees.PRODUCTION)){
             loadFragment(new FragmentTaskDistribution());
         } else {
             loadFragment(new FragmentHome());

@@ -16,8 +16,19 @@ public class Employees {
     public static final String ADMINISTRATION = "Administration";
     public static final String FINANCIAL = "Financial";
     public static final String PRODUCTION = "Production";
-    public static final String SERVICE = "Service";
+    public static final String SERVICE_DEP = "Service";
     public static final String TOP_MANAGEMENT = "Top management";
+
+    // Sub-teams
+    public static final String DECOR = "Decorating Architect";
+    public static final String PHOTO = "Photographer";
+    public static final String MUSIC = "Audio specialist";
+    public static final String DESIGN = "Graphic designer";
+    public static final String DATA = "Network Engineer";
+    public static final String FOOD = "Top chef";
+    public static final String SERVICE = "Senior waitress";
+
+
 
 
 
@@ -41,23 +52,23 @@ public class Employees {
 
     // Production department
     Employee PM = new Employee("Jack", PRODUCTION, "Production department manager", "password");
-    Employee Photo1 = new Employee("Tobias", PRODUCTION,"Photographer", "password");
-    Employee Photo2 = new Employee("Magdalena", PRODUCTION,"Photographer", "password");
-    Employee Audio1 = new Employee("Antony", PRODUCTION,"Audio specialist", "password");
-    Employee Audio2 = new Employee("Adam", PRODUCTION,"Audio specialist", "password");
-    Employee Graphic1 = new Employee("Julia", PRODUCTION,"Graphic designer", "password");
-    Employee Graphic2 = new Employee("Raymond", PRODUCTION,"Graphic designer", "password");
-    Employee Deco1 = new Employee("Magy", PRODUCTION,"Decorating Architect", "password");
+    Employee Photo1 = new Employee("Tobias", PRODUCTION,PHOTO, "password");
+    Employee Photo2 = new Employee("Magdalena", PRODUCTION,PHOTO, "password");
+    Employee Audio1 = new Employee("Antony", PRODUCTION,MUSIC, "password");
+    Employee Audio2 = new Employee("Adam", PRODUCTION,MUSIC, "password");
+    Employee Graphic1 = new Employee("Julia", PRODUCTION,DESIGN, "password");
+    Employee Graphic2 = new Employee("Raymond", PRODUCTION,DESIGN, "password");
+    Employee Deco1 = new Employee("Magy", PRODUCTION,DECOR, "password");
     Employee Deco2 = new Employee("Angelina", PRODUCTION,"Decorating specialist", "password");
-    Employee Network1 = new Employee("Christian", PRODUCTION,"Network engineer", "password");
-    Employee Network2 = new Employee("Nicolas", PRODUCTION,"Network engineer", "password");
+    Employee Network1 = new Employee("Christian", PRODUCTION,DATA, "password");
+    Employee Network2 = new Employee("Nicolas", PRODUCTION,DATA, "password");
     Employee Network3 = new Employee("Michael", PRODUCTION,"Technician", "password");
     Employee Network4 = new Employee("Robert", PRODUCTION,"Technician", "password");
 
     // Services department
-    Employee SM = new Employee("Natalie", SERVICE,"Services department manager", "password");
-    Employee Chef = new Employee("Helen", SERVICE,"Top chef", "password");
-    Employee SW = new Employee("Kate", SERVICE,"Senior waitress", "password");
+    Employee SM = new Employee("Natalie", SERVICE_DEP,"Services department manager", "password");
+    Employee Chef = new Employee("Helen", SERVICE_DEP,FOOD, "password");
+    Employee SW = new Employee("Kate", SERVICE_DEP,SERVICE, "password");
 
     // top management
     Employee VP = new Employee("Charlie", TOP_MANAGEMENT, "Vice president", "password");
@@ -114,19 +125,38 @@ public class Employees {
         else return dbEmployees.get(index);
     }
 
+    public ArrayList<Employee> getEmployeesFromDbBySubTeam(final String searchedDepartment, final String searchedRole) {
+        ArrayList<Employee> employees = new ArrayList<>();
 
-    /*public Employee getEmployeeFromDbByDepartment(final String searchedDepartment) {
-        ArrayList<Employees> employees = new ArrayList<>();
-        // funxion to return the Employee from the database based on the searched name
-        int index = IntStream.range(0, dbEmployees.size())
-                .filter(i -> {
-                    Integer idx = dbEmployees.get(i).getRole().equals(searchedDepartment));
-                    employees.add(dbEmployees.get(index));
-                }
-                .findFirst()
-                .orElse(-1);
-        if (index == -1) return null;
-        else return employeeName;
-    }*/
+        for (int i=0 ; i< dbEmployees.size() ; i++) {
+
+            if (dbEmployees.get(i).getDepartment().equals(searchedDepartment) & dbEmployees.get(i).getRole().equals(searchedRole)){
+                    employees.add(dbEmployees.get(i));
+            }
+        }
+        return employees;
+    }
+
+    public String assignRoleToSubTeam(String role){
+        if (role.equals("Decor")) {
+            return "Decorating Architect";
+        } else if (role.equals("Photo")){
+            return "Photographer";
+        } else if (role.equals("Music")){
+            return "Audio specialist";
+        } else if (role.equals("Design")){
+            return "Graphic designer";
+        } else if (role.equals("Data")){
+            return "Network Engineer";
+        } else if (role.equals("Food")){
+            return "Top chef";
+        } else if (role.equals("Service")){
+            return "Senior waitress";
+        } else {
+            return null;
+        }
+
+    }
+
 }
 
