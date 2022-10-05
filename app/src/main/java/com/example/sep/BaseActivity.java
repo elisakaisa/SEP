@@ -9,16 +9,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 
+import com.example.sep.database.Employees;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -53,6 +52,7 @@ public class BaseActivity extends AppCompatActivity {
         String role = intent.getStringExtra("role");
 
         RoleTransfer.setRole(role);
+        RoleTransfer.setDepartment(department);
 
         String s = "Welcome " + name;
         tv_username.setText(s);
@@ -60,10 +60,10 @@ public class BaseActivity extends AppCompatActivity {
 
         // default fragment
         // TODO: figure out how we can do the menu
-        if (role.equals("Customer Service")) {
+        if (department.equals(Employees.ADMINISTRATION)) {
             loadFragment(new FragmentEventList());
-        } else if (role.equals("Senior Customer Service Officer")){
-            loadFragment(new FragmentEventList());
+        } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
+            loadFragment(new FragmentTaskDistribution());
         } else {
             loadFragment(new FragmentHome());
         }

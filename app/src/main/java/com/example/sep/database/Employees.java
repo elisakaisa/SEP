@@ -13,11 +13,11 @@ public class Employees {
     ArrayList<Employee> dbEmployees = new ArrayList<>();
 
     // departments
-    private final String ADMINISTRATION = "Administration";
-    private final String FINANCIAL = "Financial";
-    private final String PRODUCTION = "Production";
-    private final String SERVICE = "Service";
-    private final String TOP_MANAGEMENT = "Top management";
+    public static final String ADMINISTRATION = "Administration";
+    public static final String FINANCIAL = "Financial";
+    public static final String PRODUCTION = "Production";
+    public static final String SERVICE = "Service";
+    public static final String TOP_MANAGEMENT = "Top management";
 
 
 
