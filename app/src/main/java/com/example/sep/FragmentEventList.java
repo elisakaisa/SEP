@@ -114,6 +114,7 @@ public class FragmentEventList extends Fragment {
             itemList = new ArrayList<>();
             Integer i = 0;
             for (Event singleEvent : events){
+                // add to the recyclerView only the events that the employee can view
                 if (singleEvent.getLevel() >= finalAccessLevel) {
                     itemList.add(new EventItem(singleEvent, i));
                 }
