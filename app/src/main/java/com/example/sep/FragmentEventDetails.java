@@ -112,6 +112,7 @@ public class FragmentEventDetails extends Fragment {
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
             case "Senior Customer Service Officer":
+            case "Administration department manager":
                 btnDelete.setVisibility(View.VISIBLE);
                 btnApprove.setVisibility(View.VISIBLE);
                 btnReview.setVisibility(View.INVISIBLE);
@@ -136,7 +137,7 @@ public class FragmentEventDetails extends Fragment {
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(getActivity(), eventItem -> {
             event = eventItem.getEvent();
-            if (event.getLevel() >= 1) btnApprove.setEnabled(false);
+            if (event.getLevel() == 1 || event.getLevel() == 3) btnApprove.setEnabled(false);
             itemIdentifier = eventItem.getIdx();
 
             /* ------ UI ---------*/
@@ -189,7 +190,7 @@ public class FragmentEventDetails extends Fragment {
     }
 
     private void onApprove() {
-        if (RoleTransfer.getRole().equals("Senior Customer Service Officer")) {
+        if (RoleTransfer.getRole().equals("Senior Customer Service Officer") || RoleTransfer.getRole().equals("Administration department manager")) {
             if (event != null) {
                 event.addLevel();
                 BaseActivity.eventList.updateEvent(event, itemIdentifier);
