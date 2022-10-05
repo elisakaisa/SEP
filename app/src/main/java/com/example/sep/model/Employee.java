@@ -1,11 +1,12 @@
 package com.example.sep.model;
 
 public class Employee {
-    String name, role, password;
+    String name, role, password, department;
 
-    public Employee(String newName, String newRole, String newPassword) {
+    public Employee(String newName, String newDepartment, String newRole, String newPassword) {
         // Constructor
         name = newName;
+        department = newDepartment;
         role = newRole;
         password = newPassword;
     }
@@ -13,6 +14,10 @@ public class Employee {
     public String getRole() { return role; }
 
     public void setRole(String role) { this.role = role; }
+
+    public String getDepartment() { return department; }
+
+    public void setDepartment(String role) { this.department = department; }
 
     public String getPassword() { return password; }
 

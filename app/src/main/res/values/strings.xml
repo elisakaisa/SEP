@@ -9,6 +9,21 @@
     <string name="welcome_text">Welcome to SEP</string>
     <string name="welcome">Welcome</string>
     <string name="log_out">Log out</string>
+    <string name="submit">Submit</string>
+    <string name="priority">Priority</string>
+    <string name="food">Food</string>
+    <string name="service">Service</string>
+    <string name="music">Music</string>
+    <string name="design">Design</string>
+    <string name="data">Data</string>
+
+
+    <string-array name="priority_options">
+        <item>high</item>
+        <item>medium</item>
+    </string-array>
+
+
     <string name="request_for_event_planning">Request for event planning</string>
     <string name="record_number">Record number</string>
     <string name="client_name">Client name</string>
@@ -35,4 +50,5 @@
     <string name="delete">Delete</string>
     <string name="event_details">Event details</string>
     <string name="approve">Approve</string>
+
 </resources>
