@@ -54,5 +54,15 @@
     <string name="approved_by">Approved by</string>
     <string name="fm_review">FM review</string>
     <string name="not_yet_reviewed">not yet reviewed</string>
+    <string name="events">Events</string>
+    <string name="financial_requests">Financial requests</string>
+    <string name="financial_request">Financial request</string>
+    <string name="requesting_department">Requesting\ndepartment</string>
+    <string name="administration">Administration</string>
+    <string name="financial">Financial</string>
+    <string name="production">Production</string>
+    <string name="services">Services</string>
+    <string name="required_amount">Required amount</string>
+    <string name="reason">Reason</string>
 
 </resources>

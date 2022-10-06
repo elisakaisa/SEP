@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     public static EventList eventList; // referenced from everywhere, needs to be static
 
     BottomNavigationView bottomNavigationView;
+    BottomNavigationView bottomNavigationViewFM;
     String role;
     String department;
 
@@ -32,19 +34,16 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
-        /*------------ UI ------------*/
+        /*----------- NAV -------------*/
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(this::listener);
+        bottomNavigationViewFM = findViewById(R.id.bottom_navigation_fm);
+        bottomNavigationViewFM.setOnItemSelectedListener(this::listenerFM);
+
+        /*------------ UI ------------*/
         TextView tv_username = findViewById(R.id.tv_logged_as);
         TextView tv_role = findViewById(R.id.tv_role);
         ImageButton btnLogout = findViewById(R.id.img_btn_login);
-
-        // default fragment
-        // TODO: set default fragment depending on user role
-        loadFragment(new FragmentHome());
-        //loadFragment(new FragmentTaskDistribution());
-        // highlight the correct icon
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
@@ -62,32 +61,51 @@ public class BaseActivity extends AppCompatActivity {
         // default fragment
         // TODO: figure out how we can do the menu
         setDefaultFragment(role, department);
-
         // highlight the correct icon
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
         /*---------- LISTENERS ----------*/
-        btnLogout.setOnClickListener(v -> {
-
-            // remove user from local storage
-            ActivityLogin.sharedPref.edit().remove(ActivityLogin.NAME).apply();
-            ActivityLogin.sharedPref.edit().remove(ActivityLogin.DEPARTMENT).apply();
-            ActivityLogin.sharedPref.edit().remove(ActivityLogin.ROLE).apply();
-
-            startActivity(new Intent(this, ActivityLogin.class));
-            finish();
-        });
+        btnLogout.setOnClickListener(v -> logOut());
 
     }
 
     private void setDefaultFragment(String role, String department) {
-        if (department.equals(Employees.ADMINISTRATION) || (department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))) {
+        if (department.equals(Employees.ADMINISTRATION)) {
             loadFragment(new FragmentEventList());
+        } else if ((department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))){
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+            bottomNavigationViewFM.setVisibility(View.VISIBLE);
+            loadFragment(new FragmentEventList());
+            bottomNavigationViewFM.getMenu().getItem(0).setChecked(true);
         } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
             loadFragment(new FragmentTaskDistribution());
         } else {
             loadFragment(new FragmentHome());
         }
+    }
+
+    private void logOut() {
+        // remove user from local storage
+        ActivityLogin.sharedPref.edit().remove(ActivityLogin.NAME).apply();
+        ActivityLogin.sharedPref.edit().remove(ActivityLogin.DEPARTMENT).apply();
+        ActivityLogin.sharedPref.edit().remove(ActivityLogin.ROLE).apply();
+
+        startActivity(new Intent(this, ActivityLogin.class));
+        finish();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private boolean listenerFM(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_events:
+                setDefaultFragment(role, department);
+                return true;
+            case R.id.nav_financial_requests:
+                // TODO: if financial manager, load financial request rv
+                loadFragment(new FragmentHome());
+                return true;
+        }
+        return false;
     }
 
     @SuppressLint("NonConstantResourceId")
@@ -96,7 +114,6 @@ public class BaseActivity extends AppCompatActivity {
             case R.id.nav_home:
                 //load home fragment
                 setDefaultFragment(role, department);
-                //loadFragment(new FragmentTaskDistribution());
 
                 return true;
 

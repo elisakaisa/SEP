@@ -2,28 +2,15 @@ package com.example.sep.model;
 
 import static org.junit.Assert.*;
 
+import com.example.sep.TestVariables;
+
 import org.junit.Test;
 
 public class EventTest {
 
     @Test
     public void createEvent() {
-        Event event = new Event(
-                "id",
-                "recordNumber",
-                "clientName",
-                "eventType",
-                "fromDate",
-                "toDate",
-                "comments",
-                10,
-                1000,
-                false,
-                true,
-                true,
-                true,
-                false,
-                0);
+        Event event = TestVariables.event;
         assertEquals(event.getId(), "id");
         assertEquals(event.getRecordNumber(), "recordNumber");
         assertEquals(event.getEventType(), "eventType");

@@ -5,18 +5,22 @@ import static org.junit.Assert.assertNotEquals;
 
 import com.example.sep.model.Employee;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
 public class EmployeesTest {
+    Employees cEmployees;
+
+    @Before
+    public void init() {
+        cEmployees = new Employees();
+        cEmployees.initEmployees();
+    }
 
     @Test
     public void getEmployees() {
-
-        // init
-        Employees cEmployees = new Employees();
-        cEmployees.initEmployees();
         ArrayList<Employee> employees = cEmployees.getEmployees();
 
         assertEquals(employees.get(0).getName(), "Janet");
@@ -31,9 +35,6 @@ public class EmployeesTest {
     @Test
     public void getEmployeesFromDb() {
 
-        // init
-        Employees cEmployees = new Employees();
-        cEmployees.initEmployees();
         Employee employee = cEmployees.getEmployeeFromDb("Janet");
 
         assertEquals(employee.getName(), "Janet");
