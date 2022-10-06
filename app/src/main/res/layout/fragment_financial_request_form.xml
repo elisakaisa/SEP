@@ -61,7 +61,7 @@
                         android:id="@+id/rb_administration"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:checked="false"
+                        android:checked="true"
                         android:text="@string/administration"
                         android:textAlignment="viewStart" />
                     <RadioButton
@@ -124,7 +124,7 @@
                     android:text="@string/required_amount"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ti_client_name"
+                    android:id="@+id/ti_required_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
@@ -133,7 +133,7 @@
                     android:hint="@string/sek">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_client_name"
+                        android:id="@+id/et_required_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -147,11 +147,11 @@
             <TableRow
                 android:gravity="center">
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_event_type"
+                    android:id="@+id/tv_reason"
                     android:text="@string/reason"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/ti_event_type"
+                    android:id="@+id/ti_reason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="4dp"
@@ -160,7 +160,7 @@
                     android:hint="@string/reason">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/et_event_type"
+                        android:id="@+id/et_reason"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"

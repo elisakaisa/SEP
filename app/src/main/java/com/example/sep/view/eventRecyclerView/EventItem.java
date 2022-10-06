@@ -5,7 +5,7 @@ import com.example.sep.model.Event;
 import java.io.Serializable;
 
 public class EventItem implements Serializable {
-    Integer idx;
+    int idx;
     Event iEvent;
 
     String iClientName;

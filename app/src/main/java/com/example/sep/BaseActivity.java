@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 
 import com.example.sep.database.Employees;
+import com.example.sep.database.FinancialRequestList;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
@@ -22,7 +23,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
 
+    /*------ SERILAIZATION -------*/
     public static EventList eventList; // referenced from everywhere, needs to be static
+    public static FinancialRequestList fRequestList;
+
+    public static String EVENT_LIST_FILE = "eventlist.ser";
+    public static String FIN_REQUEST_FILE = "finrequestlist.ser";
 
     BottomNavigationView bottomNavigationView;
     BottomNavigationView bottomNavigationViewFM;
@@ -102,7 +108,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_financial_requests:
                 // TODO: if financial manager, load financial request rv
-                loadFragment(new FragmentHome());
+                loadFragment(new FragmentFinancialRequestForm());
                 return true;
         }
         return false;

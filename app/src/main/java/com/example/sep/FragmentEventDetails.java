@@ -106,28 +106,20 @@ public class FragmentEventDetails extends Fragment {
 
         switch (RoleTransfer.getRole()) {
             case "Customer Service":
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
             case "Senior Customer Service Officer":
             case "Administration department manager":
-                btnDelete.setVisibility(View.VISIBLE);
-                btnApprove.setVisibility(View.VISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
             case "Financial manager":
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.VISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
                 llFinancialManager.setVisibility(View.VISIBLE);
                 break;
             default:
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 break;
         }
 
@@ -158,6 +150,8 @@ public class FragmentEventDetails extends Fragment {
 
         return view;
     }
+
+
 
     private void onReview() {
         if (RoleTransfer.getRole().equals("Financial manager")) {
@@ -214,7 +208,7 @@ public class FragmentEventDetails extends Fragment {
 
     private void saveResultList() {
         try {
-            FileOutputStream fos = getActivity().openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.eventList);
             oos.close();
@@ -227,5 +221,11 @@ public class FragmentEventDetails extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, fragment, "");
         fragmentTransaction.commit();
+    }
+
+    private void buttonVisibilitySetter(MaterialButton btnDelete, MaterialButton btnApprove, MaterialButton btnReview, int view1, int view2, int view3) {
+        btnDelete.setVisibility(view1);
+        btnApprove.setVisibility(view2);
+        btnReview.setVisibility(view3);
     }
 }

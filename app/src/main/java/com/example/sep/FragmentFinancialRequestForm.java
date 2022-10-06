@@ -1,5 +1,6 @@
 package com.example.sep;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,6 +8,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import com.example.sep.model.Event;
+import com.example.sep.model.FinancialRequest;
+import com.example.sep.utils.HelperFunctions;
+import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +28,13 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class FragmentFinancialRequestForm extends Fragment {
+
+    /*-------- HOOKS -----------*/
+    private TextInputEditText etRecordNumber, etRequiredAmount, etReason;
+    private TextInputLayout tiRecordNumber, tiRequiredAmount, tiReason;
+    private RadioGroup radioGroup;
+
+    private String chosenDepartment = "Administration";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +80,80 @@ public class FragmentFinancialRequestForm extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_financial_request_form, container, false);
+        View view = inflater.inflate(R.layout.fragment_financial_request_form, container, false);
+
+        /*-------- HOOKS -----------*/
+        etRecordNumber = view.findViewById(R.id.et_financial_req_record_number);
+        etRequiredAmount = view.findViewById(R.id.et_required_amount);
+        etReason = view.findViewById(R.id.et_reason);
+        tiRecordNumber = view.findViewById(R.id.ti_financial_req_record_number);
+        tiRequiredAmount = view.findViewById(R.id.ti_required_amount);
+        tiReason = view.findViewById(R.id.ti_reason);
+        MaterialButton btnCancel = view.findViewById(R.id.btn_financial_request_cancel);
+        MaterialButton btnSubmit = view.findViewById(R.id.btn_financial_request_submit);
+        radioGroup = view.findViewById(R.id.radioGroup);
+
+        /*------ LISTENERS --------*/
+        btnSubmit.setOnClickListener(v -> {
+            if (!isFieldEmpty(String.valueOf(etRequiredAmount.getText()))) tiRequiredAmount.setError("Amount required");
+            if (!isFieldEmpty(String.valueOf(etReason.getText()))) tiReason.setError("Reason required");
+            else {
+                tiRequiredAmount.setError(null);
+                tiReason.setError(null);
+                submitRequest();
+            }
+        });
+        btnCancel.setOnClickListener(v -> {
+            etRecordNumber.setText("");
+            etRequiredAmount.setText("");
+            etReason.setText("");
+        });
+
+        radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
+            RadioButton radioButton = view.findViewById(i);
+            chosenDepartment = String.valueOf(radioButton.getText());
+        });
+
+        // removes error messages
+        etRequiredAmount.setOnKeyListener((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etRequiredAmount.getText())))
+                tiRequiredAmount.setError(null);
+            return false;
+        });
+        etReason.setOnKeyListener((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etReason.getText()))) tiReason.setError(null);
+            return false;
+        });
+
+        return view;
+    }
+
+    private void submitRequest() {
+        // Todo: take record number from event
+
+        FinancialRequest newRequest = new FinancialRequest(
+                String.valueOf(etRecordNumber.getText()),
+                chosenDepartment,
+                String.valueOf(etRequiredAmount.getText()),
+                String.valueOf(etReason.getText())
+        );
+        //saveResultsList(newRequest);
+    }
+
+    private Boolean isFieldEmpty(String text) {
+        // for error messages in text fields
+        return text != null && text.length() > 1;
+    }
+
+    private void saveResultList(FinancialRequest request) {
+        BaseActivity.fRequestList.addFinancialRequest(request);
+        try {
+            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(BaseActivity.eventList);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

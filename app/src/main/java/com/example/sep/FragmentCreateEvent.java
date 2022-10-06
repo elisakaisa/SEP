@@ -29,13 +29,12 @@ import java.io.ObjectOutputStream;
 public class FragmentCreateEvent extends Fragment {
 
     /*-------- HOOKS -----------*/
-    TextInputEditText etRecordNumber, etClientName, etEventType, etAttendees,
+    private TextInputEditText etRecordNumber, etClientName, etEventType, etAttendees,
                         etBudget, etDateFrom, etDateTo, etComments;
-    MaterialButton btnSubmit, btnCancel;
-    CheckBox cbDecorations, cbFood, cbParties, cbDrinks, cbPhoto;
+    private CheckBox cbDecorations, cbFood, cbParties, cbDrinks, cbPhoto;
 
     /*------- VARIABLES --------*/
-    boolean decorations, food, parties, drinks, photo = false;
+    private boolean decorations, food, parties, drinks, photo = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,21 +83,21 @@ public class FragmentCreateEvent extends Fragment {
         View view = inflater.inflate(R.layout.fragment_create_event, container, false);
 
         /*-------- HOOKS -----------*/
-       etRecordNumber = view.findViewById(R.id.et_record_number);
-       etClientName = view.findViewById(R.id.et_client_name);
-       etEventType = view.findViewById(R.id.et_event_type);
-       etAttendees = view.findViewById(R.id.et_attendees);
-       etBudget = view.findViewById(R.id.et_expected_budget);
-       etDateTo = view.findViewById(R.id.et_to);
-       etDateFrom = view.findViewById(R.id.et_from);
-       etComments = view.findViewById(R.id.et_comments);
-       cbDecorations = view.findViewById(R.id.cb_decorations);
-       cbFood = view.findViewById(R.id.cb_food);
-       cbParties = view.findViewById(R.id.cb_parties);
-       cbDrinks = view.findViewById(R.id.cb_drinks);
-       cbPhoto = view.findViewById(R.id.cb_photo);
-       btnCancel = view.findViewById(R.id.btn_create_event_cancel);
-       btnSubmit = view.findViewById(R.id.btn_create_event_submit);
+        etRecordNumber = view.findViewById(R.id.et_record_number);
+        etClientName = view.findViewById(R.id.et_client_name);
+        etEventType = view.findViewById(R.id.et_event_type);
+        etAttendees = view.findViewById(R.id.et_attendees);
+        etBudget = view.findViewById(R.id.et_expected_budget);
+        etDateTo = view.findViewById(R.id.et_to);
+        etDateFrom = view.findViewById(R.id.et_from);
+        etComments = view.findViewById(R.id.et_comments);
+        cbDecorations = view.findViewById(R.id.cb_decorations);
+        cbFood = view.findViewById(R.id.cb_food);
+        cbParties = view.findViewById(R.id.cb_parties);
+        cbDrinks = view.findViewById(R.id.cb_drinks);
+        cbPhoto = view.findViewById(R.id.cb_photo);
+        MaterialButton btnCancel = view.findViewById(R.id.btn_create_event_cancel);
+        MaterialButton btnSubmit = view.findViewById(R.id.btn_create_event_submit);
 
        /*------ LISTENERS --------*/
         etDateFrom.setOnClickListener(v -> datePickerDialog(etDateFrom));
@@ -136,6 +135,7 @@ public class FragmentCreateEvent extends Fragment {
 
     private void submitEvent() {
         // TODO add safety feature if numbers emptySara
+        //TODO figure out how to make a refernceID/ record number
         Event newEvent = new Event(
                 "todoId",
                 String.valueOf(etRecordNumber.getText()),
@@ -161,7 +161,7 @@ public class FragmentCreateEvent extends Fragment {
     private void saveResultList(Event event) {
         BaseActivity.eventList.addEvent(event);
         try {
-            FileOutputStream fos = getActivity().openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.eventList);
             oos.close();
