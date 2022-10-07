@@ -108,7 +108,7 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_financial_requests:
                 // TODO: if financial manager, load financial request rv
-                loadFragment(new FragmentFinancialRequestForm());
+                loadFragment(new FragmentFinancialRequestsList());
                 return true;
         }
         return false;

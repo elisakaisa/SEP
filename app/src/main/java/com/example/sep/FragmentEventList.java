@@ -29,10 +29,10 @@ import java.util.ArrayList;
  */
 public class FragmentEventList extends Fragment {
 
-    RecyclerView rv_events;
-    public ArrayList<EventItem> itemList;
-    EventViewModel eventVM;
-    FloatingActionButton fabAdd;
+    private RecyclerView rv_events;
+    private ArrayList<EventItem> itemList;
+    private EventViewModel eventVM;
+    private FloatingActionButton fabAdd;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -112,7 +112,7 @@ public class FragmentEventList extends Fragment {
         int finalAccessLevel = accessLevel-1;
         eventListVM.getEvent().observe(requireActivity(), events -> {
             itemList = new ArrayList<>();
-            Integer i = 0;
+            int i = 0;
             for (Event singleEvent : events){
                 // add to the recyclerView only the events that the employee can view
                 if (singleEvent.getLevel() >= finalAccessLevel) {

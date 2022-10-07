@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,6 +110,7 @@ public class FragmentFinancialRequestForm extends Fragment {
             etReason.setText("");
         });
 
+        // TODO: make it so that the user can only choose its own department
         radioGroup.setOnCheckedChangeListener((radioGroup, i) -> {
             RadioButton radioButton = view.findViewById(i);
             chosenDepartment = String.valueOf(radioButton.getText());
@@ -137,7 +139,10 @@ public class FragmentFinancialRequestForm extends Fragment {
                 String.valueOf(etRequiredAmount.getText()),
                 String.valueOf(etReason.getText())
         );
-        //saveResultsList(newRequest);
+        saveResultsList(newRequest);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, new FragmentFinancialRequestsList(), "");
+        fragmentTransaction.commit();
     }
 
     private Boolean isFieldEmpty(String text) {
@@ -145,12 +150,12 @@ public class FragmentFinancialRequestForm extends Fragment {
         return text != null && text.length() > 1;
     }
 
-    private void saveResultList(FinancialRequest request) {
+    private void saveResultsList(FinancialRequest request) {
         BaseActivity.fRequestList.addFinancialRequest(request);
         try {
             FileOutputStream fos = getActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(BaseActivity.eventList);
+            oos.writeObject(BaseActivity.fRequestList);
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();

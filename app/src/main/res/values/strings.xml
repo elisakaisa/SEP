@@ -64,5 +64,6 @@
     <string name="services">Services</string>
     <string name="required_amount">Required amount</string>
     <string name="reason">Reason</string>
+    <string name="create_financial_request">Create Financial request</string>
 
 </resources>

@@ -9,6 +9,7 @@ public class FinancialRequestList implements Serializable {
     private ArrayList<FinancialRequest> theRequests;
 
     public FinancialRequestList() {}
+
     public ArrayList<FinancialRequest> getTheRequests() {
         if (theRequests == null) theRequests = new ArrayList<>();
         return theRequests;
