@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Use the {@link FragmentEventList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentEventList extends Fragment {
+public class  FragmentEventList extends Fragment {
 
     RecyclerView rv_events;
     public ArrayList<EventItem> itemList;

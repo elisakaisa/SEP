@@ -54,5 +54,10 @@
     <string name="approved_by">Approved by</string>
     <string name="fm_review">FM review</string>
     <string name="not_yet_reviewed">not yet reviewed</string>
+    <string name="decoration_for_job_fair">Decoration for Job Fair</string>
+    <string name="priority_level">High</string>
+    <string name="task_sender">Jack</string>
+    <string name="task_details">View</string>
+    <string name="initial_budget_task">Assigned budget</string>
 
 </resources>

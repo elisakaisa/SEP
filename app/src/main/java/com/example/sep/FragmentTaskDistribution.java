@@ -2,11 +2,13 @@ package com.example.sep;
 
 import static java.lang.Integer.parseInt;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,23 +27,24 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 
 public class FragmentTaskDistribution extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    TextView departmentName, loggedInPersonName;
-    TextInputLayout projectReferenceEditText, taskDescriptionEditText;
+    TextView departmentName;
+    TextInputLayout projectReferenceEditText, taskDescriptionEditText, assignBudgetEditText;
     Spinner subTeamMembersSpinner, taskPrioritySpinner;
     MaterialButton submitTaskButton;
-    TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLoayout;
+    TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLayout;
 
 
     String taskPriority;
     String assignedToMember;
     String assignedToTeam;
+    String loggedInPersonName;
 
 
     private TaskDistributionViewModel mViewModel;
@@ -56,19 +59,19 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
 
         // get role
         String role = RoleTransfer.getRole();
-
+        loggedInPersonName = RoleTransfer.getName();
 
         View view = inflater.inflate(R.layout.fragment_task_distribution, container, false);
 
         productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
-        serviceSubTeamsTabLoayout = view.findViewById(R.id.tabs_service);
+        serviceSubTeamsTabLayout = view.findViewById(R.id.tabs_service);
 
         if (role.equals("Production department manager")) {
             productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
-            serviceSubTeamsTabLoayout.setVisibility(View.INVISIBLE);
+            serviceSubTeamsTabLayout.setVisibility(View.INVISIBLE);
 
         } else if (role.equals("Services department manager")) {
-            serviceSubTeamsTabLoayout.setVisibility(View.VISIBLE);
+            serviceSubTeamsTabLayout.setVisibility(View.VISIBLE);
             productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
         }
 
@@ -76,6 +79,7 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
         taskDescriptionEditText =  view.findViewById(R.id.description_text_input);
         subTeamMembersSpinner =  view.findViewById(R.id.spinner_sub_team_people);
         taskPrioritySpinner =  view.findViewById(R.id.spinner_priority);
+        assignBudgetEditText = view.findViewById(R.id.initial_budget_task_text_input);
         submitTaskButton =  view.findViewById(R.id.btn_submit_task);
 
         subTeamMembersSpinner.setOnItemSelectedListener(this);
@@ -133,13 +137,31 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
     private void submitTask(){
         Task newTask = new Task (
                 String.valueOf(departmentName),
+                loggedInPersonName,
                 assignedToTeam,
+                assignedToMember,
                 String.valueOf(projectReferenceEditText),
                 String.valueOf(taskDescriptionEditText),
-                assignedToMember,
-                taskPriority
+                taskPriority,
+                parseInt(String.valueOf(assignBudgetEditText)),
+                Boolean.FALSE
                 );
+        saveResultsTaskList(newTask);
+        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.content_container, new FragmentTaskListPerPerson(), "");
+        fragmentTransaction.commit();
+    }
 
+    private void saveResultsTaskList(Task task) {
+        BaseActivity.taskList.addTask(task);
+        try {
+            FileOutputStream fos = getActivity().openFileOutput("taskList.ser", Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(BaseActivity.taskList);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void setSpinnerSubTeam(String assignedToTeam){

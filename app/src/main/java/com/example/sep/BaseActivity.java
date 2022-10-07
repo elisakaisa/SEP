@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 
 import com.example.sep.database.Employees;
+import com.example.sep.database.TaskList;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
@@ -22,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class BaseActivity extends AppCompatActivity {
 
     public static EventList eventList; // referenced from everywhere, needs to be static
+    public static TaskList taskList;
 
     BottomNavigationView bottomNavigationView;
     String role;
@@ -61,7 +63,11 @@ public class BaseActivity extends AppCompatActivity {
 
         // default fragment
         // TODO: figure out how we can do the menu
-        setDefaultFragment(role, department);
+        if ((role != null) & (department != null)){setDefaultFragment(role, department);} else {
+            loadFragment(new FragmentHome());
+
+        }
+
 
         // highlight the correct icon
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -81,14 +87,21 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setDefaultFragment(String role, String department) {
+
         if (department.equals(Employees.ADMINISTRATION) || (department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))) {
             loadFragment(new FragmentEventList());
         } else if (department.equals(Employees.SERVICE_DEP) || department.equals(Employees.PRODUCTION)){
-            loadFragment(new FragmentTaskDistribution());
+            if (role.equals("Production department manager") || role.equals("Services department manager")){
+                loadFragment(new FragmentTaskDistribution());
+            } else {
+                loadFragment(new FragmentTaskListPerPerson());
+            }
+
         } else {
             loadFragment(new FragmentHome());
         }
     }
+
 
     @SuppressLint("NonConstantResourceId")
     private boolean listener(MenuItem menuItem) {

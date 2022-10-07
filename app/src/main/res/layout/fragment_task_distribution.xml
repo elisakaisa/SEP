@@ -124,7 +124,7 @@
                 android:layout_marginTop="8dp">
                 <TextView
                     android:id="@+id/assigned_title"
-                    android:text="Assigned to:" />
+                    android:text="Assigned to" />
 
                 <Spinner
                     android:id="@+id/spinner_sub_team_people"
@@ -145,6 +145,30 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="8dp">
+
+
+                <TextView
+                    android:id="@+id/initial_budget_for_task_title"
+                    android:text="@string/initial_budget_task"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/initial_budget_task_text_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </TableRow>
         </TableLayout>
 

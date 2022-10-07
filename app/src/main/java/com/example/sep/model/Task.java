@@ -5,23 +5,39 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class Task {
-    String department, team, projectReference, taskDescription, assignedTo, taskPriority;
+    String department, assignedBy,team, assignedTo, projectReference,
+            taskDescription, taskPriority;
+    Integer budgetForTask;
+    Boolean requestExtraBudget;
 
-    public Task (String department, String team, String projectReference,
-                 String taskDescription, String assignedTo, String taskPriority){
+    public Task (String department,
+                 String assignedBy,
+                 String team,
+                 String assignedTo,
+                 String projectReference,
+                 String taskDescription,
+                 String taskPriority,
+                 Integer budgetForTask,
+                 Boolean requestExtraBudget){
 
         this.department = department;
+        this.assignedBy = assignedBy;
         this.team = team;
+        this.assignedTo = assignedTo;
         this.projectReference = projectReference;
         this.taskDescription = taskDescription;
-        this.assignedTo = assignedTo;
         this.taskPriority = taskPriority;
+        this.budgetForTask = budgetForTask;
+        this.requestExtraBudget = requestExtraBudget;
 
     }
 
 
+
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
+
+    public String getAssignedBy() { return assignedBy; }
 
     public String getTeam() { return team; }
     public void setTeam(String team) { this.team = team; }
@@ -37,4 +53,7 @@ public class Task {
 
     public String getTaskPriority() { return taskPriority; }
     public void setTaskPriority(String taskPriority) { this.taskPriority = taskPriority; }
+
+    public Integer getBudgetForTask() { return budgetForTask; }
+    public Boolean getRequestExtraBudget() { return requestExtraBudget; }
 }
