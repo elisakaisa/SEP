@@ -140,7 +140,8 @@ public class FragmentEventList extends Fragment {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
             EventItem eventItem = itemList.get(position);
-            eventVM.setEvent(eventItem);
+            eventVM.setEvent(eventItem.getEvent());
+            eventVM.setIdentifier(eventItem.getIdx());
 
             loadFragment(new FragmentEventDetails());
         }

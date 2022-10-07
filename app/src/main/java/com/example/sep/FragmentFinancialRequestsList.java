@@ -16,6 +16,7 @@ import com.example.sep.model.FinancialRequest;
 import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItem;
 import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItemAdapter;
 import com.example.sep.viewModel.FinancialRequestListViewModel;
+import com.example.sep.viewModel.FinancialRequestViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class FragmentFinancialRequestsList extends Fragment {
     private RecyclerView rvRequests;
     private ArrayList<FinancialRequestItem> itemList;
     private FloatingActionButton fabAdd;
+    private FinancialRequestViewModel requestVM;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -86,6 +88,7 @@ public class FragmentFinancialRequestsList extends Fragment {
 
         /*------------ VM ------------*/
         FinancialRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(FinancialRequestListViewModel.class);
+        requestVM = new ViewModelProvider(requireActivity()).get(FinancialRequestViewModel.class);
 
         /*---------- LISTENERS ----------*/
         requestsVM.getRequests().observe(requireActivity(), requests -> {
@@ -98,7 +101,7 @@ public class FragmentFinancialRequestsList extends Fragment {
             FinancialRequestItemAdapter requestItemAdapter = new FinancialRequestItemAdapter(itemList);
             rvRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvRequests.setAdapter(requestItemAdapter);
-            //requestItemAdapter.setOnItemClickListener();
+            requestItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
         fabAdd.setOnClickListener(v -> {
@@ -107,6 +110,19 @@ public class FragmentFinancialRequestsList extends Fragment {
 
         return view;
     }
+
+    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+            int position = viewHolder.getAdapterPosition();
+            FinancialRequestItem requestItem = itemList.get(position);
+            requestVM.setRequest(requestItem.getRequest());
+            requestVM.setIdentifier(requestItem.getIdx());
+
+            loadFragment(new FragmentFinancialRequestDetails());
+        }
+    };
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();

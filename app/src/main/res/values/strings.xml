@@ -65,5 +65,9 @@
     <string name="required_amount">Required amount</string>
     <string name="reason">Reason</string>
     <string name="create_financial_request">Create Financial request</string>
+    <string name="financial_request_details">Financial request details</string>
+    <string name="department">Department</string>
+    <string name="status">Status</string>
+    <string name="pending">Pending</string>
 
 </resources>

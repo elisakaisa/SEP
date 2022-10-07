@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentEventDetails">
+    <data>
+        <variable name="eventVM" type="com.example.sep.viewModel.EventViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -47,7 +48,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_record_number_view2"
-                    android:text="@string/record_number"
+                    android:text="@{eventVM.event.recordNumber}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -61,7 +62,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_client_name_view2"
-                    android:text="@string/client_name"
+                    android:text="@{eventVM.event.clientName}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -75,7 +76,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_event_type_view2"
-                    android:text="@string/event_type"
+                    android:text="@{eventVM.event.eventType}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -89,7 +90,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_from_view2"
-                    android:text="@string/from"
+                    android:text="@{eventVM.event.fromDate}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -103,7 +104,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_to_view2"
-                    android:text="@string/to"
+                    android:text="@{eventVM.event.toDate}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -117,7 +118,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_attendees_view2"
-                    android:text="@string/attendees"
+                    android:text="@{String.valueOf(eventVM.event.attendees)}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -131,7 +132,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_budget_view2"
-                    android:text="@string/sek"
+                    android:text="@{String.valueOf(eventVM.event.budget)}"
                     android:padding="4dp"/>
 
             </TableRow>
@@ -252,4 +253,4 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+</layout>

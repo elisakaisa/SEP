@@ -11,23 +11,26 @@ public class EventViewModel extends ViewModel {
 
     // TODO: see if it can be refactored for Event instead of eventItem
 
-    public MutableLiveData<EventItem> event;
-    public LiveData<EventItem> getEvent() {
+    public MutableLiveData<Event> event;
+    public int identifier;
+
+    public LiveData<Event> getEvent() {
         if(event == null) {
             event = new MutableLiveData<>();
-            loadEvent();
         }
         return event;
     }
 
-    private void loadEvent() {
-        // asynchronous call to load the event
-    }
-
-    public void setEvent(EventItem eventObj) {
+    public void setEvent(Event eventObj) {
         if(event == null) {
             event = new MutableLiveData<>();
         }
         event.postValue(eventObj);
     }
+
+    public void setIdentifier(int idx) {
+        identifier = idx;
+    }
+
+    public int getIdentifier() { return identifier; }
 }
