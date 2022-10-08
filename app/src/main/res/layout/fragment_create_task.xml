@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTaskDistribution">
+    tools:context=".FragmentCreateTask">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -91,12 +91,15 @@
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="?colorPrimaryVariant"
                     android:padding="4dp"
+                    android:hint="e12488"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="e12488" />
+                        android:inputType="text"
+                        android:maxLines="1"
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
             <TableRow>
@@ -111,12 +114,13 @@
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="?colorPrimaryVariant"
                     android:padding="4dp"
+                    android:hint="Funky style"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:hint="Funky style" />
+                        android:layout_height="200dp"
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
 
@@ -162,10 +166,13 @@
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="?colorPrimaryVariant"
                     android:padding="4dp"
+                    android:hint="1000"
                     >
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:inputType="number"
+
                          />
                 </com.google.android.material.textfield.TextInputLayout>
 

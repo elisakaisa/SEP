@@ -1,13 +1,8 @@
 package com.example.sep.model;
 
-import android.widget.TextView;
-
-import com.google.android.material.textfield.TextInputEditText;
-
 public class Task {
     String department, assignedBy,team, assignedTo, projectReference,
-            taskDescription, taskPriority;
-    Integer budgetForTask;
+            taskDescription, taskPriority, budgetForTask;
     Boolean requestExtraBudget;
 
     public Task (String department,
@@ -17,7 +12,7 @@ public class Task {
                  String projectReference,
                  String taskDescription,
                  String taskPriority,
-                 Integer budgetForTask,
+                 String budgetForTask,
                  Boolean requestExtraBudget){
 
         this.department = department;
@@ -54,6 +49,6 @@ public class Task {
     public String getTaskPriority() { return taskPriority; }
     public void setTaskPriority(String taskPriority) { this.taskPriority = taskPriority; }
 
-    public Integer getBudgetForTask() { return budgetForTask; }
+    public String getBudgetForTask() { return budgetForTask; }
     public Boolean getRequestExtraBudget() { return requestExtraBudget; }
 }

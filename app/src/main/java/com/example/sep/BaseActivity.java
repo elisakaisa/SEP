@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -92,9 +91,9 @@ public class BaseActivity extends AppCompatActivity {
             loadFragment(new FragmentEventList());
         } else if (department.equals(Employees.SERVICE_DEP) || department.equals(Employees.PRODUCTION)){
             if (role.equals("Production department manager") || role.equals("Services department manager")){
-                loadFragment(new FragmentTaskDistribution());
+                loadFragment(new FragmentEventList());
             } else {
-                loadFragment(new FragmentTaskListPerPerson());
+                loadFragment(new FragmentTaskList());
             }
 
         } else {

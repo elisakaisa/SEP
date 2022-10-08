@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -38,6 +40,7 @@ public class FragmentEventDetails extends Fragment {
     Event event;
     TextInputEditText etFMReview;
     TextInputLayout tiFMReview;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -104,12 +107,15 @@ public class FragmentEventDetails extends Fragment {
         MaterialButton btnApprove = view.findViewById(R.id.btn_event_details_approve);
         MaterialButton btnReview = view.findViewById(R.id.btn_add_comment);
 
+        MaterialButton btnCheckTaskList = view.findViewById(R.id.btn_check_task_list);
+
         switch (RoleTransfer.getRole()) {
             case "Customer Service":
                 btnDelete.setVisibility(View.INVISIBLE);
                 btnApprove.setVisibility(View.INVISIBLE);
                 btnReview.setVisibility(View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
+
                 break;
             case "Senior Customer Service Officer":
             case "Administration department manager":
@@ -117,17 +123,21 @@ public class FragmentEventDetails extends Fragment {
                 btnApprove.setVisibility(View.VISIBLE);
                 btnReview.setVisibility(View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
+
                 break;
             case "Financial manager":
                 btnDelete.setVisibility(View.INVISIBLE);
                 btnApprove.setVisibility(View.INVISIBLE);
                 btnReview.setVisibility(View.VISIBLE);
                 llFinancialManager.setVisibility(View.VISIBLE);
+
                 break;
             default:
                 btnDelete.setVisibility(View.INVISIBLE);
                 btnApprove.setVisibility(View.INVISIBLE);
                 btnReview.setVisibility(View.INVISIBLE);
+                btnCheckTaskList.setVisibility(View.VISIBLE);
+
                 break;
         }
 
@@ -155,6 +165,10 @@ public class FragmentEventDetails extends Fragment {
         btnDelete.setOnClickListener(v -> onDelete());
         btnApprove.setOnClickListener(v -> onApprove());
         btnReview.setOnClickListener(v -> onReview());
+
+        btnCheckTaskList.setOnClickListener(v -> {
+            loadFragment(new FragmentTaskList());
+        });
 
         return view;
     }

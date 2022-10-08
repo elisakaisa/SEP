@@ -247,9 +247,17 @@
             app:layout_constraintTop_toBottomOf="@+id/ll_fm"
             app:cornerRadius="20dp"/>
 
-
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_check_task_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/check_tasks"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        app:cornerRadius="20dp"/>
 
 </FrameLayout>

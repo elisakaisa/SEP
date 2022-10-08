@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep.BaseActivity;
 import com.example.sep.database.EventList;
+import com.example.sep.database.TaskList;
 import com.example.sep.model.Event;
 import com.example.sep.model.Task;
 
@@ -47,7 +48,7 @@ public class TaskListViewModel extends AndroidViewModel {
 
         } catch (Exception e){
             e.printStackTrace();
-            BaseActivity.eventList = new EventList();
+            BaseActivity.taskList = new TaskList();
             tasks.setValue(BaseActivity.taskList.getTheTasks());
         }
     }

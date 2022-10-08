@@ -12,27 +12,30 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.sep.model.Event;
+import com.example.sep.model.Task;
 import com.example.sep.view.eventRecyclerView.EventItem;
 import com.example.sep.view.eventRecyclerView.EventItemAdapter;
-import com.example.sep.model.Event;
-import com.example.sep.viewModel.EventListViewModel;
-import com.example.sep.viewModel.EventViewModel;
-import com.example.sep.viewModel.RoleTransfer;
+import com.example.sep.view.taskRecyclerView.TaskItem;
+import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
+import com.example.sep.viewModel.TaskItemViewModel;
+import com.example.sep.viewModel.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentEventList#newInstance} factory method to
+ * Use the {@link FragmentTaskList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class  FragmentEventList extends Fragment {
+public class FragmentTaskList extends Fragment {
 
-    RecyclerView rv_events;
-    public ArrayList<EventItem> itemList;
-    EventViewModel eventVM;
-    FloatingActionButton fabAdd;
+    RecyclerView rv_tasks;
+    public ArrayList<TaskItem> itemList;
+    TaskItemViewModel taskVM;
+    TaskListViewModel taskListVM;
+    FloatingActionButton fabAddTask;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +46,7 @@ public class  FragmentEventList extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentEventList() {
+    public FragmentTaskList() {
         // Required empty public constructor
     }
 
@@ -53,11 +56,11 @@ public class  FragmentEventList extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentEventList.
+     * @return A new instance of fragment FragmentTaskListPerPerson.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentEventList newInstance(String param1, String param2) {
-        FragmentEventList fragment = new FragmentEventList();
+    public static FragmentTaskList newInstance(String param1, String param2) {
+        FragmentTaskList fragment = new FragmentTaskList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,62 +81,32 @@ public class  FragmentEventList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_list, container, false);
+        rv_tasks = view.findViewById(R.id.rv_tasks);
+        fabAddTask = view.findViewById(R.id.fab_add_task);
 
-        /*------------ UI ------------*/
-        rv_events = view.findViewById(R.id.rv_events);
-        fabAdd = view.findViewById(R.id.fab_add);
-
-        int accessLevel = 0;
-        String role = RoleTransfer.getRole();
-        switch (role) {
-            case "Customer Service":
-                fabAdd.setVisibility(View.VISIBLE);
-                break;
-            case "Senior Customer Service Officer":
-                accessLevel = 1;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-            case "Financial manager":
-                accessLevel = 2;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-
-            case "Production department manager":
-            case "Service department manager":
-            case "Administration department manager" :
-                accessLevel = 3;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-
-
-        }
 
         /*------------ VM ------------*/
-        eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
-        EventListViewModel eventListVM = new ViewModelProvider(requireActivity()).get(EventListViewModel.class);
+        taskVM = new ViewModelProvider(requireActivity()).get(TaskItemViewModel.class);
+        taskListVM = new ViewModelProvider(requireActivity()).get(TaskListViewModel.class);
 
-        /*---------- LISTENERS ----------*/
-        int finalAccessLevel = accessLevel-1;
-        eventListVM.getEvent().observe(requireActivity(), events -> {
+        taskListVM.getTask().observe(requireActivity(), tasks -> {
             itemList = new ArrayList<>();
             Integer i = 0;
-            for (Event singleEvent : events){
-                // add to the recyclerView only the events that the employee can view
-                if (singleEvent.getLevel() >= finalAccessLevel) {
-                    itemList.add(new EventItem(singleEvent, i));
-                }
+            for (Task singleEvent : tasks){
+                itemList.add(new TaskItem(singleEvent, i));
                 i++;
             }
 
-            EventItemAdapter resultItemAdapter = new EventItemAdapter(itemList);
-            rv_events.setLayoutManager(new LinearLayoutManager(getActivity()));
-            rv_events.setAdapter(resultItemAdapter);
+            TaskItemAdapter resultItemAdapter = new TaskItemAdapter(itemList);
+            rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rv_tasks.setAdapter(resultItemAdapter);
             resultItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
-        fabAdd.setOnClickListener(v -> {
-            loadFragment(new FragmentCreateEvent());
+
+        fabAddTask.setOnClickListener(v -> {
+            loadFragment(new FragmentCreateTask());
         });
 
         return view;
@@ -144,8 +117,8 @@ public class  FragmentEventList extends Fragment {
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            EventItem eventItem = itemList.get(position);
-            eventVM.setEvent(eventItem);
+            TaskItem taskItem = itemList.get(position);
+            taskVM.setTask(taskItem);
 
             loadFragment(new FragmentEventDetails());
         }

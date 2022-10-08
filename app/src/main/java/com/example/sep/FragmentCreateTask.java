@@ -22,7 +22,7 @@ import com.example.sep.database.Employees;
 import com.example.sep.model.Employee;
 import com.example.sep.model.Task;
 import com.example.sep.viewModel.RoleTransfer;
-import com.example.sep.viewModel.TaskDistributionViewModel;
+import com.example.sep.viewModel.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,7 +32,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 
-public class FragmentTaskDistribution extends Fragment implements AdapterView.OnItemSelectedListener{
+public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSelectedListener{
 
     TextView departmentName;
     TextInputLayout projectReferenceEditText, taskDescriptionEditText, assignBudgetEditText;
@@ -47,10 +47,10 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
     String loggedInPersonName;
 
 
-    private TaskDistributionViewModel mViewModel;
+    private TaskItemViewModel mViewModel;
 
-    public static FragmentTaskDistribution newInstance() {
-        return new FragmentTaskDistribution();
+    public static FragmentCreateTask newInstance() {
+        return new FragmentCreateTask();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
         String role = RoleTransfer.getRole();
         loggedInPersonName = RoleTransfer.getName();
 
-        View view = inflater.inflate(R.layout.fragment_task_distribution, container, false);
+        View view = inflater.inflate(R.layout.fragment_create_task, container, false);
 
         productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
         serviceSubTeamsTabLayout = view.findViewById(R.id.tabs_service);
@@ -143,12 +143,12 @@ public class FragmentTaskDistribution extends Fragment implements AdapterView.On
                 String.valueOf(projectReferenceEditText),
                 String.valueOf(taskDescriptionEditText),
                 taskPriority,
-                parseInt(String.valueOf(assignBudgetEditText)),
+                String.valueOf(assignBudgetEditText),
                 Boolean.FALSE
                 );
         saveResultsTaskList(newTask);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentTaskListPerPerson(), "");
+        fragmentTransaction.replace(R.id.content_container, new FragmentTaskList(), "");
         fragmentTransaction.commit();
     }
 

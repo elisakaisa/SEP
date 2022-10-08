@@ -17,6 +17,8 @@ import java.util.ArrayList;
 public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskItemViewHolder> {
 
     private ArrayList<TaskItem> mTaskItem;
+    private View.OnClickListener mOnItemClickListener;
+
 
     @NonNull
     @Override
@@ -51,5 +53,13 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
             iSender = itemView.findViewById(R.id.tv_sender);
             iDetails = itemView.findViewById(R.id.tv_details);
         }
+    }
+
+    public TaskItemAdapter(ArrayList<TaskItem> taskItem) {
+        mTaskItem = taskItem;
+    }
+
+    public void setOnItemClickListener(View.OnClickListener itemClickListener){
+        mOnItemClickListener = itemClickListener;
     }
 }
