@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentTaskDistribution">
+    tools:context=".FragmentCreateTask">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -81,22 +81,26 @@
             <TableRow>
                 <TextView
                     android:id="@+id/project_reference_title"
-                    android:text="Project reference"
+                    android:text="Task reference"
                     />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/project_reference_text_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="?colorPrimaryVariant"
                     android:padding="4dp"
+                    android:hint="1"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/project_reference_text_input"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="e12488" />
+                        android:inputType="number"
+                        android:maxLines="1"
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
             <TableRow>
@@ -105,18 +109,19 @@
                     android:text="Description"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/description_text_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"
                     app:boxBackgroundColor="?colorPrimaryVariant"
                     android:padding="4dp"
+                    android:hint="Funky style"
                     >
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/description_text_input"
                         android:layout_width="match_parent"
-                        android:layout_height="300dp"
-                        android:hint="Funky style" />
+                        android:layout_height="200dp"
+                         />
                 </com.google.android.material.textfield.TextInputLayout>
             </TableRow>
 
@@ -124,7 +129,7 @@
                 android:layout_marginTop="8dp">
                 <TextView
                     android:id="@+id/assigned_title"
-                    android:text="Assigned to:" />
+                    android:text="Assigned to" />
 
                 <Spinner
                     android:id="@+id/spinner_sub_team_people"
@@ -145,6 +150,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     />
+            </TableRow>
+            <TableRow
+                android:layout_marginTop="8dp">
+
+
+                <TextView
+                    android:id="@+id/initial_budget_for_task_title"
+                    android:text="@string/initial_budget_task"
+                    />
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    android:hint="1000"
+                    >
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/initial_budget_task_text_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                         />
+                </com.google.android.material.textfield.TextInputLayout>
+
             </TableRow>
         </TableLayout>
 

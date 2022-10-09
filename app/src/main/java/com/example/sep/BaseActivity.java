@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.sep.database.Employees;
 import com.example.sep.database.FinancialRequestList;
+import com.example.sep.database.TaskList;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
@@ -32,6 +32,9 @@ public class BaseActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     BottomNavigationView bottomNavigationViewFM;
+    public static TaskList taskList;
+
+    String name;
     String role;
     String department;
 
@@ -53,12 +56,13 @@ public class BaseActivity extends AppCompatActivity {
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
-        String name = intent.getStringExtra(ActivityLogin.NAME);
+        name = intent.getStringExtra(ActivityLogin.NAME);
         department = intent.getStringExtra(ActivityLogin.DEPARTMENT);
         role = intent.getStringExtra(ActivityLogin.ROLE);
 
         RoleTransfer.setRole(role);
         RoleTransfer.setDepartment(department);
+        RoleTransfer.setName(name);
 
         String s = "Welcome " + name;
         tv_username.setText(s);
@@ -67,6 +71,11 @@ public class BaseActivity extends AppCompatActivity {
         // default fragment
         // TODO: figure out how we can do the menu
         setDefaultFragment(role, department);
+        if ((role != null) & (department != null)){setDefaultFragment(role, department);} else {
+            loadFragment(new FragmentHome());
+
+        }
+
         // highlight the correct icon
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
@@ -84,11 +93,15 @@ public class BaseActivity extends AppCompatActivity {
             loadFragment(new FragmentEventList());
             bottomNavigationViewFM.getMenu().getItem(0).setChecked(true);
         } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
-            loadFragment(new FragmentTaskDistribution());
-        } else {
-            loadFragment(new FragmentHome());
+            if (role.equals("Production department manager") || role.equals("Services department manager")){
+                loadFragment(new FragmentEventList());
+            } else {
+                loadFragment(new FragmentTaskListSubTeam());
+            }
         }
+
     }
+
 
     private void logOut() {
         // remove user from local storage

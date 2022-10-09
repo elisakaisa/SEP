@@ -41,6 +41,7 @@ public class FragmentEventDetails extends Fragment {
     private TextInputEditText etFMReview;
     private TextInputLayout tiFMReview;
 
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -98,22 +99,29 @@ public class FragmentEventDetails extends Fragment {
         MaterialButton btnApprove = view.findViewById(R.id.btn_event_details_approve);
         MaterialButton btnReview = view.findViewById(R.id.btn_add_comment);
 
+        MaterialButton btnCheckTaskList = view.findViewById(R.id.btn_check_task_list);
+
         switch (RoleTransfer.getRole()) {
             case "Customer Service":
-                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
+
                 break;
             case "Senior Customer Service Officer":
             case "Administration department manager":
-                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.VISIBLE, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
+
                 break;
             case "Financial manager":
-                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.VISIBLE);
+
                 break;
             default:
-                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
+
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
+
                 break;
         }
 
@@ -136,6 +144,10 @@ public class FragmentEventDetails extends Fragment {
         btnDelete.setOnClickListener(v -> onDelete());
         btnApprove.setOnClickListener(v -> onApprove());
         btnReview.setOnClickListener(v -> onReview());
+
+        btnCheckTaskList.setOnClickListener(v -> {
+            loadFragment(new FragmentTaskListManager());
+        });
 
         return view;
     }
@@ -212,9 +224,10 @@ public class FragmentEventDetails extends Fragment {
         fragmentTransaction.commit();
     }
 
-    private void buttonVisibilitySetter(MaterialButton btnDelete, MaterialButton btnApprove, MaterialButton btnReview, int view1, int view2, int view3) {
+    private void buttonVisibilitySetter(MaterialButton btnDelete, MaterialButton btnApprove, MaterialButton btnReview, MaterialButton btnCheckTaskList, int view1, int view2, int view3, int view4) {
         btnDelete.setVisibility(view1);
         btnApprove.setVisibility(view2);
         btnReview.setVisibility(view3);
+        btnCheckTaskList.setVisibility(view4);
     }
 }

@@ -1,27 +1,47 @@
 package com.example.sep.model;
 
-import android.widget.TextView;
+import java.io.Serializable;
 
-import com.google.android.material.textfield.TextInputEditText;
+public class Task implements Serializable {
+    String id, department, assignedBy,team, assignedTo, projectReference,
+            taskDescription, taskPriority, budgetForTask, taskPlanning;
+    Boolean requestExtraBudget;
 
-public class Task {
-    String department, team, projectReference, taskDescription, assignedTo, taskPriority;
+    public Task (String id,
+                 String department,
+                 String assignedBy,
+                 String team,
+                 String assignedTo,
+                 String projectReference,
+                 String taskDescription,
+                 String taskPriority,
+                 String taskPlanning,
+                 String budgetForTask,
+                 Boolean requestExtraBudget){
 
-    public Task (String department, String team, String projectReference,
-                 String taskDescription, String assignedTo, String taskPriority){
-
+        this.id = id;
         this.department = department;
+        this.assignedBy = assignedBy;
         this.team = team;
+        this.assignedTo = assignedTo;
         this.projectReference = projectReference;
         this.taskDescription = taskDescription;
-        this.assignedTo = assignedTo;
+        this.taskPlanning = taskPlanning;
         this.taskPriority = taskPriority;
+
+        this.budgetForTask = budgetForTask;
+        this.requestExtraBudget = requestExtraBudget;
 
     }
 
 
+
     public String getDepartment() { return department; }
     public void setDepartment(String department) { this.department = department; }
+
+    public String getAssignedBy() { return assignedBy; }
+
+    public String getId() { return id; }
 
     public String getTeam() { return team; }
     public void setTeam(String team) { this.team = team; }
@@ -37,4 +57,7 @@ public class Task {
 
     public String getTaskPriority() { return taskPriority; }
     public void setTaskPriority(String taskPriority) { this.taskPriority = taskPriority; }
+
+    public String getBudgetForTask() { return budgetForTask; }
+    public Boolean getRequestExtraBudget() { return requestExtraBudget; }
 }
