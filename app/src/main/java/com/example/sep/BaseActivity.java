@@ -25,6 +25,7 @@ public class BaseActivity extends AppCompatActivity {
     public static TaskList taskList;
 
     BottomNavigationView bottomNavigationView;
+    String name;
     String role;
     String department;
 
@@ -49,7 +50,7 @@ public class BaseActivity extends AppCompatActivity {
 
         /*-------- INTENT -----------*/
         Intent intent = getIntent();
-        String name = intent.getStringExtra(ActivityLogin.NAME);
+        name = intent.getStringExtra(ActivityLogin.NAME);
         department = intent.getStringExtra(ActivityLogin.DEPARTMENT);
         role = intent.getStringExtra(ActivityLogin.ROLE);
 
@@ -93,7 +94,7 @@ public class BaseActivity extends AppCompatActivity {
             if (role.equals("Production department manager") || role.equals("Services department manager")){
                 loadFragment(new FragmentEventList());
             } else {
-                loadFragment(new FragmentTaskList());
+                loadFragment(new FragmentTaskListSubTeam());
             }
 
         } else {

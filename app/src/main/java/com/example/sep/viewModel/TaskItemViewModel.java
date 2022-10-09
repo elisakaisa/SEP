@@ -16,10 +16,13 @@ public class TaskItemViewModel extends ViewModel {
     public LiveData<TaskItem> getTask(){
         if (task == null) {
             task = new MutableLiveData<>();
+            loadTask();
         }
         return task;
 
     }
+
+    private void loadTask(){}
 
     public void setTask(TaskItem taskObj) {
         if(task == null) {

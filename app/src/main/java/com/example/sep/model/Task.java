@@ -1,11 +1,12 @@
 package com.example.sep.model;
 
 public class Task {
-    String department, assignedBy,team, assignedTo, projectReference,
+    String id, department, assignedBy,team, assignedTo, projectReference,
             taskDescription, taskPriority, budgetForTask;
     Boolean requestExtraBudget;
 
-    public Task (String department,
+    public Task (String id,
+                 String department,
                  String assignedBy,
                  String team,
                  String assignedTo,
@@ -15,6 +16,7 @@ public class Task {
                  String budgetForTask,
                  Boolean requestExtraBudget){
 
+        this.id = id;
         this.department = department;
         this.assignedBy = assignedBy;
         this.team = team;
@@ -33,6 +35,8 @@ public class Task {
     public void setDepartment(String department) { this.department = department; }
 
     public String getAssignedBy() { return assignedBy; }
+
+    public String getId() { return id; }
 
     public String getTeam() { return team; }
     public void setTeam(String team) { this.team = team; }

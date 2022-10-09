@@ -25,6 +25,7 @@ import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileOutputStream;
@@ -34,8 +35,7 @@ import java.util.ArrayList;
 
 public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSelectedListener{
 
-    TextView departmentName;
-    TextInputLayout projectReferenceEditText, taskDescriptionEditText, assignBudgetEditText;
+    TextInputEditText projectReferenceEditText, taskDescriptionEditText, assignBudgetEditText;
     Spinner subTeamMembersSpinner, taskPrioritySpinner;
     MaterialButton submitTaskButton;
     TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLayout;
@@ -45,6 +45,9 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     String assignedToMember;
     String assignedToTeam;
     String loggedInPersonName;
+    String role;
+    String departmentName;
+
 
 
     private TaskItemViewModel mViewModel;
@@ -58,7 +61,8 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
                              @Nullable Bundle savedInstanceState) {
 
         // get role
-        String role = RoleTransfer.getRole();
+        role = RoleTransfer.getRole();
+        departmentName = RoleTransfer.getDepartment();
         loggedInPersonName = RoleTransfer.getName();
 
         View view = inflater.inflate(R.layout.fragment_create_task, container, false);
@@ -118,11 +122,11 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         if(adapterView.getId() == R.id.spinner_priority)
         {
-            assignedToMember = String.valueOf(adapterView.getItemAtPosition(position));
+            taskPriority = String.valueOf(adapterView.getItemAtPosition(position));
         }
         else if(adapterView.getId() == R.id.spinner_sub_team_people)
         {
-            taskPriority = String.valueOf(adapterView.getItemAtPosition(position));
+            assignedToMember = String.valueOf(adapterView.getItemAtPosition(position));
         }
 
 
@@ -135,20 +139,22 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
 
 
     private void submitTask(){
+        // TODO: update id, assigned b
         Task newTask = new Task (
-                String.valueOf(departmentName),
-                loggedInPersonName,
+                String.valueOf(projectReferenceEditText.getText()),
+                departmentName,
+                role,
                 assignedToTeam,
                 assignedToMember,
-                String.valueOf(projectReferenceEditText),
-                String.valueOf(taskDescriptionEditText),
+                String.valueOf(projectReferenceEditText.getText()),
+                String.valueOf(taskDescriptionEditText.getText()),
                 taskPriority,
-                String.valueOf(assignBudgetEditText),
+                String.valueOf(assignBudgetEditText.getText()),
                 Boolean.FALSE
                 );
         saveResultsTaskList(newTask);
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentTaskList(), "");
+        fragmentTransaction.replace(R.id.content_container, new FragmentTaskListManager(), "");
         fragmentTransaction.commit();
     }
 

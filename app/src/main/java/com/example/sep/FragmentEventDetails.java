@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.textview.MaterialTextView;
@@ -167,7 +165,7 @@ public class FragmentEventDetails extends Fragment {
         btnReview.setOnClickListener(v -> onReview());
 
         btnCheckTaskList.setOnClickListener(v -> {
-            loadFragment(new FragmentTaskList());
+            loadFragment(new FragmentTaskListManager());
         });
 
         return view;

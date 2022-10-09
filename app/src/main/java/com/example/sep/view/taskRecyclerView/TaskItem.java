@@ -6,18 +6,25 @@ import com.example.sep.model.Task;
 import java.io.Serializable;
 
 public class TaskItem implements Serializable {
-    Integer idx;
+    /*Integer idx;
     Task iTask;
-    String iTaskSubject, iTaskPriority, iAssignedBy, iDetails;
+    String iTaskSubject, iTaskPriority, iAssignedBy, iDetails, iDepartment, iAssignedTo, iBudgetAssigned;
+    Boolean iExtraBudgetRequest;
 
 
 
     public TaskItem(Task task, Integer idx) {
         iTask = task;
+        iAssignedTo = task.getAssignedTo();
         iTaskSubject = task.getProjectReference();
         iTaskPriority = task.getTaskPriority();
         iAssignedBy = task.getAssignedBy();
         iDetails = task.getTaskDescription();
+        iBudgetAssigned = task.getBudgetForTask();
+        iExtraBudgetRequest = task.getRequestExtraBudget();
+        iDepartment = task.getDepartment();
+        iAssignedTo = task.getAssignedTo();
+
         this.idx = idx;
     }
 
@@ -41,7 +48,58 @@ public class TaskItem implements Serializable {
         return iAssignedBy;
     }
 
+    public String getAssignedTo() {
+        return iAssignedTo;
+    }
+
+
     public String getDetails() {
         return iDetails;
     }
+
+    public String getBudgetAssigned() {
+        return iBudgetAssigned;
+    }
+
+    public Boolean getExtraBudgetRequest(){return iExtraBudgetRequest; }
+
+    public String getDepartment(){return iDepartment; }*/
+    Integer idx;
+    Task iTask;
+    String iAssignedToTeam, iAssignedTo, iBudgetAssigned;
+    Boolean iExtraBudgetRequest;
+
+    public TaskItem(Task task, Integer idx) {
+        iTask = task;
+        iAssignedTo = task.getAssignedTo();
+        iBudgetAssigned = task.getBudgetForTask();
+        iExtraBudgetRequest = task.getRequestExtraBudget();
+        iAssignedToTeam = task.getTeam();
+        this.idx = idx;
+    }
+
+    public Integer getIdx() {
+        return idx;
+    }
+
+    public Task getTask() {
+        return iTask;
+    }
+
+    public String getAssignedTeam() {
+        return iAssignedToTeam;
+    }
+
+    public String getAssignedTo() {
+        return iAssignedTo;
+    }
+
+    public String getBudgetAssigned() {
+        return iBudgetAssigned;
+    }
+
+    public Boolean getExtraBudgetRequest() {
+        return iExtraBudgetRequest;
+    }
+
 }

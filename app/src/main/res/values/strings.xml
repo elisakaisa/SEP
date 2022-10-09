@@ -65,5 +65,9 @@
     <string name="extra_budget">Extra Budget</string>
     <string name="check_tasks">Check Tasks</string>
     <string name="add_task">Add Task</string>
+    <string name="No">False</string>
+    <string name="no_request">False</string>
+    <string name="subteam">Decor</string>
+    <string name="person_in_sub_team">Magy</string>
 
 </resources>

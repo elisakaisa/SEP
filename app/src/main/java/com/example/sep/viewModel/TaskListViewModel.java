@@ -8,9 +8,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.sep.BaseActivity;
-import com.example.sep.database.EventList;
 import com.example.sep.database.TaskList;
-import com.example.sep.model.Event;
 import com.example.sep.model.Task;
 
 import java.io.FileInputStream;
@@ -37,12 +35,12 @@ public class TaskListViewModel extends AndroidViewModel {
 
 
     private void loadTasks() {
-        // asynchronous call to load the event
+        // asynchronous call to load the task
         // Deserialize taskList here
         try{
             FileInputStream fin = getApplication().getApplicationContext().openFileInput("taskList.ser");
             ObjectInputStream oin = new ObjectInputStream(fin);
-            BaseActivity.eventList = (EventList) oin.readObject();
+            BaseActivity.taskList = (TaskList) oin.readObject();
             tasks.setValue(BaseActivity.taskList.getTheTasks());
             oin.close();
 

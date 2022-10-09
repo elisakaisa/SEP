@@ -12,12 +12,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sep.model.Event;
 import com.example.sep.model.Task;
-import com.example.sep.view.eventRecyclerView.EventItem;
-import com.example.sep.view.eventRecyclerView.EventItemAdapter;
 import com.example.sep.view.taskRecyclerView.TaskItem;
-import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
+import com.example.sep.view.taskRecyclerView.TaskItemSubTeamAdapter;
 import com.example.sep.viewModel.TaskItemViewModel;
 import com.example.sep.viewModel.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,10 +23,10 @@ import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentTaskList#newInstance} factory method to
+ * Use the {@link FragmentTaskListSubTeam#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentTaskList extends Fragment {
+public class FragmentTaskListSubTeam extends Fragment {
 
     RecyclerView rv_tasks;
     public ArrayList<TaskItem> itemList;
@@ -46,7 +43,7 @@ public class FragmentTaskList extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentTaskList() {
+    public FragmentTaskListSubTeam() {
         // Required empty public constructor
     }
 
@@ -59,8 +56,8 @@ public class FragmentTaskList extends Fragment {
      * @return A new instance of fragment FragmentTaskListPerPerson.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentTaskList newInstance(String param1, String param2) {
-        FragmentTaskList fragment = new FragmentTaskList();
+    public static FragmentTaskListSubTeam newInstance(String param1, String param2) {
+        FragmentTaskListSubTeam fragment = new FragmentTaskListSubTeam();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -98,7 +95,7 @@ public class FragmentTaskList extends Fragment {
                 i++;
             }
 
-            TaskItemAdapter resultItemAdapter = new TaskItemAdapter(itemList);
+            TaskItemSubTeamAdapter resultItemAdapter = new TaskItemSubTeamAdapter(itemList);
             rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_tasks.setAdapter(resultItemAdapter);
             resultItemAdapter.setOnItemClickListener(onItemClickListener);
@@ -120,7 +117,7 @@ public class FragmentTaskList extends Fragment {
             TaskItem taskItem = itemList.get(position);
             taskVM.setTask(taskItem);
 
-            loadFragment(new FragmentEventDetails());
+            loadFragment(new FragmentTaskDetails());
         }
     };
 
