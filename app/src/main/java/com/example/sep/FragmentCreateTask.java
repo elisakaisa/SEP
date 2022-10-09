@@ -143,12 +143,13 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
         Task newTask = new Task (
                 String.valueOf(projectReferenceEditText.getText()),
                 departmentName,
-                role,
+                loggedInPersonName,
                 assignedToTeam,
                 assignedToMember,
                 String.valueOf(projectReferenceEditText.getText()),
                 String.valueOf(taskDescriptionEditText.getText()),
                 taskPriority,
+                "",
                 String.valueOf(assignBudgetEditText.getText()),
                 Boolean.FALSE
                 );

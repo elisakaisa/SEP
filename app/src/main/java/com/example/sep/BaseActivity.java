@@ -56,6 +56,7 @@ public class BaseActivity extends AppCompatActivity {
 
         RoleTransfer.setRole(role);
         RoleTransfer.setDepartment(department);
+        RoleTransfer.setName(name);
 
         String s = "Welcome " + name;
         tv_username.setText(s);

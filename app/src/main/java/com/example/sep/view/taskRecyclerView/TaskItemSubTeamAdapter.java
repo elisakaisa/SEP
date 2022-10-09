@@ -30,10 +30,10 @@ public class TaskItemSubTeamAdapter extends RecyclerView.Adapter<TaskItemSubTeam
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TaskItemSubTeamAdapter.TaskItemViewHolder holder, int position) {
-        /*holder.iTaskSubject.setText(mTaskItem.get(position).getTaskPriority());
+        holder.iTaskSubject.setText(String.valueOf(mTaskItem.get(position).getTaskID()));
         holder.iPriority.setText(mTaskItem.get(position).getTaskPriority());
         holder.iSender.setText(mTaskItem.get(position).getAssignedBy());
-        holder.iSender.setText("View");*/
+        holder.iDetails.setText("View");
     }
 
     @Override
@@ -51,6 +51,9 @@ public class TaskItemSubTeamAdapter extends RecyclerView.Adapter<TaskItemSubTeam
             iPriority = itemView.findViewById(R.id.tv_priority);
             iSender = itemView.findViewById(R.id.tv_sender);
             iDetails = itemView.findViewById(R.id.tv_details);
+
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 

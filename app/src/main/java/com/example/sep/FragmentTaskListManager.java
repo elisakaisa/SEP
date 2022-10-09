@@ -94,10 +94,10 @@ public class FragmentTaskListManager extends Fragment {
                 i++;
             }
 
-            TaskItemManagerAdapter resultItemAdapter = new TaskItemManagerAdapter(itemTaskList);
+            TaskItemManagerAdapter resultTaskItemAdapter = new TaskItemManagerAdapter(itemTaskList);
             rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
-            rv_tasks.setAdapter(resultItemAdapter);
-            resultItemAdapter.setOnItemClickListener(onItemClickListener);
+            rv_tasks.setAdapter(resultTaskItemAdapter);
+            resultTaskItemAdapter.setOnItemClickListener(onItemTaskClickListener);
         });
 
 
@@ -108,7 +108,7 @@ public class FragmentTaskListManager extends Fragment {
         return view;
     }
 
-    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
+    private final View.OnClickListener onItemTaskClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();

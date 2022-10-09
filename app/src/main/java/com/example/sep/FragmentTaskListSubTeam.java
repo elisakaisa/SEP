@@ -15,11 +15,13 @@ import android.view.ViewGroup;
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemSubTeamAdapter;
+import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.TaskItemViewModel;
 import com.example.sep.viewModel.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +34,11 @@ public class FragmentTaskListSubTeam extends Fragment {
     public ArrayList<TaskItem> itemList;
     TaskItemViewModel taskVM;
     TaskListViewModel taskListVM;
+
     FloatingActionButton fabAddTask;
+
+
+    String name;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -72,6 +78,8 @@ public class FragmentTaskListSubTeam extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        name = RoleTransfer.getName();
     }
 
     @Override
@@ -81,6 +89,8 @@ public class FragmentTaskListSubTeam extends Fragment {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
         rv_tasks = view.findViewById(R.id.rv_tasks);
         fabAddTask = view.findViewById(R.id.fab_add_task);
+        fabAddTask.setVisibility(View.INVISIBLE);
+
 
 
         /*------------ VM ------------*/
@@ -91,8 +101,11 @@ public class FragmentTaskListSubTeam extends Fragment {
             itemList = new ArrayList<>();
             Integer i = 0;
             for (Task singleEvent : tasks){
-                itemList.add(new TaskItem(singleEvent, i));
-                i++;
+                if (Objects.equals(singleEvent.getAssignedTo(), name)){
+                    itemList.add(new TaskItem(singleEvent, i));
+                    i++;
+                }
+
             }
 
             TaskItemSubTeamAdapter resultItemAdapter = new TaskItemSubTeamAdapter(itemList);
@@ -101,10 +114,6 @@ public class FragmentTaskListSubTeam extends Fragment {
             resultItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
-
-        fabAddTask.setOnClickListener(v -> {
-            loadFragment(new FragmentCreateTask());
-        });
 
         return view;
     }

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class TaskItemManagerAdapter extends RecyclerView.Adapter<TaskItemManagerAdapter.TaskItemViewHolder> {
 
-    private ArrayList<TaskItem> mTaskItem;
+    private final ArrayList<TaskItem> mTaskItem;
     private View.OnClickListener mOnItemClickListener;
 
 
@@ -51,6 +51,9 @@ public class TaskItemManagerAdapter extends RecyclerView.Adapter<TaskItemManager
             iAssignedTo = itemView.findViewById(R.id.tv_assigned_to);
             iBudgetAssigned = itemView.findViewById(R.id.tv_budget_amount);
             iBudgetRequest = itemView.findViewById(R.id.tv_budget_request);
+
+            itemView.setTag(this);
+            itemView.setOnClickListener(mOnItemClickListener);
         }
     }
 

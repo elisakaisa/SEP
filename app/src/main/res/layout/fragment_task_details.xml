@@ -42,54 +42,54 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_event_type_view"
+                    android:id="@+id/tv_event_type_view_title"
                     android:text="@string/event_type"
                     android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_event_type_view2"
+                    android:id="@+id/tv_event_type_view"
                     android:text="@string/event_type"
                     android:padding="4dp"/>
 
             </TableRow>
             <TableRow
                 android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_from_view_title"
+                    android:text="@string/from"
+                    android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_from_view"
                     android:text="@string/from"
                     android:padding="4dp"/>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_from_view2"
-                    android:text="@string/from"
-                    android:padding="4dp"/>
-
             </TableRow>
             <TableRow
                 android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_to_view_title"
+                    android:text="@string/to"
+                    android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_to_view"
                     android:text="@string/to"
                     android:padding="4dp"/>
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_to_view2"
-                    android:text="@string/to"
-                    android:padding="4dp"/>
-
             </TableRow>
             <TableRow
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_attendees_view"
+                    android:id="@+id/tv_attendees_view_title"
                     android:text="@string/expected_number_of_attendees_two_lines"
                     android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_attendees_view2"
+                    android:id="@+id/tv_attendees_view"
                     android:text="@string/attendees"
                     android:padding="4dp"/>
 
@@ -98,12 +98,12 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_budget_view"
+                    android:id="@+id/tv_budget_view_title"
                     android:text="@string/expected_budget"
                     android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_budget_view2"
+                    android:id="@+id/tv_budget_view"
                     android:text="@string/sek"
                     android:padding="4dp"/>
 
@@ -112,12 +112,12 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_task_details"
+                    android:id="@+id/tv_task_details_title"
                     android:text="@string/task_description"
                     android:padding="4dp"/>
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/tv_approved_by_view2"
+                    android:id="@+id/tv_approved_by_view"
                     android:text="@string/decoration"
                     android:padding="4dp"/>
 

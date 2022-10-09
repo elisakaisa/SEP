@@ -1,8 +1,10 @@
 package com.example.sep.model;
 
-public class Task {
+import java.io.Serializable;
+
+public class Task implements Serializable {
     String id, department, assignedBy,team, assignedTo, projectReference,
-            taskDescription, taskPriority, budgetForTask;
+            taskDescription, taskPriority, budgetForTask, taskPlanning;
     Boolean requestExtraBudget;
 
     public Task (String id,
@@ -13,6 +15,7 @@ public class Task {
                  String projectReference,
                  String taskDescription,
                  String taskPriority,
+                 String taskPlanning,
                  String budgetForTask,
                  Boolean requestExtraBudget){
 
@@ -23,7 +26,9 @@ public class Task {
         this.assignedTo = assignedTo;
         this.projectReference = projectReference;
         this.taskDescription = taskDescription;
+        this.taskPlanning = taskPlanning;
         this.taskPriority = taskPriority;
+
         this.budgetForTask = budgetForTask;
         this.requestExtraBudget = requestExtraBudget;
 
