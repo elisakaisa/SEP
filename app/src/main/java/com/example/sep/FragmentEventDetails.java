@@ -3,6 +3,7 @@ package com.example.sep;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.sep.databinding.FragmentEventDetailsBinding;
 import com.example.sep.model.Event;
 import com.example.sep.viewModel.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
@@ -33,11 +35,11 @@ import java.util.Objects;
 public class FragmentEventDetails extends Fragment {
 
     /*__________ SAVING/DELETING __________*/
-    Integer itemIdentifier;
+    private int itemIdentifier;
 
-    Event event;
-    TextInputEditText etFMReview;
-    TextInputLayout tiFMReview;
+    private Event mEvent;
+    private TextInputEditText etFMReview;
+    private TextInputLayout tiFMReview;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,51 +85,35 @@ public class FragmentEventDetails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event_details, container, false);
+        FragmentEventDetailsBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_event_details, container, false);
+        View view = binding.getRoot();
 
         /* ------- HOOKS --------*/
-        MaterialTextView tvRecordNumber = view.findViewById(R.id.tv_record_number_view2);
-        MaterialTextView tvClientName = view.findViewById(R.id.tv_client_name_view2);
-        MaterialTextView tvEventType = view.findViewById(R.id.tv_event_type_view2);
-        MaterialTextView tvFrem = view.findViewById(R.id.tv_from_view2);
-        MaterialTextView tvTo = view.findViewById(R.id.tv_to_view2);
-        MaterialTextView tvAttendees = view.findViewById(R.id.tv_attendees_view2);
-        MaterialTextView tvBudget = view.findViewById(R.id.tv_budget_view2);
         MaterialTextView tvApprovedBy = view.findViewById(R.id.tv_approved_by_view2);
         MaterialTextView tvFMReview = view.findViewById(R.id.tv_fm_review_view2);
-
         LinearLayout llFinancialManager = view.findViewById(R.id.ll_fm);
         etFMReview = view.findViewById(R.id.et_fm_review);
         tiFMReview = view.findViewById(R.id.ti_fm_review);
-
         MaterialButton btnDelete = view.findViewById(R.id.btn_event_details_delete);
         MaterialButton btnApprove = view.findViewById(R.id.btn_event_details_approve);
         MaterialButton btnReview = view.findViewById(R.id.btn_add_comment);
 
         switch (RoleTransfer.getRole()) {
             case "Customer Service":
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
             case "Senior Customer Service Officer":
             case "Administration department manager":
-                btnDelete.setVisibility(View.VISIBLE);
-                btnApprove.setVisibility(View.VISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.VISIBLE, View.VISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
             case "Financial manager":
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.VISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
                 llFinancialManager.setVisibility(View.VISIBLE);
                 break;
             default:
-                btnDelete.setVisibility(View.INVISIBLE);
-                btnApprove.setVisibility(View.INVISIBLE);
-                btnReview.setVisibility(View.INVISIBLE);
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 break;
         }
 
@@ -135,19 +121,14 @@ public class FragmentEventDetails extends Fragment {
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
         /* ------- LISTENERS --------*/
-        eventVM.getEvent().observe(getActivity(), eventItem -> {
-            event = eventItem.getEvent();
+        eventVM.getEvent().observe(requireActivity(), event -> {
             if (event.getLevel() == 1 || event.getLevel() == 3) btnApprove.setEnabled(false);
-            itemIdentifier = eventItem.getIdx();
+            itemIdentifier = eventVM.getIdentifier();
+
+            binding.setEventVM(eventVM);
+            mEvent = event;
 
             /* ------ UI ---------*/
-            tvRecordNumber.setText(event.getRecordNumber());
-            tvClientName.setText(event.getClientName());
-            tvEventType.setText(event.getEventType());
-            tvFrem.setText(event.getFromDate());
-            tvTo.setText(event.getToDate());
-            tvAttendees.setText(String.valueOf(event.getAttendees()));
-            tvBudget.setText(String.valueOf(event.getBudget()));
             tvApprovedBy.setText(getApprovedBy(event.getLevel()));
             if (event.getLevel() > 1) tvFMReview.setText(event.getFMReview());
         });
@@ -159,16 +140,18 @@ public class FragmentEventDetails extends Fragment {
         return view;
     }
 
+
+
     private void onReview() {
         if (RoleTransfer.getRole().equals("Financial manager")) {
-            if (event != null) {
+            if (mEvent != null) {
                 if (Objects.equals(String.valueOf(etFMReview.getText()), "")) {
                     tiFMReview.setError("Required");
                     Toast.makeText(getActivity(), "Please review event", Toast.LENGTH_SHORT).show();
                 } else {
-                    event.setFMReview(String.valueOf(etFMReview.getText()));
-                    event.addLevel();
-                    BaseActivity.eventList.updateEvent(event, itemIdentifier);
+                    mEvent.setFMReview(String.valueOf(etFMReview.getText()));
+                    mEvent.addLevel();
+                    BaseActivity.eventList.updateEvent(mEvent, itemIdentifier);
 
                     //Update list in local storage
                     saveResultList();
@@ -191,9 +174,9 @@ public class FragmentEventDetails extends Fragment {
 
     private void onApprove() {
         if (RoleTransfer.getRole().equals("Senior Customer Service Officer") || RoleTransfer.getRole().equals("Administration department manager")) {
-            if (event != null) {
-                event.addLevel();
-                BaseActivity.eventList.updateEvent(event, itemIdentifier);
+            if (mEvent != null) {
+                mEvent.addLevel();
+                BaseActivity.eventList.updateEvent(mEvent, itemIdentifier);
 
                 //Update list in local storage
                 saveResultList();
@@ -214,7 +197,7 @@ public class FragmentEventDetails extends Fragment {
 
     private void saveResultList() {
         try {
-            FileOutputStream fos = getActivity().openFileOutput("eventlist.ser", Context.MODE_PRIVATE);
+            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.eventList);
             oos.close();
@@ -227,5 +210,11 @@ public class FragmentEventDetails extends Fragment {
         FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, fragment, "");
         fragmentTransaction.commit();
+    }
+
+    private void buttonVisibilitySetter(MaterialButton btnDelete, MaterialButton btnApprove, MaterialButton btnReview, int view1, int view2, int view3) {
+        btnDelete.setVisibility(view1);
+        btnApprove.setVisibility(view2);
+        btnReview.setVisibility(view3);
     }
 }

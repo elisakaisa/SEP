@@ -12,27 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sep.view.eventRecyclerView.EventItem;
-import com.example.sep.view.eventRecyclerView.EventItemAdapter;
-import com.example.sep.model.Event;
-import com.example.sep.viewModel.EventListViewModel;
-import com.example.sep.viewModel.EventViewModel;
-import com.example.sep.viewModel.RoleTransfer;
+import com.example.sep.model.FinancialRequest;
+import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItem;
+import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItemAdapter;
+import com.example.sep.viewModel.FinancialRequestListViewModel;
+import com.example.sep.viewModel.FinancialRequestViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentEventList#newInstance} factory method to
+ * Use the {@link FragmentFinancialRequestsList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentEventList extends Fragment {
+public class FragmentFinancialRequestsList extends Fragment {
 
-    private RecyclerView rv_events;
-    private ArrayList<EventItem> itemList;
-    private EventViewModel eventVM;
+    private RecyclerView rvRequests;
+    private ArrayList<FinancialRequestItem> itemList;
     private FloatingActionButton fabAdd;
+    private FinancialRequestViewModel requestVM;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +42,7 @@ public class FragmentEventList extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentEventList() {
+    public FragmentFinancialRequestsList() {
         // Required empty public constructor
     }
 
@@ -53,11 +52,11 @@ public class FragmentEventList extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentEventList.
+     * @return A new instance of fragment FragmentFinancialRequestsList.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentEventList newInstance(String param1, String param2) {
-        FragmentEventList fragment = new FragmentEventList();
+    public static FragmentFinancialRequestsList newInstance(String param1, String param2) {
+        FragmentFinancialRequestsList fragment = new FragmentFinancialRequestsList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,57 +77,35 @@ public class FragmentEventList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_event_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_financial_requests_list, container, false);
 
         /*------------ UI ------------*/
-        rv_events = view.findViewById(R.id.rv_events);
-        fabAdd = view.findViewById(R.id.fab_add);
+        rvRequests = view.findViewById(R.id.rv_requests);
+        fabAdd = view.findViewById(R.id.fab_add_request);
 
-        int accessLevel = 0;
-        String role = RoleTransfer.getRole();
-        switch (role) {
-            case "Customer Service":
-                fabAdd.setVisibility(View.VISIBLE);
-                break;
-            case "Senior Customer Service Officer":
-                accessLevel = 1;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-            case "Financial manager":
-                accessLevel = 2;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-            case "Administration department manager":
-                accessLevel = 3;
-                fabAdd.setVisibility(View.INVISIBLE);
-                break;
-        }
+        // TODO: set who can add requests, see how this can be done
+        fabAdd.setVisibility(View.VISIBLE);
 
         /*------------ VM ------------*/
-        eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
-        EventListViewModel eventListVM = new ViewModelProvider(requireActivity()).get(EventListViewModel.class);
+        FinancialRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(FinancialRequestListViewModel.class);
+        requestVM = new ViewModelProvider(requireActivity()).get(FinancialRequestViewModel.class);
 
         /*---------- LISTENERS ----------*/
-        int finalAccessLevel = accessLevel-1;
-        eventListVM.getEvent().observe(requireActivity(), events -> {
+        requestsVM.getRequests().observe(requireActivity(), requests -> {
             itemList = new ArrayList<>();
             int i = 0;
-            for (Event singleEvent : events){
-                // add to the recyclerView only the events that the employee can view
-                if (singleEvent.getLevel() >= finalAccessLevel) {
-                    itemList.add(new EventItem(singleEvent, i));
-                }
+            for (FinancialRequest singleRequest : requests) {
+                itemList.add(new FinancialRequestItem(singleRequest, i));
                 i++;
             }
-
-            EventItemAdapter resultItemAdapter = new EventItemAdapter(itemList);
-            rv_events.setLayoutManager(new LinearLayoutManager(getActivity()));
-            rv_events.setAdapter(resultItemAdapter);
-            resultItemAdapter.setOnItemClickListener(onItemClickListener);
+            FinancialRequestItemAdapter requestItemAdapter = new FinancialRequestItemAdapter(itemList);
+            rvRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
+            rvRequests.setAdapter(requestItemAdapter);
+            requestItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
         fabAdd.setOnClickListener(v -> {
-            loadFragment(new FragmentCreateEvent());
+            loadFragment(new FragmentFinancialRequestForm());
         });
 
         return view;
@@ -139,11 +116,11 @@ public class FragmentEventList extends Fragment {
         public void onClick(View view) {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
-            EventItem eventItem = itemList.get(position);
-            eventVM.setEvent(eventItem.getEvent());
-            eventVM.setIdentifier(eventItem.getIdx());
+            FinancialRequestItem requestItem = itemList.get(position);
+            requestVM.setRequest(requestItem.getRequest());
+            requestVM.setIdentifier(requestItem.getIdx());
 
-            loadFragment(new FragmentEventDetails());
+            loadFragment(new FragmentFinancialRequestDetails());
         }
     };
 

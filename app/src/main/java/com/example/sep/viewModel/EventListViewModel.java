@@ -37,7 +37,7 @@ public class EventListViewModel extends AndroidViewModel {
         // asynchronous call to load the event
         //Deserialise eventslist here
         try{
-            FileInputStream fin = getApplication().getApplicationContext().openFileInput("eventlist.ser");
+            FileInputStream fin = getApplication().getApplicationContext().openFileInput(BaseActivity.EVENT_LIST_FILE);
             ObjectInputStream oin = new ObjectInputStream(fin);
             BaseActivity.eventList = (EventList) oin.readObject();
             events.setValue(BaseActivity.eventList.getTheEvents());

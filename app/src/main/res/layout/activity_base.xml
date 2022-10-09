@@ -74,6 +74,24 @@
 
             app:labelVisibilityMode="labeled"/>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation_fm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:menu="@menu/bottom_nav_menu_fm"
+
+            app:itemIconTint="@drawable/selector"
+            app:itemTextColor="@drawable/selector"
+            android:background="?colorPrimary"
+
+            app:labelVisibilityMode="labeled"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
