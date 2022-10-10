@@ -49,7 +49,7 @@ public class ActivityLogin extends AppCompatActivity {
         /* ----- USER FROM STORAGE ------*/
         sharedPref = getPreferences(Context.MODE_PRIVATE);
         Employee userFromStorage = new Employee(null, null, null, null);
-        if (sharedPref.contains(NAME)) {
+        if (sharedPref.contains(NAME) && sharedPref.contains(ROLE) && sharedPref.contains(DEPARTMENT)) {
             userFromStorage.setDepartment(sharedPref.getString(DEPARTMENT, null));
             userFromStorage.setName(sharedPref.getString(NAME, null));
             userFromStorage.setRole(sharedPref.getString(ROLE, null));
@@ -65,6 +65,7 @@ public class ActivityLogin extends AppCompatActivity {
             } else {
                 tiPassword.setError(null);
                 tiUsername.setError(null);
+                // TODO: make sure space is ignored (trim?)
                 loginVM.login(String.valueOf(etUsername.getText()), String.valueOf(etPassword.getText()));
             }
         });

@@ -10,7 +10,7 @@ public class EventTest {
 
     @Test
     public void createEvent() {
-        Event event = TestVariables.event;
+        Event event = TestVariables.event3;
         assertEquals(event.getId(), "id");
         assertEquals(event.getRecordNumber(), "recordNumber");
         assertEquals(event.getEventType(), "eventType");

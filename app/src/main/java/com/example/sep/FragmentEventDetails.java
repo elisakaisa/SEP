@@ -105,6 +105,7 @@ public class FragmentEventDetails extends Fragment {
             case "Customer Service":
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
+                int i = 1; // TODO clear this once all roles are defined
 
                 break;
             case "Senior Customer Service Officer":
@@ -118,10 +119,15 @@ public class FragmentEventDetails extends Fragment {
                 llFinancialManager.setVisibility(View.VISIBLE);
 
                 break;
-            default:
 
+            case "Production department manager":
+            case "Services department manager":
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
-
+                llFinancialManager.setVisibility(View.INVISIBLE);
+                break;
+            default:
+                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
+                llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
         }
 

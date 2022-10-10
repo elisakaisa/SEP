@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.TableRow;
 
 import com.example.sep.model.Event;
 import com.example.sep.model.Task;
@@ -81,10 +82,16 @@ public class FragmentTaskDetails extends Fragment {
         MaterialTextView tvTaskBudget = view.findViewById(R.id.tv_budget_view);
         MaterialTextView tvTaskDescription = view.findViewById(R.id.tv_approved_by_view);
 
+        TableRow trPlanning = view.findViewById(R.id.row_planning);
+        TableRow trBudget = view.findViewById(R.id.row_budget);
+        TableRow trBudget2 = view.findViewById(R.id.row_budget_2);
+
         TextInputEditText tvTaskPlanning = view.findViewById(R.id.et_task_plan);
         CheckBox cbTaskBudgetRequest = view.findViewById(R.id.cb_budget);
         TextInputEditText tvTaskExtraBudget = view.findViewById(R.id.et_extra_budget);
         MaterialButton btnSubmitTaskPlanning = view.findViewById(R.id.btn_submit_task_planning);
+        MaterialButton btnResourcesRequest = view.findViewById(R.id.btn_resources_request);
+        MaterialButton btnFinancialRequest = view.findViewById(R.id.btn_financial_request);
 
         switch (RoleTransfer.getRole()) {
             case "Service department manager":
@@ -93,7 +100,12 @@ public class FragmentTaskDetails extends Fragment {
                 cbTaskBudgetRequest.setVisibility(View.INVISIBLE);
                 tvTaskExtraBudget.setVisibility(View.INVISIBLE);
                 btnSubmitTaskPlanning.setVisibility(View.INVISIBLE);
-
+                trPlanning.setVisibility(View.GONE);
+                trBudget.setVisibility(View.GONE);
+                trBudget2.setVisibility(View.GONE);
+                btnSubmitTaskPlanning.setVisibility(View.INVISIBLE);
+                btnResourcesRequest.setVisibility(View.VISIBLE);
+                btnFinancialRequest.setVisibility(View.VISIBLE);
                 break;
 
             default:
@@ -101,7 +113,12 @@ public class FragmentTaskDetails extends Fragment {
                 cbTaskBudgetRequest.setVisibility(View.VISIBLE);
                 tvTaskExtraBudget.setVisibility(View.INVISIBLE);
                 btnSubmitTaskPlanning.setVisibility(View.VISIBLE);
-
+                trPlanning.setVisibility(View.VISIBLE);
+                trBudget.setVisibility(View.VISIBLE);
+                trBudget2.setVisibility(View.VISIBLE);
+                btnSubmitTaskPlanning.setVisibility(View.VISIBLE);
+                btnResourcesRequest.setVisibility(View.INVISIBLE);
+                btnFinancialRequest.setVisibility(View.INVISIBLE);
                 break;
         }
 

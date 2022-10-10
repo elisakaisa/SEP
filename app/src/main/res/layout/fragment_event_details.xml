@@ -222,7 +222,7 @@
                 app:boxBackgroundMode="filled"
                 app:boxBackgroundColor="?colorPrimaryVariant"
                 android:padding="4dp"
-                android:hint="@string/attendees">
+                android:hint="@string/review">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_fm_review"

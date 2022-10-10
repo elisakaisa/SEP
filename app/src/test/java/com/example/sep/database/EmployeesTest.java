@@ -51,9 +51,6 @@ public class EmployeesTest {
     @Test
     public void getEmployeeFromDbBySubTeam() {
 
-        // init
-        Employees cEmployees = new Employees();
-        cEmployees.initEmployees();
         ArrayList<Employee> employee = cEmployees.getEmployeesFromDbBySubTeam(Employees.PRODUCTION,Employees.PHOTO);
 
         assertEquals(employee.get(0).getDepartment(), "Production");

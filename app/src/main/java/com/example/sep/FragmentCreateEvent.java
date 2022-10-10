@@ -136,6 +136,7 @@ public class FragmentCreateEvent extends Fragment {
     private void submitEvent() {
         // TODO add safety feature if numbers emptySara
         //TODO figure out how to make a refernceID/ record number
+        // TODO: check that date to and from are coherent
         Event newEvent = new Event(
                 "todoId",
                 String.valueOf(etRecordNumber.getText()),
@@ -153,7 +154,7 @@ public class FragmentCreateEvent extends Fragment {
                 photo,
                 0);
         saveResultList(newEvent);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, new FragmentEventList(), "");
         fragmentTransaction.commit();
     }

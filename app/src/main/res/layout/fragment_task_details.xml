@@ -122,7 +122,9 @@
                     android:padding="4dp"/>
 
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/row_empty"
+                android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:padding="4dp"
@@ -132,10 +134,12 @@
                     android:layout_width="wrap_content" />
 
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/row_planning"
+                android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:text="Planning"
+                    android:text="@string/planning"
                     android:padding="4dp"
 
                     android:layout_weight="1"
@@ -162,7 +166,9 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
             </TableRow>
-            <TableRow>
+            <TableRow
+                android:id="@+id/row_budget"
+                android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
@@ -180,7 +186,9 @@
             </TableRow>
 
 
-            <TableRow>
+            <TableRow
+                android:id="@+id/row_budget_2"
+                android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:text="@string/extra_budget"
@@ -215,10 +223,34 @@
             android:id="@+id/btn_submit_task_planning"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="@string/submit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_task_details"
+            app:cornerRadius="20dp"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_financial_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/financial_request"
+            app:layout_constraintEnd_toStartOf="@id/btn_resources_request"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_task_details"
+            app:cornerRadius="20dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_resources_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resources_request"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_financial_request"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintTop_toBottomOf="@+id/table_task_details"
             app:cornerRadius="20dp"/>
 

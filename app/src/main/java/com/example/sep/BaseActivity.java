@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.sep.database.Employees;
 import com.example.sep.database.FinancialRequestList;
 import com.example.sep.database.TaskList;
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
@@ -33,6 +34,7 @@ public class BaseActivity extends AppCompatActivity {
 
     BottomNavigationView bottomNavigationView;
     BottomNavigationView bottomNavigationViewFM;
+    BottomNavigationView bottomNavigationViewFiM;
     public static TaskList taskList;
 
     String name;
@@ -49,6 +51,8 @@ public class BaseActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(this::listener);
         bottomNavigationViewFM = findViewById(R.id.bottom_navigation_fm);
         bottomNavigationViewFM.setOnItemSelectedListener(this::listenerFM);
+        bottomNavigationViewFiM = findViewById(R.id.bottom_navigation_fim);
+        bottomNavigationViewFiM.setOnItemSelectedListener(this::listenerFiM);
 
         /*------------ UI ------------*/
         TextView tv_username = findViewById(R.id.tv_logged_as);
@@ -74,7 +78,7 @@ public class BaseActivity extends AppCompatActivity {
         if ((role != null) & (department != null)) {
             setDefaultFragment(role, department);
         } else {
-            loadFragment(new FragmentHome());
+            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentHome());
         }
 
         // highlight the correct icon
@@ -86,19 +90,26 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setDefaultFragment(String role, String department) {
+        // TODO add all user cases
+        // TODO make bottom nav function
         // method to select the correct default fragment and visible menus based on the logged in user
         if (department.equals(Employees.ADMINISTRATION)) {
-            loadFragment(new FragmentEventList());
+            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
         } else if ((department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))){
             bottomNavigationView.setVisibility(View.INVISIBLE);
             bottomNavigationViewFM.setVisibility(View.VISIBLE);
-            loadFragment(new FragmentEventList());
+            bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
+            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
             bottomNavigationViewFM.getMenu().getItem(0).setChecked(true);
         } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
+            bottomNavigationView.setVisibility(View.INVISIBLE);
+            bottomNavigationViewFM.setVisibility(View.INVISIBLE);
+            bottomNavigationViewFiM.setVisibility(View.VISIBLE);
+            bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
             if (role.equals("Production department manager") || role.equals("Services department manager")){
-                loadFragment(new FragmentEventList());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
             } else {
-                loadFragment(new FragmentTaskListSubTeam());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
             }
         }
 
@@ -123,7 +134,27 @@ public class BaseActivity extends AppCompatActivity {
                 return true;
             case R.id.nav_financial_requests:
                 // TODO: if financial manager, load financial request rv
-                loadFragment(new FragmentFinancialRequestsList());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                return true;
+        }
+        return false;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    private boolean listenerFiM(MenuItem menuItem) {
+        // TODO implement correct fragments
+        switch (menuItem.getItemId()){
+            case R.id.nav_events_fim:
+                setDefaultFragment(role, department);
+                return true;
+            case R.id.nav_fin_requests_fim:
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                return true;
+            case R.id.nav_tasks_fim:
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                return true;
+            case R.id.nav_res_requests_fim:
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
                 return true;
         }
         return false;
@@ -141,11 +172,5 @@ public class BaseActivity extends AppCompatActivity {
             // add additional menus here
         }
         return false;
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, fragment, "");
-        fragmentTransaction.commit();
     }
 }

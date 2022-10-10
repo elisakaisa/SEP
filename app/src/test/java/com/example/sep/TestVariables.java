@@ -38,7 +38,7 @@ public class TestVariables {
             0
     );
 
-    public static Event event = new Event(
+    public static Event event3 = new Event(
             "id",
             "recordNumber",
             "clientName",

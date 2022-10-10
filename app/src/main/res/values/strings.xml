@@ -86,5 +86,10 @@
     <string name="no_request">False</string>
     <string name="subteam">Decor</string>
     <string name="person_in_sub_team">Magy</string>
+    <string name="tasks">Tasks</string>
+    <string name="resources_requests">Resources\nrequests</string>
+    <string name="resources">Resources</string>
+    <string name="planning">Planning</string>
+    <string name="resources_request">Resources request</string>
 
 </resources>

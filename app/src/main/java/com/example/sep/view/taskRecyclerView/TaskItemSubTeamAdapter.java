@@ -14,7 +14,7 @@ import com.example.sep.R;
 import java.util.ArrayList;
 
 public class TaskItemSubTeamAdapter extends RecyclerView.Adapter<TaskItemSubTeamAdapter.TaskItemViewHolder> {
-
+ //TODO combine with TaskItemManagerAdapter
     private ArrayList<TaskItem> mTaskItem;
     private View.OnClickListener mOnItemClickListener;
 
