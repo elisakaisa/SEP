@@ -47,4 +47,27 @@ public class EmployeesTest {
         assertEquals(employee2.getRole(), "Top chef");
 
     }
+
+    @Test
+    public void getEmployeeFromDbBySubTeam() {
+
+        // init
+        Employees cEmployees = new Employees();
+        cEmployees.initEmployees();
+        ArrayList<Employee> employee = cEmployees.getEmployeesFromDbBySubTeam(Employees.PRODUCTION,Employees.PHOTO);
+
+        assertEquals(employee.get(0).getDepartment(), "Production");
+        assertEquals(employee.get(0).getRole(), "Photographer");
+        assertEquals(employee.get(1).getDepartment(), "Production");
+        assertEquals(employee.get(1).getRole(), "Photographer");
+        assertEquals(employee.size(), 2);
+
+
+        ArrayList<Employee> employee2 = cEmployees.getEmployeesFromDbBySubTeam("Service", "Top chef");
+
+        assertEquals(employee2.get(0).getDepartment(), "Service");
+        assertEquals(employee2.get(0).getRole(), "Top chef");
+        //assertEquals(employee.size(), 1);
+
+    }
 }

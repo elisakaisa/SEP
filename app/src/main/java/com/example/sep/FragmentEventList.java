@@ -27,7 +27,7 @@ import java.util.ArrayList;
  * Use the {@link FragmentEventList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentEventList extends Fragment {
+public class  FragmentEventList extends Fragment {
 
     private RecyclerView rv_events;
     private ArrayList<EventItem> itemList;
@@ -98,10 +98,15 @@ public class FragmentEventList extends Fragment {
                 accessLevel = 2;
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;
-            case "Administration department manager":
+
+            case "Production department manager":
+            case "Service department manager":
+            case "Administration department manager" :
                 accessLevel = 3;
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;
+
+
         }
 
         /*------------ VM ------------*/
