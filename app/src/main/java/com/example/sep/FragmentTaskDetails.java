@@ -12,9 +12,9 @@ import android.widget.CheckBox;
 
 import com.example.sep.model.Event;
 import com.example.sep.model.Task;
-import com.example.sep.viewModel.EventViewModel;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
-import com.example.sep.viewModel.TaskItemViewModel;
+import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
@@ -110,7 +110,7 @@ public class FragmentTaskDetails extends Fragment {
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
         /* ------- LISTENERS --------*/
-        eventVM.getEvent().observe(getActivity(), eventItem -> {
+        eventVM.getEvent().observe(requireActivity(), eventItem -> {
 
             tvEventType.setText(eventItem.getEventType());
             tvEventFrom.setText(eventItem.getFromDate());
@@ -118,7 +118,7 @@ public class FragmentTaskDetails extends Fragment {
             tvEventAttendees.setText(String.valueOf(eventItem.getAttendees()));
         });
 
-        taskVM.getTask().observe(getActivity(), taskItem -> {
+        taskVM.getTask().observe(requireActivity(), taskItem -> {
             task = taskItem.getTask();
 
             tvTaskBudget.setText(task.getBudgetForTask());

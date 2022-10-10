@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 
+import com.example.sep.viewModel.loginVM.LoginInterface;
+import com.example.sep.viewModel.loginVM.LoginViewModel;
+
 import org.junit.Test;
 
 public class LoginViewModelTest {

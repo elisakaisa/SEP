@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItem;
 import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItemAdapter;
-import com.example.sep.viewModel.FinancialRequestListViewModel;
-import com.example.sep.viewModel.FinancialRequestViewModel;
+import com.example.sep.viewModel.financialRequestVM.FinancialRequestListViewModel;
+import com.example.sep.viewModel.financialRequestVM.FinancialRequestViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;

@@ -29,10 +29,6 @@ public class Employees {
     public static final String SERVICE = "Senior waitress";
 
 
-
-
-
-
     // Administration department
     Employee SCSO = new Employee("Janet", ADMINISTRATION, "Senior Customer Service Officer", "password");
     Employee CS1 = new Employee("Sarah", ADMINISTRATION,"Customer Service", "password");
@@ -138,22 +134,23 @@ public class Employees {
     }
 
     public String assignRoleToSubTeam(String role){
-        if (role.equals("Decor")) {
-            return "Decorating Architect";
-        } else if (role.equals("Photo")){
-            return "Photographer";
-        } else if (role.equals("Music")){
-            return "Audio specialist";
-        } else if (role.equals("Design")){
-            return "Graphic designer";
-        } else if (role.equals("Data")){
-            return "Network Engineer";
-        } else if (role.equals("Food")){
-            return "Top chef";
-        } else if (role.equals("Service")){
-            return "Senior waitress";
-        } else {
-            return null;
+        switch (role) {
+            case "Decor":
+                return "Decorating Architect";
+            case "Photo":
+                return "Photographer";
+            case "Music":
+                return "Audio specialist";
+            case "Design":
+                return "Graphic designer";
+            case "Data":
+                return "Network Engineer";
+            case "Food":
+                return "Top chef";
+            case "Service":
+                return "Senior waitress";
+            default:
+                return null;
         }
 
     }

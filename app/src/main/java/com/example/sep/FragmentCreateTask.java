@@ -16,17 +16,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.sep.database.Employees;
 import com.example.sep.model.Employee;
 import com.example.sep.model.Task;
 import com.example.sep.viewModel.RoleTransfer;
-import com.example.sep.viewModel.TaskItemViewModel;
+import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -162,7 +160,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     private void saveResultsTaskList(Task task) {
         BaseActivity.taskList.addTask(task);
         try {
-            FileOutputStream fos = getActivity().openFileOutput("taskList.ser", Context.MODE_PRIVATE);
+            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.TASK_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.taskList);
             oos.close();

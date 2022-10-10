@@ -15,13 +15,12 @@ import android.widget.Toast;
 
 import com.example.sep.databinding.FragmentFinancialRequestDetailsBinding;
 import com.example.sep.model.FinancialRequest;
-import com.example.sep.viewModel.FinancialRequestViewModel;
-import com.example.sep.viewModel.RoleTransfer;
+import com.example.sep.viewModel.financialRequestVM.FinancialRequestViewModel;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textview.MaterialTextView;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -126,7 +125,7 @@ public class FragmentFinancialRequestDetails extends Fragment {
 
     private void saveResultList() {
         try {
-            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.fRequestList);
             oos.close();
@@ -136,7 +135,7 @@ public class FragmentFinancialRequestDetails extends Fragment {
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, fragment, "");
         fragmentTransaction.commit();
     }

@@ -29,6 +29,7 @@ public class BaseActivity extends AppCompatActivity {
 
     public static String EVENT_LIST_FILE = "eventlist.ser";
     public static String FIN_REQUEST_FILE = "finrequestlist.ser";
+    public static String TASK_LIST_FILE = "taskList.ser";
 
     BottomNavigationView bottomNavigationView;
     BottomNavigationView bottomNavigationViewFM;
@@ -70,10 +71,10 @@ public class BaseActivity extends AppCompatActivity {
 
         // default fragment
         // TODO: figure out how we can do the menu
-        setDefaultFragment(role, department);
-        if ((role != null) & (department != null)){setDefaultFragment(role, department);} else {
+        if ((role != null) & (department != null)) {
+            setDefaultFragment(role, department);
+        } else {
             loadFragment(new FragmentHome());
-
         }
 
         // highlight the correct icon
@@ -85,6 +86,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setDefaultFragment(String role, String department) {
+        // method to select the correct default fragment and visible menus based on the logged in user
         if (department.equals(Employees.ADMINISTRATION)) {
             loadFragment(new FragmentEventList());
         } else if ((department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))){

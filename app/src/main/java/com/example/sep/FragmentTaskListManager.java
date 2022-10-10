@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemManagerAdapter;
-import com.example.sep.viewModel.TaskItemViewModel;
-import com.example.sep.viewModel.TaskListViewModel;
+import com.example.sep.viewModel.taskVM.TaskItemViewModel;
+import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -121,7 +121,7 @@ public class FragmentTaskListManager extends Fragment {
     };
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, fragment, "");
         fragmentTransaction.commit();
     }

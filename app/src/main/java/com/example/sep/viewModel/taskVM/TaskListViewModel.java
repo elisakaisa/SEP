@@ -1,4 +1,4 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.taskVM;
 
 import android.app.Application;
 
@@ -38,7 +38,7 @@ public class TaskListViewModel extends AndroidViewModel {
         // asynchronous call to load the task
         // Deserialize taskList here
         try{
-            FileInputStream fin = getApplication().getApplicationContext().openFileInput("taskList.ser");
+            FileInputStream fin = getApplication().getApplicationContext().openFileInput(BaseActivity.TASK_LIST_FILE);
             ObjectInputStream oin = new ObjectInputStream(fin);
             BaseActivity.taskList = (TaskList) oin.readObject();
             tasks.setValue(BaseActivity.taskList.getTheTasks());

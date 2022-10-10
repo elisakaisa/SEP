@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.sep.databinding.FragmentEventDetailsBinding;
 import com.example.sep.model.Event;
-import com.example.sep.viewModel.EventViewModel;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -209,7 +209,7 @@ public class FragmentEventDetails extends Fragment {
 
     private void saveResultList() {
         try {
-            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.eventList);
             oos.close();
@@ -219,7 +219,7 @@ public class FragmentEventDetails extends Fragment {
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, fragment, "");
         fragmentTransaction.commit();
     }

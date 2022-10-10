@@ -1,4 +1,4 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.eventVM;
 
 import android.app.Application;
 import android.view.View;

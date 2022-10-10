@@ -1,4 +1,7 @@
 package com.example.sep.viewModel;
+/*
+class used to get the role, department and name from the login activity to the baseActivity and its children fragments
+ */
 
 public class RoleTransfer {
     private static String mRole, mDepartment, mName;

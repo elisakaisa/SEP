@@ -1,11 +1,10 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.loginVM;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sep.database.Employees;
 import com.example.sep.model.Employee;
-import com.example.sep.model.Task;
 
 public class LoginViewModel extends ViewModel {
 

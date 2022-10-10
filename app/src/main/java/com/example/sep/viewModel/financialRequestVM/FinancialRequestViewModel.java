@@ -1,4 +1,4 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.financialRequestVM;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

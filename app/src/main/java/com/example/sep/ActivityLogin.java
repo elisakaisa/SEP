@@ -7,13 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.sep.model.Employee;
-import com.example.sep.viewModel.LoginViewModel;
+import com.example.sep.viewModel.loginVM.LoginViewModel;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 

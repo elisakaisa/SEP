@@ -15,8 +15,8 @@ import android.view.ViewGroup;
 import com.example.sep.view.eventRecyclerView.EventItem;
 import com.example.sep.view.eventRecyclerView.EventItemAdapter;
 import com.example.sep.model.Event;
-import com.example.sep.viewModel.EventListViewModel;
-import com.example.sep.viewModel.EventViewModel;
+import com.example.sep.viewModel.eventVM.EventListViewModel;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 

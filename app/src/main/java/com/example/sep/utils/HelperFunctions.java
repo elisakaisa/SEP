@@ -1,5 +1,9 @@
 package com.example.sep.utils;
 
+/*
+Small methods used in different classes for ie. formatting
+ */
+
 public class HelperFunctions {
 
     public static String padWithZeroes(int number) {

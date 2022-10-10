@@ -1,5 +1,9 @@
 package com.example.sep.view.eventRecyclerView;
 
+/*
+Model of the part of the event that is displayed in the recyclerView
+ */
+
 import com.example.sep.model.Event;
 
 import java.io.Serializable;

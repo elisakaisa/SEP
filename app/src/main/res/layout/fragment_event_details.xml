@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentEventDetails">
     <data>
-        <variable name="eventVM" type="com.example.sep.viewModel.EventViewModel" />
+        <variable name="eventVM" type="com.example.sep.viewModel.eventVM.EventViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

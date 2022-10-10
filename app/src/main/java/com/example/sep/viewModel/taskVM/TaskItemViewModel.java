@@ -1,4 +1,4 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.taskVM;
 
 
 import androidx.lifecycle.LiveData;

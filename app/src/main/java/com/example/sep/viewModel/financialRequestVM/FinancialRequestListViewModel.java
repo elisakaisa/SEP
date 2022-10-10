@@ -1,4 +1,4 @@
-package com.example.sep.viewModel;
+package com.example.sep.viewModel.financialRequestVM;
 
 import android.app.Application;
 

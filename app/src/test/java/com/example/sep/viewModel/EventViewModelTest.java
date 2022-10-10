@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule;
 
-import com.example.sep.TestVariables;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 
 import org.junit.Before;
 import org.junit.Rule;
