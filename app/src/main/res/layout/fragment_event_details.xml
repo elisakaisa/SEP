@@ -40,6 +40,19 @@
 
             <TableRow
                 android:gravity="center">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_view"
+                    android:text="@string/event_id"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_view2"
+                    android:text="@{String.valueOf(eventVM.event.id)}"
+                    android:padding="4dp"/>
+            </TableRow>
+
+            <TableRow
+                android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_record_number_view"
@@ -140,6 +153,20 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_status_view"
+                    android:text="@string/status"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_status_view2"
+                    android:text="@{String.valueOf(eventVM.event.status)}"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_approved_by_view"
                     android:text="@string/approved_by"
                     android:padding="4dp"/>
@@ -172,7 +199,7 @@
             android:id="@+id/btn_event_details_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/delete"
+            android:text="@string/dismiss"
             app:layout_constraintEnd_toStartOf="@id/btn_event_details_approve"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginTop="8dp"

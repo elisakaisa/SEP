@@ -23,6 +23,15 @@
             android:text="@string/event" />
 
         <TextView
+            android:id="@+id/tv_cell_event_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="4dp"
+            android:text="@string/status" />
+
+        <!-- TODO delet this tv -->
+        <TextView
             android:id="@+id/tv_cell_level"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

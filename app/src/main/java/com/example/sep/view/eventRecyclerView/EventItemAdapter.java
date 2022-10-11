@@ -29,6 +29,7 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
         EventItem currentItem = mEventItem.get(position);
         holder.iClientName.setText(mEventItem.get(position).getClientName());
         holder.iLevel.setText(String.valueOf(mEventItem.get(position).getLevel()));
+        holder.iStatus.setText(mEventItem.get(position).getStatus());
     }
 
     @Override
@@ -37,12 +38,13 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
     }
 
     public class EventItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView iClientName, iLevel;
+        public TextView iClientName, iLevel, iStatus;
 
         public EventItemViewHolder(@NonNull View itemView) {
             super(itemView);
             iClientName = itemView.findViewById(R.id.tv_cell_client_name);
             iLevel = itemView.findViewById(R.id.tv_cell_level);
+            iStatus = itemView.findViewById(R.id.tv_cell_event_status);
 
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);

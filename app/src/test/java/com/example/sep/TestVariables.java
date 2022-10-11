@@ -4,7 +4,7 @@ import com.example.sep.model.Event;
 
 public class TestVariables {
     public static Event event1 = new Event(
-            "id",
+            0,
             "utzftzuf",
             "client1",
             "party",
@@ -18,10 +18,12 @@ public class TestVariables {
             true,
             false,
             false,
-            0
+            Event.CS_CREATED,
+            Event.PRELIMINARY
+
     );
     public static Event event2 = new Event(
-            "id2",
+            4,
             "hfg",
             "client2",
             "seminar",
@@ -35,11 +37,12 @@ public class TestVariables {
             false,
             true,
             true,
-            0
+            Event.CS_CREATED,
+            Event.PRELIMINARY
     );
 
     public static Event event3 = new Event(
-            "id",
+            2,
             "recordNumber",
             "clientName",
             "eventType",
@@ -53,5 +56,6 @@ public class TestVariables {
             true,
             true,
             false,
-            0);
+            Event.CS_CREATED,
+            Event.PRELIMINARY);
 }

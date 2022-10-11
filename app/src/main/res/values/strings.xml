@@ -91,5 +91,7 @@
     <string name="resources">Resources</string>
     <string name="planning">Planning</string>
     <string name="resources_request">Resources request</string>
+    <string name="event_id">Event ID</string>
+    <string name="dismiss">Dismiss</string>
 
 </resources>

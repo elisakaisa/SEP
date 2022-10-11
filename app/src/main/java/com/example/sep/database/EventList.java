@@ -7,6 +7,7 @@ import com.example.sep.model.Event;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class EventList implements Serializable {
     private ArrayList<Event> theEvents;
@@ -24,5 +25,14 @@ public class EventList implements Serializable {
     public void updateEvent(Event event, Integer idx) {
         deleteEvent(idx);
         addEvent(event);
+    }
+
+    public int setNewEventId() {
+        // method to look for the biggest id in the event list and returning a new unique id by adding one to the biggest
+        int maxId = 0;
+        if (theEvents.size() > 0) {
+            maxId = theEvents.stream().max(Comparator.comparing(Event::getId)).get().getId();
+        }
+        return maxId + 1;
     }
 }

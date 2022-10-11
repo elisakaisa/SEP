@@ -29,7 +29,14 @@ public class EventListTest {
     @Test
     public void getTheEventsTest() {
         addEventTest();
-        assertEquals(cEventList.getTheEvents().get(1).getId(), "id2");
+        assertEquals(cEventList.getTheEvents().get(1).getId(), TestVariables.event2.getId());
+    }
+
+    @Test
+    public void setNewEventIdTest() {
+        assertEquals(cEventList.setNewEventId(), 1);
+        addEventTest();
+        assertEquals(cEventList.setNewEventId(), 5);
     }
 
     @Test
@@ -38,7 +45,7 @@ public class EventListTest {
         cEventList.deleteEvent(1);
 
         assertEquals(cEventList.getTheEvents().size(), 1);
-        assertEquals(cEventList.getTheEvents().get(0).getId(), "id");
-        assertNotEquals(cEventList.getTheEvents().get(0).getId(), "id2");
+        assertEquals(cEventList.getTheEvents().get(0).getId(), TestVariables.event1.getId());
+        assertNotEquals(cEventList.getTheEvents().get(0).getId(), 1);
     }
 }

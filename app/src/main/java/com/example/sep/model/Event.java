@@ -3,14 +3,27 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class Event implements Serializable {
-    String id, recordNumber, clientName, eventType, fromDate, toDate, comments, FMreview;
-    int attendees, budget, level;
+    String recordNumber, clientName, eventType, fromDate, toDate, comments, FMreview, status;
+    int attendees, budget, level, id;
     boolean decorations, food, parties, drinks, photo;
     // level: variable to set at which level of the company the request is going
 
+    // level variables
+    public static final int CS_CREATED = 0;
+    public static final int SCS_APPROVED = 1;
+    public static final int FM_REVIEWED = 2;
+    public static final int AM_APPROVED = 3;
+
+    // status variables
+    public static final String PRELIMINARY = "Preliminary";
+    public static final String APPROVED = "Approved";
+    public static final String IN_PROGRESS = "In progress";
+    public static final String ARCHIVED = "Archived";
+    public static final String DISMISSED = "Dismissed";
+
     public Event(
             /* constructor */
-            String newId,
+            int newId,
             String newRecordNumber,
             String newClientName,
             String newEventType,
@@ -24,7 +37,8 @@ public class Event implements Serializable {
             boolean newParties,
             boolean newDrinks,
             boolean newPhoto,
-            int newLevel) {
+            int newLevel,
+            String newStatus) {
         id = newId;
         recordNumber = newRecordNumber;
         clientName = newClientName;
@@ -40,6 +54,7 @@ public class Event implements Serializable {
         drinks = newDrinks;
         photo = newPhoto;
         level = newLevel;
+        status = newStatus;
     }
 
     public boolean isDecorations() {
@@ -82,9 +97,9 @@ public class Event implements Serializable {
         this.photo = photo;
     }
 
-    public String getId() { return id; }
+    public int getId() { return id; }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -160,4 +175,7 @@ public class Event implements Serializable {
         FMreview = review;
     }
     public String getFMReview() { return FMreview; }
+
+    public void setStatus(String status) { this.status = status; }
+    public String getStatus() { return status; }
 }
