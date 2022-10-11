@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.sep.databinding.FragmentFinancialRequestDetailsBinding;
 import com.example.sep.model.FinancialRequest;
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.financialRequestVM.FinancialRequestViewModel;
 import com.google.android.material.button.MaterialButton;
 
@@ -109,7 +110,7 @@ public class FragmentFinancialRequestDetails extends Fragment {
                 //Update list in local storage
                 saveResultList();
                 Toast.makeText(getActivity(), "Event is approved", Toast.LENGTH_SHORT).show();
-                loadFragment(new FragmentFinancialRequestsList());
+                HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestsList());
             }
         //}
     }
@@ -120,7 +121,7 @@ public class FragmentFinancialRequestDetails extends Fragment {
         saveResultList();
         Toast.makeText(getActivity(), "Request is deleted", Toast.LENGTH_SHORT).show();
 
-        loadFragment(new FragmentEventList());
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
     }
 
     private void saveResultList() {
@@ -132,11 +133,5 @@ public class FragmentFinancialRequestDetails extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, fragment, "");
-        fragmentTransaction.commit();
     }
 }

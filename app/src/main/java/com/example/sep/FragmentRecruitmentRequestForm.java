@@ -164,7 +164,7 @@ public class FragmentRecruitmentRequestForm extends Fragment {
         try {
             FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.RES_REQUEST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
-            oos.writeObject(BaseActivity.fRequestList);
+            oos.writeObject(BaseActivity.recruitmentRequestList);
             oos.close();
         } catch (Exception e) {
             e.printStackTrace();

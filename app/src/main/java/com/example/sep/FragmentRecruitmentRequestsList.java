@@ -16,6 +16,7 @@ import com.example.sep.utils.HelperFunctions;
 import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItem;
 import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItemAdapter;
 import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestListViewModel;
+import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
@@ -30,7 +31,7 @@ public class FragmentRecruitmentRequestsList extends Fragment {
     private RecyclerView rvRequests;
     private ArrayList<RecruitmentRequestItem> itemList;
     private FloatingActionButton fabAdd;
-    //private RecruitmentRequestViewModel requestVM;
+    private RecruitmentRequestViewModel requestVM;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -87,6 +88,7 @@ public class FragmentRecruitmentRequestsList extends Fragment {
 
         /*------------ VM ------------*/
         RecruitmentRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(RecruitmentRequestListViewModel.class);
+        requestVM = new ViewModelProvider(requireActivity()).get(RecruitmentRequestViewModel.class);
 
         /*---------- LISTENERS ----------*/
         requestsVM.getRequests().observe(requireActivity(), requests -> {
@@ -113,9 +115,9 @@ public class FragmentRecruitmentRequestsList extends Fragment {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
         int position = viewHolder.getAdapterPosition();
         RecruitmentRequestItem requestItem = itemList.get(position);
-        //requestVM.setRequest(requestItem.getRequest());
-        //requestVM.setIdentifier(requestItem.getIdx());
+        requestVM.setRequest(requestItem.getiRequest());
+        requestVM.setIdentifier(requestItem.getIdx());
 
-        //loadFragment(new FragmentFinancialRequestDetails());
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentRecruitmentRequestDetails());
     };
 }

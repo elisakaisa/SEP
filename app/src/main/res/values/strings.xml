@@ -102,5 +102,6 @@
     <string name="job_title">Job title</string>
     <string name="description">Description</string>
     <string name="create_recruitment_request">Create recruitment request</string>
+    <string name="recruitment_request_details">Recruitment request details</string>
 
 </resources>
