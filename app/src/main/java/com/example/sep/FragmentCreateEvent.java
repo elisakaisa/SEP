@@ -134,11 +134,10 @@ public class FragmentCreateEvent extends Fragment {
     }
 
     private void submitEvent() {
-        // TODO add safety feature if numbers emptySara
-        //TODO figure out how to make a refernceID/ record number
+        // TODO add safety feature if numbers empty
         // TODO: check that date to and from are coherent
         Event newEvent = new Event(
-                "todoId",
+                BaseActivity.eventList.setNewEventId(),
                 String.valueOf(etRecordNumber.getText()),
                 String.valueOf(etClientName.getText()),
                 String.valueOf(etEventType.getText()),
@@ -152,7 +151,8 @@ public class FragmentCreateEvent extends Fragment {
                 parties,
                 drinks,
                 photo,
-                0);
+                Event.CS_CREATED,
+                Event.PRELIMINARY);
         saveResultList(newEvent);
         FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.content_container, new FragmentEventList(), "");
@@ -162,7 +162,7 @@ public class FragmentCreateEvent extends Fragment {
     private void saveResultList(Event event) {
         BaseActivity.eventList.addEvent(event);
         try {
-            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.EVENT_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.eventList);
             oos.close();

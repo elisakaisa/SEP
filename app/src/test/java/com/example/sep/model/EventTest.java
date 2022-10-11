@@ -4,14 +4,20 @@ import static org.junit.Assert.*;
 
 import com.example.sep.TestVariables;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class EventTest {
+    Event event;
+
+    @Before
+    public void init() {
+        event = TestVariables.event3;
+    }
 
     @Test
     public void createEvent() {
-        Event event = TestVariables.event3;
-        assertEquals(event.getId(), "id");
+        assertEquals(event.getId(), TestVariables.event3.getId());
         assertEquals(event.getRecordNumber(), "recordNumber");
         assertEquals(event.getEventType(), "eventType");
         assertEquals(event.getFromDate(), "fromDate");
@@ -21,19 +27,27 @@ public class EventTest {
         assertEquals(event.getBudget(), 1000);
         assertFalse(event.isDecorations());
         assertTrue(event.isFood());
-        assertEquals(event.getLevel(), 0);
+        assertEquals(event.getLevel(), TestVariables.event3.getLevel());
+    }
 
-        // test change of data
-        event.setComments("changed comment");
-        assertEquals(event.getComments(), "changed comment");
-
+    @Test
+    public void changeLevel() {
         // test level changes from 0 to 1 (from customer service to senior customer service
         event.addLevel();
         assertEquals(event.getLevel(), 1);
-
+    }
+    @Test
+    public void addReview() {
         //test add FM review to created object
         event.setFMReview("budget good");
         assertEquals(event.getFMReview(), "budget good");
+    }
+
+    @Test
+    public void changeVariables() {
+        // test change of data
+        event.setComments("changed comment");
+        assertEquals(event.getComments(), "changed comment");
     }
 
 }

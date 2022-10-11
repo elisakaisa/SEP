@@ -12,6 +12,7 @@ public class EventItem implements Serializable {
     int idx;
     Event iEvent;
 
+    String iStatus;
     String iClientName;
     int iLevel;
 
@@ -20,6 +21,7 @@ public class EventItem implements Serializable {
 
         iClientName = event.getClientName();
         iLevel = event.getLevel();
+        iStatus = event.getStatus();
 
         this.idx = idx;
     }
@@ -28,6 +30,7 @@ public class EventItem implements Serializable {
         return iClientName;
     }
     public int getLevel() { return iLevel; }
+    public String getStatus() { return iStatus; }
 
     public Event getEvent(){
         return iEvent;

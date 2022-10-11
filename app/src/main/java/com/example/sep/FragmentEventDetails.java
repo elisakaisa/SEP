@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.sep.databinding.FragmentEventDetailsBinding;
 import com.example.sep.model.Event;
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.google.android.material.button.MaterialButton;
@@ -40,7 +41,6 @@ public class FragmentEventDetails extends Fragment {
     private Event mEvent;
     private TextInputEditText etFMReview;
     private TextInputLayout tiFMReview;
-
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -147,12 +147,12 @@ public class FragmentEventDetails extends Fragment {
             if (event.getLevel() > 1) tvFMReview.setText(event.getFMReview());
         });
 
-        btnDelete.setOnClickListener(v -> onDelete());
+        btnDelete.setOnClickListener(v -> onDismiss());
         btnApprove.setOnClickListener(v -> onApprove());
         btnReview.setOnClickListener(v -> onReview());
 
         btnCheckTaskList.setOnClickListener(v -> {
-            loadFragment(new FragmentTaskListManager());
+            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskListManager());
         });
 
         return view;
@@ -168,13 +168,13 @@ public class FragmentEventDetails extends Fragment {
                     Toast.makeText(getActivity(), "Please review event", Toast.LENGTH_SHORT).show();
                 } else {
                     mEvent.setFMReview(String.valueOf(etFMReview.getText()));
-                    mEvent.addLevel();
+                    mEvent.setLevel(Event.FM_REVIEWED);
                     BaseActivity.eventList.updateEvent(mEvent, itemIdentifier);
 
                     //Update list in local storage
                     saveResultList();
                     Toast.makeText(getActivity(), "Event reviewed", Toast.LENGTH_SHORT).show();
-                    loadFragment(new FragmentEventList());
+                    HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
                 }
             }
         }
@@ -193,24 +193,49 @@ public class FragmentEventDetails extends Fragment {
     private void onApprove() {
         if (RoleTransfer.getRole().equals("Senior Customer Service Officer") || RoleTransfer.getRole().equals("Administration department manager")) {
             if (mEvent != null) {
-                mEvent.addLevel();
+                if (RoleTransfer.getRole().equals("Administration department manager")) {
+                    // if the administration manager approves the event, change the status
+                    mEvent.setStatus(Event.APPROVED);
+                    mEvent.setLevel(Event.AM_APPROVED);
+                } else {
+                    // if the administration manager approves the event, change the status
+                    mEvent.setLevel(Event.SCS_APPROVED);
+                }
+                // Update the event in the eventList
                 BaseActivity.eventList.updateEvent(mEvent, itemIdentifier);
 
                 //Update list in local storage
                 saveResultList();
                 Toast.makeText(getActivity(), "Event is approved", Toast.LENGTH_SHORT).show();
-                loadFragment(new FragmentEventList());
+                HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
+            }
+        }
+    }
+
+    private void onDismiss() {
+        if (RoleTransfer.getRole().equals("Senior Customer Service Officer") || RoleTransfer.getRole().equals("Administration department manager")) {
+            if (mEvent != null) {
+                // set the status to dismissed
+                mEvent.setStatus(Event.DISMISSED);
+                // Update the event in the eventList
+                BaseActivity.eventList.updateEvent(mEvent, itemIdentifier);
+
+                //Update list in local storage
+                saveResultList();
+                Toast.makeText(getActivity(), "Event is dismissed", Toast.LENGTH_SHORT).show();
+                HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
             }
         }
     }
 
     private void onDelete() {
+        // method to delete the event
         BaseActivity.eventList.deleteEvent(itemIdentifier);
         //Update list in local storage
         saveResultList();
         Toast.makeText(getActivity(), "Event is deleted", Toast.LENGTH_SHORT).show();
 
-        loadFragment(new FragmentEventList());
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
     }
 
     private void saveResultList() {
@@ -222,12 +247,6 @@ public class FragmentEventDetails extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = requireActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, fragment, "");
-        fragmentTransaction.commit();
     }
 
     private void buttonVisibilitySetter(MaterialButton btnDelete, MaterialButton btnApprove, MaterialButton btnReview, MaterialButton btnCheckTaskList, int view1, int view2, int view3, int view4) {
