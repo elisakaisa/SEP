@@ -140,9 +140,7 @@ public class FragmentFinancialRequestForm extends Fragment {
                 String.valueOf(etReason.getText())
         );
         saveResultsList(newRequest);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentFinancialRequestsList(), "");
-        fragmentTransaction.commit();
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestsList());
     }
 
     private Boolean isFieldEmpty(String text) {
@@ -153,7 +151,7 @@ public class FragmentFinancialRequestForm extends Fragment {
     private void saveResultsList(FinancialRequest request) {
         BaseActivity.fRequestList.addFinancialRequest(request);
         try {
-            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.fRequestList);
             oos.close();

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.example.sep.database.Employees;
 import com.example.sep.database.FinancialRequestList;
+import com.example.sep.database.RecruitmentRequestList;
 import com.example.sep.database.TaskList;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
@@ -27,15 +28,17 @@ public class BaseActivity extends AppCompatActivity {
     /*------ SERILAIZATION -------*/
     public static EventList eventList; // referenced from everywhere, needs to be static
     public static FinancialRequestList fRequestList;
+    public static TaskList taskList;
+    public static RecruitmentRequestList recruitmentRequestList;
+    public static final String EVENT_LIST_FILE = "eventlist.ser";
+    public static final String FIN_REQUEST_FILE = "finrequestlist.ser";
+    public static final String TASK_LIST_FILE = "taskList.ser";
+    public static final String RES_REQUEST_FILE = "recruitmentlist.ser";
 
-    public static String EVENT_LIST_FILE = "eventlist.ser";
-    public static String FIN_REQUEST_FILE = "finrequestlist.ser";
-    public static String TASK_LIST_FILE = "taskList.ser";
-
+    /* -------- BOTTom NAV ---------*/
     BottomNavigationView bottomNavigationView;
     BottomNavigationView bottomNavigationViewFM;
     BottomNavigationView bottomNavigationViewFiM;
-    public static TaskList taskList;
 
     String name;
     String role;
@@ -154,7 +157,7 @@ public class BaseActivity extends AppCompatActivity {
                 HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
                 return true;
             case R.id.nav_res_requests_fim:
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
                 return true;
         }
         return false;

@@ -3,7 +3,6 @@ package com.example.sep;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,27 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.sep.model.FinancialRequest;
+import com.example.sep.model.RecruitmentRequest;
 import com.example.sep.utils.HelperFunctions;
-import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItem;
-import com.example.sep.view.financialRequestRecyclerView.FinancialRequestItemAdapter;
-import com.example.sep.viewModel.financialRequestVM.FinancialRequestListViewModel;
-import com.example.sep.viewModel.financialRequestVM.FinancialRequestViewModel;
+import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItem;
+import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItemAdapter;
+import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentFinancialRequestsList#newInstance} factory method to
+ * Use the {@link FragmentRecruitmentRequestsList#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentFinancialRequestsList extends Fragment {
+public class FragmentRecruitmentRequestsList extends Fragment {
 
     private RecyclerView rvRequests;
-    private ArrayList<FinancialRequestItem> itemList;
+    private ArrayList<RecruitmentRequestItem> itemList;
     private FloatingActionButton fabAdd;
-    private FinancialRequestViewModel requestVM;
+    //private RecruitmentRequestViewModel requestVM;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +41,7 @@ public class FragmentFinancialRequestsList extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentFinancialRequestsList() {
+    public FragmentRecruitmentRequestsList() {
         // Required empty public constructor
     }
 
@@ -53,11 +51,11 @@ public class FragmentFinancialRequestsList extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentFinancialRequestsList.
+     * @return A new instance of fragment FragmentRecruitmentRequestsList.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentFinancialRequestsList newInstance(String param1, String param2) {
-        FragmentFinancialRequestsList fragment = new FragmentFinancialRequestsList();
+    public static FragmentRecruitmentRequestsList newInstance(String param1, String param2) {
+        FragmentRecruitmentRequestsList fragment = new FragmentRecruitmentRequestsList();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -78,7 +76,7 @@ public class FragmentFinancialRequestsList extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_financial_requests_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_recruitment_requests_list, container, false);
 
         /*------------ UI ------------*/
         rvRequests = view.findViewById(R.id.rv_requests);
@@ -88,41 +86,36 @@ public class FragmentFinancialRequestsList extends Fragment {
         fabAdd.setVisibility(View.VISIBLE);
 
         /*------------ VM ------------*/
-        FinancialRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(FinancialRequestListViewModel.class);
-        requestVM = new ViewModelProvider(requireActivity()).get(FinancialRequestViewModel.class);
+        RecruitmentRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(RecruitmentRequestListViewModel.class);
 
         /*---------- LISTENERS ----------*/
         requestsVM.getRequests().observe(requireActivity(), requests -> {
             itemList = new ArrayList<>();
             int i = 0;
-            for (FinancialRequest singleRequest : requests) {
-                itemList.add(new FinancialRequestItem(singleRequest, i));
+            for (RecruitmentRequest singleRequest : requests) {
+                itemList.add(new RecruitmentRequestItem(singleRequest, i));
                 i++;
             }
-            FinancialRequestItemAdapter requestItemAdapter = new FinancialRequestItemAdapter(itemList);
+            RecruitmentRequestItemAdapter requestItemAdapter = new RecruitmentRequestItemAdapter(itemList);
             rvRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvRequests.setAdapter(requestItemAdapter);
             requestItemAdapter.setOnItemClickListener(onItemClickListener);
         });
 
         fabAdd.setOnClickListener(v -> {
-            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestForm());
+            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentRecruitmentRequestForm());
         });
 
         return view;
     }
 
-    private final View.OnClickListener onItemClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
-            int position = viewHolder.getAdapterPosition();
-            FinancialRequestItem requestItem = itemList.get(position);
-            requestVM.setRequest(requestItem.getRequest());
-            requestVM.setIdentifier(requestItem.getIdx());
+    private final View.OnClickListener onItemClickListener = view -> {
+        RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
+        int position = viewHolder.getAdapterPosition();
+        RecruitmentRequestItem requestItem = itemList.get(position);
+        //requestVM.setRequest(requestItem.getRequest());
+        //requestVM.setIdentifier(requestItem.getIdx());
 
-            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestDetails());
-        }
+        //loadFragment(new FragmentFinancialRequestDetails());
     };
-
 }
