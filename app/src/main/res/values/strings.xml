@@ -74,7 +74,7 @@
     <string name="decoration_for_job_fair">Decoration for Job Fair</string>
     <string name="priority_level">High</string>
     <string name="task_sender">Jack</string>
-    <string name="task_details">View</string>
+    <string name="task_details">Task details</string>
     <string name="initial_budget_task">Assigned budget</string>
     <string name="task_description">Task description</string>
     <string name="decoration">Decoration...</string>

@@ -15,6 +15,7 @@ import com.example.sep.model.RecruitmentRequest;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItem;
 import com.example.sep.view.recruitmentRequestRecyclerView.RecruitmentRequestItemAdapter;
+import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestListViewModel;
 import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -82,9 +83,11 @@ public class FragmentRecruitmentRequestsList extends Fragment {
         /*------------ UI ------------*/
         rvRequests = view.findViewById(R.id.rv_requests);
         fabAdd = view.findViewById(R.id.fab_add_request);
+        fabAdd.setVisibility(View.INVISIBLE);
 
-        // TODO: set who can add requests, see how this can be done
-        fabAdd.setVisibility(View.VISIBLE);
+        if (RoleTransfer.getRole().equals("Production department manager") || RoleTransfer.getRole().equals("Services department manager")) {
+            fabAdd.setVisibility(View.VISIBLE);
+        }
 
         /*------------ VM ------------*/
         RecruitmentRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(RecruitmentRequestListViewModel.class);

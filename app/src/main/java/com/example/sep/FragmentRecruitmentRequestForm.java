@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.RadioGroup;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.model.RecruitmentRequest;
 import com.example.sep.utils.HelperFunctions;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -94,7 +96,13 @@ public class FragmentRecruitmentRequestForm extends Fragment {
         rgContractType = view.findViewById(R.id.radioGroup_contract);
         rgRequestingDepartment = view.findViewById(R.id.radioGroup_dep);
 
-        /*------ LISTENERS --------*/
+        EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+
+        /* ------- LISTENERS --------*/
+        //eventVM.getEvent().observe(requireActivity(), eventItem -> {
+            //tvEventId.setText(eventItem.getId());
+       // }); //TODO: see if we want to have the eventID here
+
         btnSubmit.setOnClickListener(v -> {
             if (!isFieldEmpty(String.valueOf(etJobTitle.getText()))) tiJobTitle.setError("Job title required");
             if (!isFieldEmpty(String.valueOf(etYearsOfExperience.getText()))) tiYearsOfExperience.setError("Years of experience required");

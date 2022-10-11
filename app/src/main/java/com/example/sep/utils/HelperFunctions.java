@@ -19,9 +19,9 @@ public class HelperFunctions {
     }
 
     public static void loadFragment(FragmentManager fm, Fragment fragment) {
-        // TODO see how to press back and remove sad menu
         FragmentTransaction fragmentTransaction = fm.beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, fragment, "");
+        // addToBackStack handles the onBackPressed in fragments
+        fragmentTransaction.replace(R.id.content_container, fragment, "").addToBackStack("tag");
         fragmentTransaction.commit();
     }
 }
