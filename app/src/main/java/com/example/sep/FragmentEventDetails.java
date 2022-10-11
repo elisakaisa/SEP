@@ -198,7 +198,6 @@ public class FragmentEventDetails extends Fragment {
                     mEvent.setStatus(Event.APPROVED);
                     mEvent.setLevel(Event.AM_APPROVED);
                 } else {
-                    // if the administration manager approves the event, change the status
                     mEvent.setLevel(Event.SCS_APPROVED);
                 }
                 // Update the event in the eventList

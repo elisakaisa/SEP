@@ -69,7 +69,7 @@ public class Employees {
     // top management
     Employee VP = new Employee("Charlie", TOP_MANAGEMENT, "Vice president", "password");
     Employee Sec1 = new Employee("Jennifer", TOP_MANAGEMENT,"Secretary", "password");
-    Employee Sec2 = new Employee("Jennifer2", TOP_MANAGEMENT,"Secretary", "password");
+    Employee Sec2 = new Employee("Cameron", TOP_MANAGEMENT,"Secretary", "password");
 
     public void initEmployees() {
         dbEmployees.add(SCSO);

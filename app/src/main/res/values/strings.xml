@@ -74,7 +74,7 @@
     <string name="decoration_for_job_fair">Decoration for Job Fair</string>
     <string name="priority_level">High</string>
     <string name="task_sender">Jack</string>
-    <string name="task_details">View</string>
+    <string name="task_details">Task details</string>
     <string name="initial_budget_task">Assigned budget</string>
     <string name="task_description">Task description</string>
     <string name="decoration">Decoration...</string>
@@ -93,5 +93,15 @@
     <string name="resources_request">Resources request</string>
     <string name="event_id">Event ID</string>
     <string name="dismiss">Dismiss</string>
+    <string name="recruitment_request">Recruitment request</string>
+    <string name="contract_type">Contract type</string>
+    <string name="full_time">Full time</string>
+    <string name="part_time">Part time</string>
+    <string name="years_of_experience">Years of experience</string>
+    <string name="years">Years</string>
+    <string name="job_title">Job title</string>
+    <string name="description">Description</string>
+    <string name="create_recruitment_request">Create recruitment request</string>
+    <string name="recruitment_request_details">Recruitment request details</string>
 
 </resources>

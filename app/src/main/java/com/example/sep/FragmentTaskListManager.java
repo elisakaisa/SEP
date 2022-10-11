@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemManagerAdapter;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;

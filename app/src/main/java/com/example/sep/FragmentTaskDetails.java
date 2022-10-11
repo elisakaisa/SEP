@@ -13,6 +13,7 @@ import android.widget.TableRow;
 
 import com.example.sep.model.Event;
 import com.example.sep.model.Task;
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
@@ -75,6 +76,7 @@ public class FragmentTaskDetails extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_task_details, container, false);
 
+        MaterialTextView tvEventId = view.findViewById(R.id.tv_event_id_view);
         MaterialTextView tvEventType = view.findViewById(R.id.tv_event_type_view);
         MaterialTextView tvEventFrom = view.findViewById(R.id.tv_from_view);
         MaterialTextView tvEventTo = view.findViewById(R.id.tv_to_view);
@@ -128,7 +130,7 @@ public class FragmentTaskDetails extends Fragment {
 
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(requireActivity(), eventItem -> {
-
+            tvEventId.setText(eventItem.getId());
             tvEventType.setText(eventItem.getEventType());
             tvEventFrom.setText(eventItem.getFromDate());
             tvEventTo.setText(eventItem.getToDate());
@@ -147,8 +149,9 @@ public class FragmentTaskDetails extends Fragment {
             tvTaskExtraBudget.setVisibility(View.VISIBLE);
         });
 
-
         btnSubmitTaskPlanning.setOnClickListener(v -> submitTaskPlanning());
+        btnFinancialRequest.setOnClickListener(v -> HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestForm()));
+        btnResourcesRequest.setOnClickListener(v -> HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentRecruitmentRequestForm()));
 
         return view;
     }

@@ -11,10 +11,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.sep.database.Employees;
 import com.example.sep.database.FinancialRequestList;
+import com.example.sep.database.RecruitmentRequestList;
 import com.example.sep.database.TaskList;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
@@ -27,15 +29,16 @@ public class BaseActivity extends AppCompatActivity {
     /*------ SERILAIZATION -------*/
     public static EventList eventList; // referenced from everywhere, needs to be static
     public static FinancialRequestList fRequestList;
+    public static TaskList taskList;
+    public static RecruitmentRequestList recruitmentRequestList;
+    public static final String EVENT_LIST_FILE = "eventlist.ser";
+    public static final String FIN_REQUEST_FILE = "finrequestlist.ser";
+    public static final String TASK_LIST_FILE = "taskList.ser";
+    public static final String RES_REQUEST_FILE = "recruitmentlist.ser";
 
-    public static String EVENT_LIST_FILE = "eventlist.ser";
-    public static String FIN_REQUEST_FILE = "finrequestlist.ser";
-    public static String TASK_LIST_FILE = "taskList.ser";
-
-    BottomNavigationView bottomNavigationView;
+    /* -------- BOTTom NAV ---------*/
     BottomNavigationView bottomNavigationViewFM;
     BottomNavigationView bottomNavigationViewFiM;
-    public static TaskList taskList;
 
     String name;
     String role;
@@ -47,8 +50,6 @@ public class BaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_base);
 
         /*----------- NAV -------------*/
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnItemSelectedListener(this::listener);
         bottomNavigationViewFM = findViewById(R.id.bottom_navigation_fm);
         bottomNavigationViewFM.setOnItemSelectedListener(this::listenerFM);
         bottomNavigationViewFiM = findViewById(R.id.bottom_navigation_fim);
@@ -74,15 +75,12 @@ public class BaseActivity extends AppCompatActivity {
         tv_role.setText(role);
 
         // default fragment
-        // TODO: figure out how we can do the menu
         if ((role != null) & (department != null)) {
             setDefaultFragment(role, department);
         } else {
-            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentHome());
+            Toast.makeText(this, "An error occurred, please try later", Toast.LENGTH_SHORT).show();
+            logOut();
         }
-
-        // highlight the correct icon
-        bottomNavigationView.getMenu().getItem(0).setChecked(true);
 
         /*---------- LISTENERS ----------*/
         btnLogout.setOnClickListener(v -> logOut());
@@ -93,24 +91,47 @@ public class BaseActivity extends AppCompatActivity {
         // TODO add all user cases
         // TODO make bottom nav function
         // method to select the correct default fragment and visible menus based on the logged in user
-        if (department.equals(Employees.ADMINISTRATION)) {
-            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
-        } else if ((department.equals(Employees.FINANCIAL) & role.equals("Financial manager"))){
-            bottomNavigationView.setVisibility(View.INVISIBLE);
-            bottomNavigationViewFM.setVisibility(View.VISIBLE);
-            bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
-            HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
-            bottomNavigationViewFM.getMenu().getItem(0).setChecked(true);
-        } else if (department.equals(Employees.SERVICE) || department.equals(Employees.PRODUCTION)){
-            bottomNavigationView.setVisibility(View.INVISIBLE);
-            bottomNavigationViewFM.setVisibility(View.INVISIBLE);
-            bottomNavigationViewFiM.setVisibility(View.VISIBLE);
-            bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
-            if (role.equals("Production department manager") || role.equals("Services department manager")){
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
-            } else {
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
-            }
+        switch (department) {
+            case Employees.ADMINISTRATION:  // administration department
+                if (role.equals("HR Assistant") || role.equals("Senior HR Manager")) { // HR
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
+                } else { // customer Service and marketing
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
+                }
+                break;
+
+            case Employees.FINANCIAL:
+                if (role.equals("Financial manager")) {
+                    bottomNavigationViewFM.setVisibility(View.VISIBLE);
+                    bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
+                    bottomNavigationViewFM.getMenu().getItem(0).setChecked(true);
+                } else { // Accountants
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                }
+                break;
+
+            case Employees.SERVICE_DEP:
+            case Employees.PRODUCTION:
+                bottomNavigationViewFM.setVisibility(View.INVISIBLE);
+                bottomNavigationViewFiM.setVisibility(View.VISIBLE);
+                bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
+
+                if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
+                } else { //Sub-teams
+                    HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
+                }
+                break;
+
+            case Employees.TOP_MANAGEMENT:
+                // TODO: decide which fragment is viewed
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
+                break;
+
+            default:  // any other roles
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentHome());
+                break;
         }
 
     }
@@ -133,7 +154,6 @@ public class BaseActivity extends AppCompatActivity {
                 setDefaultFragment(role, department);
                 return true;
             case R.id.nav_financial_requests:
-                // TODO: if financial manager, load financial request rv
                 HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
                 return true;
         }
@@ -154,23 +174,10 @@ public class BaseActivity extends AppCompatActivity {
                 HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
                 return true;
             case R.id.nav_res_requests_fim:
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
                 return true;
         }
         return false;
     }
 
-    @SuppressLint("NonConstantResourceId")
-    private boolean listener(MenuItem menuItem) {
-        switch (menuItem.getItemId()){
-            case R.id.nav_home:
-                //load home fragment
-                setDefaultFragment(role, department);
-
-                return true;
-
-            // add additional menus here
-        }
-        return false;
-    }
 }
