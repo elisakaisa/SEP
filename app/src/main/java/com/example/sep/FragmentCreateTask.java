@@ -149,6 +149,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
                 taskPriority,
                 "",
                 String.valueOf(assignBudgetEditText.getText()),
+                Boolean.FALSE,
                 Boolean.FALSE
                 );
         saveResultsTaskList(newTask);

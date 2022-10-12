@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Task implements Serializable {
     String id, department, assignedBy,team, assignedTo, projectReference,
             taskDescription, taskPriority, budgetForTask, taskPlanning;
-    Boolean requestExtraBudget;
+    Boolean requestExtraBudget, requestExtraResources;
 
     public Task (String id,
                  String department,
@@ -17,7 +17,8 @@ public class Task implements Serializable {
                  String taskPriority,
                  String taskPlanning,
                  String budgetForTask,
-                 Boolean requestExtraBudget){
+                 Boolean requestExtraBudget,
+                 Boolean requestExtraResources){
 
         this.id = id;
         this.department = department;
@@ -31,7 +32,7 @@ public class Task implements Serializable {
 
         this.budgetForTask = budgetForTask;
         this.requestExtraBudget = requestExtraBudget;
-
+        this.requestExtraResources = requestExtraResources;
     }
 
 
@@ -60,4 +61,6 @@ public class Task implements Serializable {
 
     public String getBudgetForTask() { return budgetForTask; }
     public Boolean getRequestExtraBudget() { return requestExtraBudget; }
+    public Boolean getRequestExtraResources() { return requestExtraResources; }
+
 }

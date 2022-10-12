@@ -13,8 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
-import com.example.sep.view.taskRecyclerView.TaskItemManagerAdapter;
-import com.example.sep.viewModel.eventVM.EventViewModel;
+import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -95,7 +94,7 @@ public class FragmentTaskListManager extends Fragment {
                 i++;
             }
 
-            TaskItemManagerAdapter resultTaskItemAdapter = new TaskItemManagerAdapter(itemTaskList);
+            TaskItemAdapter resultTaskItemAdapter = new TaskItemAdapter(itemTaskList);
             rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_tasks.setAdapter(resultTaskItemAdapter);
             resultTaskItemAdapter.setOnItemClickListener(onItemTaskClickListener);

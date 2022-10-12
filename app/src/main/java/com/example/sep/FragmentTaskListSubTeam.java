@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
-import com.example.sep.view.taskRecyclerView.TaskItemSubTeamAdapter;
+import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
@@ -108,7 +108,7 @@ public class FragmentTaskListSubTeam extends Fragment {
 
             }
 
-            TaskItemSubTeamAdapter resultItemAdapter = new TaskItemSubTeamAdapter(itemList);
+            TaskItemAdapter resultItemAdapter = new TaskItemAdapter(itemList);
             rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_tasks.setAdapter(resultItemAdapter);
             resultItemAdapter.setOnItemClickListener(onItemClickListener);

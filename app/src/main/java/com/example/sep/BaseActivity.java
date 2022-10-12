@@ -114,13 +114,15 @@ public class BaseActivity extends AppCompatActivity {
             case Employees.SERVICE_DEP:
             case Employees.PRODUCTION:
                 bottomNavigationViewFM.setVisibility(View.INVISIBLE);
-                bottomNavigationViewFiM.setVisibility(View.VISIBLE);
-                bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
+
 
                 if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
+                    bottomNavigationViewFiM.setVisibility(View.VISIBLE);
+                    bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
                 } else { //Sub-teams
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
+                    bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
                 }
                 break;
 
