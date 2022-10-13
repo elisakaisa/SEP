@@ -12,7 +12,7 @@ public class FinancialRequestItem {
         iRequest = request;
         
         iDepartment = request.getRequestingDepartment();
-        iAmount = request.getRequiredAmount();
+        iAmount = String.valueOf(request.getRequiredAmount());
         
         this.idx = idx;
     }

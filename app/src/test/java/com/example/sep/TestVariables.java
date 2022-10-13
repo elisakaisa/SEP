@@ -1,6 +1,8 @@
 package com.example.sep;
 
 import com.example.sep.model.Event;
+import com.example.sep.model.FinancialRequest;
+import com.example.sep.model.RecruitmentRequest;
 
 public class TestVariables {
     public static Event event1 = new Event(
@@ -58,4 +60,38 @@ public class TestVariables {
             false,
             Event.CS_CREATED,
             Event.PRELIMINARY);
+
+    public static FinancialRequest fr1 = new FinancialRequest(
+            "rfrf",
+            "production",
+            1000,
+            "just give me a reason"
+    );
+
+    public static FinancialRequest fr2 = new FinancialRequest(
+            "aaa",
+            "services",
+            2000,
+            "just a little bit enough"
+    );
+
+    public static RecruitmentRequest rr1 = new RecruitmentRequest(
+            "full time",
+            "services",
+            "minimum 3",
+            "Responsible of whatever",
+            "some HR bullshit",
+            "in progress",
+            21
+    );
+
+    public static RecruitmentRequest rr2 = new RecruitmentRequest(
+            "part time",
+            "production",
+            "minimum 75",
+            "Master of nothing",
+            "some corporate BS",
+            "open",
+            5
+    );
 }
