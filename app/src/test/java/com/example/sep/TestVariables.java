@@ -1,5 +1,6 @@
 package com.example.sep;
 
+import com.example.sep.model.Employee;
 import com.example.sep.model.Event;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.model.RecruitmentRequest;
@@ -93,5 +94,12 @@ public class TestVariables {
             "some corporate BS",
             "open",
             5
+    );
+
+    public static Employee employee1 = new Employee(
+            "Name",
+            "Department",
+            "Role",
+            "password"
     );
 }
