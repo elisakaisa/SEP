@@ -130,7 +130,8 @@ public class FragmentTaskDetails extends Fragment {
 
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(requireActivity(), eventItem -> {
-            tvEventId.setText(eventItem.getId());
+
+            tvEventId.setText(String.valueOf(eventItem.getId()));
             tvEventType.setText(eventItem.getEventType());
             tvEventFrom.setText(eventItem.getFromDate());
             tvEventTo.setText(eventItem.getToDate());

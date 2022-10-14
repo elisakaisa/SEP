@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.example.sep.database.Employees;
 import com.example.sep.model.Employee;
 import com.example.sep.model.Task;
 import com.example.sep.viewModel.RoleTransfer;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
@@ -38,7 +40,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     MaterialButton submitTaskButton;
     TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLayout;
 
-
+    String eventId;
     String taskPriority;
     String assignedToMember;
     String assignedToTeam;
@@ -83,6 +85,13 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
         taskPrioritySpinner =  view.findViewById(R.id.spinner_priority);
         assignBudgetEditText = view.findViewById(R.id.initial_budget_task_text_input);
         submitTaskButton =  view.findViewById(R.id.btn_submit_task);
+
+        EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+
+        /* ------- LISTENERS --------*/
+        eventVM.getEvent().observe(requireActivity(), eventItem -> {
+            eventId = String.valueOf(eventItem.getId());
+        });
 
         subTeamMembersSpinner.setOnItemSelectedListener(this);
         taskPrioritySpinner.setOnItemSelectedListener(this);
@@ -140,6 +149,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
         // TODO: update id, assigned b
         Task newTask = new Task (
                 String.valueOf(projectReferenceEditText.getText()),
+                eventId,
                 departmentName,
                 loggedInPersonName,
                 assignedToTeam,

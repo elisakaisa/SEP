@@ -9,11 +9,12 @@ public class TaskItem implements Serializable {
 
     Integer idx;
     Task iTask;
-    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority;
+    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority, iBelongsToEvent;
     Boolean iExtraBudgetRequest, iExtraResourceRequest;
 
     public TaskItem(Task task, Integer idx) {
         iTask = task;
+        iBelongsToEvent = task.getBelongsToEvent();
         iAssignedTo = task.getAssignedTo();
         iBudgetAssigned = task.getBudgetForTask();
         iExtraBudgetRequest = task.getRequestExtraBudget();
@@ -31,6 +32,8 @@ public class TaskItem implements Serializable {
     public Task getTask() {
         return iTask;
     }
+
+    public String getBelongsToEvent() {return iBelongsToEvent;}
 
     public String getAssignedTeam() {
         return iAssignedToTeam;

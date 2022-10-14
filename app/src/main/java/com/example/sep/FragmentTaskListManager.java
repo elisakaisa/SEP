@@ -14,11 +14,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
+import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +34,8 @@ public class FragmentTaskListManager extends Fragment {
     TaskItemViewModel taskVM;
     TaskListViewModel taskListVM;
     FloatingActionButton fabAddTask;
+    String eventId;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -83,15 +87,24 @@ public class FragmentTaskListManager extends Fragment {
 
 
         /*------------ VM ------------*/
+        EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
         taskVM = new ViewModelProvider(requireActivity()).get(TaskItemViewModel.class);
         taskListVM = new ViewModelProvider(requireActivity()).get(TaskListViewModel.class);
+
+
+        eventVM.getEvent().observe(requireActivity(), eventItem -> {
+            eventId = String.valueOf(eventItem.getId());
+        });
 
         taskListVM.getTask().observe(requireActivity(), tasks -> {
             itemTaskList = new ArrayList<>();
             Integer i = 0;
             for (Task singleTask : tasks){
-                itemTaskList.add(new TaskItem(singleTask, i));
-                i++;
+                if (Objects.equals(singleTask.getBelongsToEvent(), eventId)){
+                    itemTaskList.add(new TaskItem(singleTask, i));
+                    i++;
+                }
+
             }
 
             TaskItemAdapter resultTaskItemAdapter = new TaskItemAdapter(itemTaskList);
