@@ -93,6 +93,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
             eventId = String.valueOf(eventItem.getId());
         });
 
+
         subTeamMembersSpinner.setOnItemSelectedListener(this);
         taskPrioritySpinner.setOnItemSelectedListener(this);
 
