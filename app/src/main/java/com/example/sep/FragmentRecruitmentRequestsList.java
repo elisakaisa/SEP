@@ -118,7 +118,7 @@ public class FragmentRecruitmentRequestsList extends Fragment {
         RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
         int position = viewHolder.getAdapterPosition();
         RecruitmentRequestItem requestItem = itemList.get(position);
-        requestVM.setRequest(requestItem.getiRequest());
+        requestVM.setRequest(requestItem.getRequest());
         requestVM.setIdentifier(requestItem.getIdx());
 
         HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentRecruitmentRequestDetails());

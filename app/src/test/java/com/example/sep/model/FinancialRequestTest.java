@@ -15,6 +15,7 @@ public class FinancialRequestTest {
 
     @Test
     public void createRequest() {
+        // testing getters
         assertEquals(request.getRequiredAmount(), TestVariables.fr1.getRequiredAmount());
         assertEquals(request.getRequestingDepartment(), TestVariables.fr1.getRequestingDepartment());
         assertEquals(request.getProjectReference(), TestVariables.fr1.getProjectReference());
@@ -23,6 +24,7 @@ public class FinancialRequestTest {
 
     @Test
     public void changeRequest() {
+        // testing setters
         request.setReason(TestVariables.fr2.getReason());
         request.setProjectReference(TestVariables.fr2.getProjectReference());
         request.setRequestingDepartment(TestVariables.fr2.getRequestingDepartment());

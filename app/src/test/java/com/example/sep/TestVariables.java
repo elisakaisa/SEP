@@ -82,7 +82,7 @@ public class TestVariables {
             "minimum 3",
             "Responsible of whatever",
             "some HR bullshit",
-            "in progress",
+            RecruitmentRequest.APPROVED,
             21
     );
 
@@ -92,7 +92,7 @@ public class TestVariables {
             "minimum 75",
             "Master of nothing",
             "some corporate BS",
-            "open",
+            RecruitmentRequest.PENDING,
             5
     );
 
