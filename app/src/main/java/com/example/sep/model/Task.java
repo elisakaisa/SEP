@@ -3,11 +3,12 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class Task implements Serializable {
-    String  taskId, belongsToEvent, department, assignedBy,team, assignedTo, projectReference,
+    Integer taskId;
+    String  belongsToEvent, department, assignedBy,team, assignedTo, projectReference,
             taskDescription, taskPriority, budgetForTask, taskPlanning;
     Boolean requestExtraBudget, requestExtraResources;
 
-    public Task (String taskId,
+    public Task (int taskId,
                  String belongsToEvent,
                  String department,
                  String assignedBy,
@@ -47,7 +48,7 @@ public class Task implements Serializable {
 
     public String getAssignedBy() { return assignedBy; }
 
-    public String getId() { return taskId; }
+    public Integer getId() { return taskId; }
 
     public String getTeam() { return team; }
     public void setTeam(String team) { this.team = team; }
@@ -65,7 +66,15 @@ public class Task implements Serializable {
     public void setTaskPriority(String taskPriority) { this.taskPriority = taskPriority; }
 
     public String getBudgetForTask() { return budgetForTask; }
+
+    public void setBudgetForTask(String budgetForTask) {
+        this.budgetForTask = budgetForTask;
+    }
     public Boolean getRequestExtraBudget() { return requestExtraBudget; }
+
+    public void setExtraBudgetRequest(Boolean requestExtraBudget) {
+        this.requestExtraBudget = requestExtraBudget;
+    }
     public Boolean getRequestExtraResources() { return requestExtraResources; }
 
 }

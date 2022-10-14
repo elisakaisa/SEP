@@ -54,8 +54,15 @@ public class TaskItem implements Serializable {
     public Boolean getExtraBudgetRequest() {
         return iExtraBudgetRequest;
     }
+    public void setExtraBudgetRequest(Boolean iExtraBudgetRequest) {
+        this.iExtraBudgetRequest = iExtraBudgetRequest;
+    }
+
     public Boolean getExtraResourcesRequest() {
         return iExtraResourceRequest;
+    }
+    public void setExtraResourcesRequest(Boolean iExtraResourcesRequest) {
+        this.iExtraResourceRequest = iExtraResourcesRequest;
     }
 
 

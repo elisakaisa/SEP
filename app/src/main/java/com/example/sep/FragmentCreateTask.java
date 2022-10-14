@@ -149,7 +149,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     private void submitTask(){
         // TODO: update id, assigned b
         Task newTask = new Task (
-                String.valueOf(projectReferenceEditText.getText()),
+                BaseActivity.taskList.setNewTaskId(),
                 eventId,
                 departmentName,
                 loggedInPersonName,

@@ -224,7 +224,7 @@
                         android:id="@+id/et_extra_budget"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
+                        android:inputType="number"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
                 </com.google.android.material.textfield.TextInputLayout>
