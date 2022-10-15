@@ -1,5 +1,6 @@
 package com.example.sep;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,6 +22,9 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link FragmentTaskDetails#newInstance} factory method to
@@ -30,6 +34,8 @@ public class FragmentTaskDetails extends Fragment {
     Task task;
     Event event;
     Boolean extraBudget;
+    TextInputEditText tvTaskExtraBudget;
+    private int itemIdentifierTask;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -90,7 +96,7 @@ public class FragmentTaskDetails extends Fragment {
 
         TextInputEditText tvTaskPlanning = view.findViewById(R.id.et_task_plan);
         CheckBox cbTaskBudgetRequest = view.findViewById(R.id.cb_budget);
-        TextInputEditText tvTaskExtraBudget = view.findViewById(R.id.et_extra_budget);
+        tvTaskExtraBudget = view.findViewById(R.id.et_extra_budget);
         MaterialButton btnSubmitTaskPlanning = view.findViewById(R.id.btn_submit_task_planning);
         MaterialButton btnResourcesRequest = view.findViewById(R.id.btn_resources_request);
         MaterialButton btnFinancialRequest = view.findViewById(R.id.btn_financial_request);
@@ -130,7 +136,8 @@ public class FragmentTaskDetails extends Fragment {
 
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(requireActivity(), eventItem -> {
-            tvEventId.setText(eventItem.getId());
+
+            tvEventId.setText(String.valueOf(eventItem.getId()));
             tvEventType.setText(eventItem.getEventType());
             tvEventFrom.setText(eventItem.getFromDate());
             tvEventTo.setText(eventItem.getToDate());
@@ -145,6 +152,8 @@ public class FragmentTaskDetails extends Fragment {
 
         });
 
+        itemIdentifierTask = taskVM.getIdentifierTask();
+
         cbTaskBudgetRequest.setOnClickListener(v -> {
             tvTaskExtraBudget.setVisibility(View.VISIBLE);
         });
@@ -158,5 +167,23 @@ public class FragmentTaskDetails extends Fragment {
 
     private void submitTaskPlanning(){
 
+        task.setExtraBudgetRequest(Boolean.TRUE);
+        task.setBudgetForTask(String.valueOf(tvTaskExtraBudget.getText()));
+        BaseActivity.taskList.updateTask(task, itemIdentifierTask);
+
+        //Update list in local storage
+        saveResultsTaskList();
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskListSubTeam());
+    }
+
+    private void saveResultsTaskList() {
+        try {
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.TASK_LIST_FILE, Context.MODE_PRIVATE);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(BaseActivity.taskList);
+            oos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

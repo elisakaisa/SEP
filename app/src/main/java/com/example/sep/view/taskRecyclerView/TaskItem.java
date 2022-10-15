@@ -6,74 +6,19 @@ import com.example.sep.model.Task;
 import java.io.Serializable;
 
 public class TaskItem implements Serializable {
-    /*Integer idx;
-    Task iTask;
-    String iTaskSubject, iTaskPriority, iAssignedBy, iDetails, iDepartment, iAssignedTo, iBudgetAssigned;
-    Boolean iExtraBudgetRequest;
 
-
-
-    public TaskItem(Task task, Integer idx) {
-        iTask = task;
-        iAssignedTo = task.getAssignedTo();
-        iTaskSubject = task.getProjectReference();
-        iTaskPriority = task.getTaskPriority();
-        iAssignedBy = task.getAssignedBy();
-        iDetails = task.getTaskDescription();
-        iBudgetAssigned = task.getBudgetForTask();
-        iExtraBudgetRequest = task.getRequestExtraBudget();
-        iDepartment = task.getDepartment();
-        iAssignedTo = task.getAssignedTo();
-
-        this.idx = idx;
-    }
-
-    public Integer getIdx() {
-        return idx;
-    }
-
-    public Task getTask() {
-        return iTask;
-    }
-
-    public String getTaskSubject() {
-        return iTaskSubject;
-    }
-
-    public String getTaskPriority() {
-        return iTaskPriority;
-    }
-
-    public String getAssignedBy() {
-        return iAssignedBy;
-    }
-
-    public String getAssignedTo() {
-        return iAssignedTo;
-    }
-
-
-    public String getDetails() {
-        return iDetails;
-    }
-
-    public String getBudgetAssigned() {
-        return iBudgetAssigned;
-    }
-
-    public Boolean getExtraBudgetRequest(){return iExtraBudgetRequest; }
-
-    public String getDepartment(){return iDepartment; }*/
     Integer idx;
     Task iTask;
-    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority;
-    Boolean iExtraBudgetRequest;
+    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority, iBelongsToEvent;
+    Boolean iExtraBudgetRequest, iExtraResourceRequest;
 
     public TaskItem(Task task, Integer idx) {
         iTask = task;
+        iBelongsToEvent = task.getBelongsToEvent();
         iAssignedTo = task.getAssignedTo();
         iBudgetAssigned = task.getBudgetForTask();
         iExtraBudgetRequest = task.getRequestExtraBudget();
+        iExtraResourceRequest = task.getRequestExtraResources();
         iAssignedToTeam = task.getTeam();
         iPriority = task.getTaskPriority();
         iSender = task.getAssignedBy();
@@ -87,6 +32,8 @@ public class TaskItem implements Serializable {
     public Task getTask() {
         return iTask;
     }
+
+    public String getBelongsToEvent() {return iBelongsToEvent;}
 
     public String getAssignedTeam() {
         return iAssignedToTeam;
@@ -104,9 +51,19 @@ public class TaskItem implements Serializable {
     public String getTaskPriority(){return iPriority;}
     public Integer getTaskID(){return idx;}
 
-
     public Boolean getExtraBudgetRequest() {
         return iExtraBudgetRequest;
     }
+    public void setExtraBudgetRequest(Boolean iExtraBudgetRequest) {
+        this.iExtraBudgetRequest = iExtraBudgetRequest;
+    }
+
+    public Boolean getExtraResourcesRequest() {
+        return iExtraResourceRequest;
+    }
+    public void setExtraResourcesRequest(Boolean iExtraResourcesRequest) {
+        this.iExtraResourceRequest = iExtraResourcesRequest;
+    }
+
 
 }

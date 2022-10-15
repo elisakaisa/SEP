@@ -103,5 +103,6 @@
     <string name="description">Description</string>
     <string name="create_recruitment_request">Create recruitment request</string>
     <string name="recruitment_request_details">Recruitment request details</string>
+    <string name="updated_budget">Updated Budget</string>
 
 </resources>

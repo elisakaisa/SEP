@@ -1,8 +1,7 @@
 package com.example.sep;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,11 +21,12 @@ import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.database.EventList;
 
+import com.example.sep.viewModel.bottomNavigationVM.BottomNavigationViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BaseActivity extends AppCompatActivity {
 
-    /*------ SERILAIZATION -------*/
+    /*------ SERIALIZATION -------*/
     public static EventList eventList; // referenced from everywhere, needs to be static
     public static FinancialRequestList fRequestList;
     public static TaskList taskList;
@@ -36,13 +36,15 @@ public class BaseActivity extends AppCompatActivity {
     public static final String TASK_LIST_FILE = "taskList.ser";
     public static final String RES_REQUEST_FILE = "recruitmentlist.ser";
 
-    /* -------- BOTTom NAV ---------*/
+    /* -------- BOTTOM NAV ---------*/
     BottomNavigationView bottomNavigationViewFM;
     BottomNavigationView bottomNavigationViewFiM;
 
     String name;
     String role;
     String department;
+    BottomNavigationViewModel bottomNavVM;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class BaseActivity extends AppCompatActivity {
         bottomNavigationViewFM.setOnItemSelectedListener(this::listenerFM);
         bottomNavigationViewFiM = findViewById(R.id.bottom_navigation_fim);
         bottomNavigationViewFiM.setOnItemSelectedListener(this::listenerFiM);
+
+        /*------------ NAV VM ------------*/
+        bottomNavVM =  new ViewModelProvider(this).get(BottomNavigationViewModel.class);
 
         /*------------ UI ------------*/
         TextView tv_username = findViewById(R.id.tv_logged_as);
@@ -114,13 +119,15 @@ public class BaseActivity extends AppCompatActivity {
             case Employees.SERVICE_DEP:
             case Employees.PRODUCTION:
                 bottomNavigationViewFM.setVisibility(View.INVISIBLE);
-                bottomNavigationViewFiM.setVisibility(View.VISIBLE);
-                bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
+
 
                 if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
+                    bottomNavigationViewFiM.setVisibility(View.VISIBLE);
+                    bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
                 } else { //Sub-teams
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
+                    bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
                 }
                 break;
 
@@ -166,15 +173,19 @@ public class BaseActivity extends AppCompatActivity {
         switch (menuItem.getItemId()){
             case R.id.nav_events_fim:
                 setDefaultFragment(role, department);
+                bottomNavVM.setSelectedNavigationPage(String.valueOf(menuItem));
+                return true;
+            case R.id.nav_tasks_fim:
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListManager());
+                bottomNavVM.setSelectedNavigationPage(String.valueOf(menuItem));
                 return true;
             case R.id.nav_fin_requests_fim:
                 HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
-                return true;
-            case R.id.nav_tasks_fim:
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentFinancialRequestsList());
+                bottomNavVM.setSelectedNavigationPage(String.valueOf(menuItem));
                 return true;
             case R.id.nav_res_requests_fim:
                 HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
+                bottomNavVM.setSelectedNavigationPage("resource_requests");
                 return true;
         }
         return false;

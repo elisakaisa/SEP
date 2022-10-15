@@ -2,6 +2,7 @@ package com.example.sep;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,13 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sep.model.Task;
 import com.example.sep.view.taskRecyclerView.TaskItem;
-import com.example.sep.view.taskRecyclerView.TaskItemManagerAdapter;
+import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
+import com.example.sep.viewModel.bottomNavigationVM.BottomNavigationViewModel;
 import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,7 +36,11 @@ public class FragmentTaskListManager extends Fragment {
     public ArrayList<TaskItem> itemTaskList;
     TaskItemViewModel taskVM;
     TaskListViewModel taskListVM;
+    BottomNavigationViewModel bottomNavVM;
     FloatingActionButton fabAddTask;
+    String eventId;
+    String navPage;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -84,18 +92,36 @@ public class FragmentTaskListManager extends Fragment {
 
 
         /*------------ VM ------------*/
+        EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
         taskVM = new ViewModelProvider(requireActivity()).get(TaskItemViewModel.class);
         taskListVM = new ViewModelProvider(requireActivity()).get(TaskListViewModel.class);
+        bottomNavVM = new ViewModelProvider(requireActivity()).get(BottomNavigationViewModel.class);
+
+
+        bottomNavVM.getSelectedNavigationPage().observe(requireActivity(), navItem -> {
+            navPage = String.valueOf(navItem);
+        });
+
+        eventVM.getEvent().observe(requireActivity(), eventItem -> {
+            eventId = String.valueOf(eventItem.getId());
+        });
 
         taskListVM.getTask().observe(requireActivity(), tasks -> {
             itemTaskList = new ArrayList<>();
             Integer i = 0;
             for (Task singleTask : tasks){
-                itemTaskList.add(new TaskItem(singleTask, i));
-                i++;
-            }
+                if (Objects.equals(navPage, "Events")){
+                    if (Objects.equals(singleTask.getBelongsToEvent(), eventId)){
+                        itemTaskList.add(new TaskItem(singleTask, i));
+                        i++;
+                    }
+                } else if (Objects.equals(navPage, "Tasks")){
+                    itemTaskList.add(new TaskItem(singleTask, i));
+                    i++;
+                }
 
-            TaskItemManagerAdapter resultTaskItemAdapter = new TaskItemManagerAdapter(itemTaskList);
+            }
+            TaskItemAdapter resultTaskItemAdapter = new TaskItemAdapter(itemTaskList);
             rv_tasks.setLayoutManager(new LinearLayoutManager(getActivity()));
             rv_tasks.setAdapter(resultTaskItemAdapter);
             resultTaskItemAdapter.setOnItemClickListener(onItemTaskClickListener);
