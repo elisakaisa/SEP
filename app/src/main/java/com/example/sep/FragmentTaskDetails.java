@@ -31,49 +31,22 @@ import java.io.ObjectOutputStream;
  * create an instance of this fragment.
  */
 public class FragmentTaskDetails extends Fragment {
-    Task task;
-    Event event;
-    Boolean extraBudget;
+    private Task task;
     TextInputEditText tvTaskExtraBudget;
     private int itemIdentifierTask;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentTaskDetails() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentTasksPerPerson.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentTaskDetails newInstance(String param1, String param2) {
-        FragmentTaskDetails fragment = new FragmentTaskDetails();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static FragmentTaskDetails newInstance() {
+        return new FragmentTaskDetails();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -135,13 +108,13 @@ public class FragmentTaskDetails extends Fragment {
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
         /* ------- LISTENERS --------*/
-        eventVM.getEvent().observe(requireActivity(), eventItem -> {
+        eventVM.getEvent().observe(requireActivity(), event -> {
 
-            tvEventId.setText(String.valueOf(eventItem.getId()));
-            tvEventType.setText(eventItem.getEventType());
-            tvEventFrom.setText(eventItem.getFromDate());
-            tvEventTo.setText(eventItem.getToDate());
-            tvEventAttendees.setText(String.valueOf(eventItem.getAttendees()));
+            tvEventId.setText(String.valueOf(event.getId()));
+            tvEventType.setText(event.getEventType());
+            tvEventFrom.setText(event.getFromDate());
+            tvEventTo.setText(event.getToDate());
+            tvEventAttendees.setText(String.valueOf(event.getAttendees()));
         });
 
         taskVM.getTask().observe(requireActivity(), taskItem -> {
@@ -154,9 +127,7 @@ public class FragmentTaskDetails extends Fragment {
 
         itemIdentifierTask = taskVM.getIdentifierTask();
 
-        cbTaskBudgetRequest.setOnClickListener(v -> {
-            tvTaskExtraBudget.setVisibility(View.VISIBLE);
-        });
+        cbTaskBudgetRequest.setOnClickListener(v -> tvTaskExtraBudget.setVisibility(View.VISIBLE));
 
         btnSubmitTaskPlanning.setOnClickListener(v -> submitTaskPlanning());
         btnFinancialRequest.setOnClickListener(v -> HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestForm()));

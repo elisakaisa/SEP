@@ -8,7 +8,6 @@ import com.example.sep.model.Employee;
 
 public class LoginViewModel extends ViewModel {
 
-
     private LoginInterface listener;
     private MutableLiveData<Employee> employee = new MutableLiveData<>();
 

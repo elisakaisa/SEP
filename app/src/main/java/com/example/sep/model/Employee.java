@@ -1,7 +1,7 @@
 package com.example.sep.model;
 
 public class Employee {
-    String name, role, password, department;
+    private String name, role, password, department;
 
     public Employee(String newName, String newDepartment, String newRole, String newPassword) {
         // Constructor

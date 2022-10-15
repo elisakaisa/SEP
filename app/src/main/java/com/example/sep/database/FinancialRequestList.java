@@ -1,5 +1,7 @@
 package com.example.sep.database;
-
+/*
+mockup of an financial request database
+ */
 import com.example.sep.model.FinancialRequest;
 
 import java.io.Serializable;

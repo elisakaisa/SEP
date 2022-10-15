@@ -3,12 +3,12 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class Event implements Serializable {
-    String recordNumber, clientName, eventType, fromDate, toDate, comments, FMreview, status;
-    int attendees, budget, level, id;
-    boolean decorations, food, parties, drinks, photo;
-    // level: variable to set at which level of the company the request is going
+    private String recordNumber, clientName, eventType, fromDate, toDate, comments, FMReview, status;
+    private int attendees, budget, level, id;
+    private boolean decorations, food, parties, drinks, photo;
 
     // level variables
+    // level: variable to set at which level / to which employee of the company the request is going
     public static final int CS_CREATED = 0;
     public static final int SCS_APPROVED = 1;
     public static final int FM_REVIEWED = 2;
@@ -22,7 +22,6 @@ public class Event implements Serializable {
     public static final String DISMISSED = "Dismissed";
 
     public Event(
-            /* constructor */
             int newId,
             String newRecordNumber,
             String newClientName,
@@ -172,9 +171,9 @@ public class Event implements Serializable {
     public void addLevel() { this.level = level + 1; }
 
     public void setFMReview(String review) {
-        FMreview = review;
+        FMReview = review;
     }
-    public String getFMReview() { return FMreview; }
+    public String getFMReview() { return FMReview; }
 
     public void setStatus(String status) { this.status = status; }
     public String getStatus() { return status; }

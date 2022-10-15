@@ -1,6 +1,6 @@
 package com.example.sep.database;
 /*
-Mockup database
+Mockup database that stores the employees of the company
  */
 
 import com.example.sep.model.Employee;
@@ -10,7 +10,7 @@ import java.util.stream.IntStream;
 
 public class Employees {
 
-    ArrayList<Employee> dbEmployees = new ArrayList<>();
+    private final ArrayList<Employee> dbEmployees = new ArrayList<>();
 
     // departments
     public static final String ADMINISTRATION = "Administration";
@@ -30,48 +30,49 @@ public class Employees {
 
 
     // Administration department
-    Employee SCSO = new Employee("Janet", ADMINISTRATION, "Senior Customer Service Officer", "password");
-    Employee CS1 = new Employee("Sarah", ADMINISTRATION,"Customer Service", "password");
-    Employee CS2 = new Employee("Sam", ADMINISTRATION,"Customer Service", "password");
-    Employee CS3 = new Employee("Judy", ADMINISTRATION,"Customer Service", "password");
-    Employee CS4 = new Employee("Carine", ADMINISTRATION,"Customer Service", "password");
-    Employee HRM = new Employee("Simon", ADMINISTRATION,"Senior HR Manager", "password");
-    Employee HRA = new Employee("Maria", ADMINISTRATION,"HR Assistant", "password");
-    Employee AD = new Employee("Mike", ADMINISTRATION,"Administration department manager", "password");
-    Employee MO = new Employee("David", ADMINISTRATION,"Marketing officer", "password");
-    Employee MA = new Employee("Emma", ADMINISTRATION,"Marketing assistant", "password");
+    private final Employee SCSO = new Employee("Janet", ADMINISTRATION, "Senior Customer Service Officer", "password");
+    private final Employee CS1 = new Employee("Sarah", ADMINISTRATION,"Customer Service", "password");
+    private final Employee CS2 = new Employee("Sam", ADMINISTRATION,"Customer Service", "password");
+    private final Employee CS3 = new Employee("Judy", ADMINISTRATION,"Customer Service", "password");
+    private final Employee CS4 = new Employee("Carine", ADMINISTRATION,"Customer Service", "password");
+    private final Employee HRM = new Employee("Simon", ADMINISTRATION,"Senior HR Manager", "password");
+    private final Employee HRA = new Employee("Maria", ADMINISTRATION,"HR Assistant", "password");
+    private final Employee AD = new Employee("Mike", ADMINISTRATION,"Administration department manager", "password");
+    private final Employee MO = new Employee("David", ADMINISTRATION,"Marketing officer", "password");
+    private final Employee MA = new Employee("Emma", ADMINISTRATION,"Marketing assistant", "password");
 
     // Financial department
-    Employee FM = new Employee("Alice", FINANCIAL,"Financial manager", "password");
-    Employee Acc1 = new Employee("Fredrik", FINANCIAL,"Accountant", "password");
-    Employee Acc2 = new Employee("Sophia", FINANCIAL,"Accountant", "password");
+    private final Employee FM = new Employee("Alice", FINANCIAL,"Financial manager", "password");
+    private final Employee Acc1 = new Employee("Fredrik", FINANCIAL,"Accountant", "password");
+    private final Employee Acc2 = new Employee("Sophia", FINANCIAL,"Accountant", "password");
 
     // Production department
-    Employee PM = new Employee("Jack", PRODUCTION, "Production department manager", "password");
-    Employee Photo1 = new Employee("Tobias", PRODUCTION,PHOTO, "password");
-    Employee Photo2 = new Employee("Magdalena", PRODUCTION,PHOTO, "password");
-    Employee Audio1 = new Employee("Antony", PRODUCTION,MUSIC, "password");
-    Employee Audio2 = new Employee("Adam", PRODUCTION,MUSIC, "password");
-    Employee Graphic1 = new Employee("Julia", PRODUCTION,DESIGN, "password");
-    Employee Graphic2 = new Employee("Raymond", PRODUCTION,DESIGN, "password");
-    Employee Deco1 = new Employee("Magy", PRODUCTION,DECOR, "password");
-    Employee Deco2 = new Employee("Angelina", PRODUCTION,"Decorating specialist", "password");
-    Employee Network1 = new Employee("Christian", PRODUCTION,DATA, "password");
-    Employee Network2 = new Employee("Nicolas", PRODUCTION,DATA, "password");
-    Employee Network3 = new Employee("Michael", PRODUCTION,"Technician", "password");
-    Employee Network4 = new Employee("Robert", PRODUCTION,"Technician", "password");
+    private final Employee PM = new Employee("Jack", PRODUCTION, "Production department manager", "password");
+    private final Employee Photo1 = new Employee("Tobias", PRODUCTION,PHOTO, "password");
+    private final Employee Photo2 = new Employee("Magdalena", PRODUCTION,PHOTO, "password");
+    private final Employee Audio1 = new Employee("Antony", PRODUCTION,MUSIC, "password");
+    private final Employee Audio2 = new Employee("Adam", PRODUCTION,MUSIC, "password");
+    private final Employee Graphic1 = new Employee("Julia", PRODUCTION,DESIGN, "password");
+    private final Employee Graphic2 = new Employee("Raymond", PRODUCTION,DESIGN, "password");
+    private final Employee Deco1 = new Employee("Magy", PRODUCTION,DECOR, "password");
+    private final Employee Deco2 = new Employee("Angelina", PRODUCTION,"Decorating specialist", "password");
+    private final Employee Network1 = new Employee("Christian", PRODUCTION,DATA, "password");
+    private final Employee Network2 = new Employee("Nicolas", PRODUCTION,DATA, "password");
+    private final Employee Network3 = new Employee("Michael", PRODUCTION,"Technician", "password");
+    private final Employee Network4 = new Employee("Robert", PRODUCTION,"Technician", "password");
 
     // Services department
-    Employee SM = new Employee("Natalie", SERVICE_DEP,"Services department manager", "password");
-    Employee Chef = new Employee("Helen", SERVICE_DEP,FOOD, "password");
-    Employee SW = new Employee("Kate", SERVICE_DEP,SERVICE, "password");
+    private final Employee SM = new Employee("Natalie", SERVICE_DEP,"Services department manager", "password");
+    private final Employee Chef = new Employee("Helen", SERVICE_DEP,FOOD, "password");
+    private final Employee SW = new Employee("Kate", SERVICE_DEP,SERVICE, "password");
 
     // top management
-    Employee VP = new Employee("Charlie", TOP_MANAGEMENT, "Vice president", "password");
-    Employee Sec1 = new Employee("Jennifer", TOP_MANAGEMENT,"Secretary", "password");
-    Employee Sec2 = new Employee("Cameron", TOP_MANAGEMENT,"Secretary", "password");
+    private final Employee VP = new Employee("Charlie", TOP_MANAGEMENT, "Vice president", "password");
+    private final Employee Sec1 = new Employee("Jennifer", TOP_MANAGEMENT,"Secretary", "password");
+    private final Employee Sec2 = new Employee("Cameron", TOP_MANAGEMENT,"Secretary", "password");
 
     public void initEmployees() {
+        // method that creates the arrayList storing the employees
         dbEmployees.add(SCSO);
         dbEmployees.add(CS1);
         dbEmployees.add(CS2);
@@ -122,6 +123,7 @@ public class Employees {
     }
 
     public ArrayList<Employee> getEmployeesFromDbBySubTeam(final String searchedDepartment, final String searchedRole) {
+        // method to return the employees from a particular department and role
         ArrayList<Employee> employees = new ArrayList<>();
 
         for (int i=0 ; i< dbEmployees.size() ; i++) {

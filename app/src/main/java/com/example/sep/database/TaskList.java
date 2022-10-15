@@ -1,6 +1,8 @@
 package com.example.sep.database;
+/*
+mockup of a task database
+ */
 
-import com.example.sep.model.Event;
 import com.example.sep.model.Task;
 
 import java.io.Serializable;

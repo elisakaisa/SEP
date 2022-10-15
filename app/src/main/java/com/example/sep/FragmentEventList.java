@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.view.eventRecyclerView.EventItem;
 import com.example.sep.view.eventRecyclerView.EventItemAdapter;
 import com.example.sep.model.Event;
@@ -34,44 +35,18 @@ public class  FragmentEventList extends Fragment {
     private EventViewModel eventVM;
     private FloatingActionButton fabAdd;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public FragmentEventList() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentEventList.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentEventList newInstance(String param1, String param2) {
-        FragmentEventList fragment = new FragmentEventList();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static FragmentEventList newInstance() {
+        return new FragmentEventList();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -98,14 +73,15 @@ public class  FragmentEventList extends Fragment {
                 accessLevel = 2;
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;
-
-            case "Production department manager":
-            case "Service department manager":
             case "Administration department manager" :
                 accessLevel = 3;
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;
-
+            case "Production department manager":
+            case "Service department manager":
+                accessLevel = 4;
+                fabAdd.setVisibility(View.INVISIBLE);
+                break;
 
         }
 
@@ -133,7 +109,7 @@ public class  FragmentEventList extends Fragment {
         });
 
         fabAdd.setOnClickListener(v -> {
-            loadFragment(new FragmentCreateEvent());
+            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentCreateEvent());
         });
 
         return view;
@@ -148,13 +124,7 @@ public class  FragmentEventList extends Fragment {
             eventVM.setEvent(eventItem.getEvent());
             eventVM.setIdentifier(eventItem.getIdx());
 
-            loadFragment(new FragmentEventDetails());
+            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventDetails());
         }
     };
-
-    private void loadFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, fragment, "");
-        fragmentTransaction.commit();
-    }
 }

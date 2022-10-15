@@ -1,5 +1,7 @@
 package com.example.sep.database;
-
+/*
+mockup of an recruitment request database
+ */
 import com.example.sep.model.RecruitmentRequest;
 
 import java.io.Serializable;

@@ -42,44 +42,17 @@ public class FragmentEventDetails extends Fragment {
     private TextInputEditText etFMReview;
     private TextInputLayout tiFMReview;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public FragmentEventDetails() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentEventDetails.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FragmentEventDetails newInstance(String param1, String param2) {
-        FragmentEventDetails fragment = new FragmentEventDetails();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public static FragmentEventDetails newInstance() {
+        return new FragmentEventDetails();
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -98,26 +71,18 @@ public class FragmentEventDetails extends Fragment {
         MaterialButton btnDelete = view.findViewById(R.id.btn_event_details_delete);
         MaterialButton btnApprove = view.findViewById(R.id.btn_event_details_approve);
         MaterialButton btnReview = view.findViewById(R.id.btn_add_comment);
-
         MaterialButton btnCheckTaskList = view.findViewById(R.id.btn_check_task_list);
 
         switch (RoleTransfer.getRole()) {
-            case "Customer Service":
-                buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
-                llFinancialManager.setVisibility(View.INVISIBLE);
-                int i = 1; // TODO clear this once all roles are defined
-
-                break;
             case "Senior Customer Service Officer":
             case "Administration department manager":
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.VISIBLE, View.VISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
-
                 break;
+
             case "Financial manager":
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.VISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.VISIBLE);
-
                 break;
 
             case "Production department manager":
@@ -125,6 +90,8 @@ public class FragmentEventDetails extends Fragment {
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.VISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
                 break;
+
+            case "Customer Service":
             default:
                 buttonVisibilitySetter(btnDelete, btnApprove, btnReview, btnCheckTaskList, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE, View.INVISIBLE);
                 llFinancialManager.setVisibility(View.INVISIBLE);
@@ -186,7 +153,7 @@ public class FragmentEventDetails extends Fragment {
         else if (level == 1) s = "Senior CS officer";
         else if (level == 2) s = "Financial manager";
         else if (level == 3) s = "Administration manager";
-        else s= "error";
+        else s = "error";
         return s;
     }
 

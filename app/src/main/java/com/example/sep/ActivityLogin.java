@@ -18,8 +18,8 @@ import com.google.android.material.textfield.TextInputLayout;
 
 public class ActivityLogin extends AppCompatActivity {
 
+    /*----- SHARED PREFERNCES -----*/
     public static SharedPreferences sharedPref; // needs to be static for the same preferences to be accessed form other classes
-
     public static final String NAME = "name";
     public static final String ROLE = "role";
     public static final String DEPARTMENT = "department";
@@ -47,14 +47,7 @@ public class ActivityLogin extends AppCompatActivity {
         LoginViewModel loginVM = new ViewModelProvider(this).get(LoginViewModel.class);
 
         /* ----- USER FROM STORAGE ------*/
-        sharedPref = getPreferences(Context.MODE_PRIVATE);
-        Employee userFromStorage = new Employee(null, null, null, null);
-        if (sharedPref.contains(NAME) && sharedPref.contains(ROLE) && sharedPref.contains(DEPARTMENT)) {
-            userFromStorage.setDepartment(sharedPref.getString(DEPARTMENT, null));
-            userFromStorage.setName(sharedPref.getString(NAME, null));
-            userFromStorage.setRole(sharedPref.getString(ROLE, null));
-            startActivityAfterLogin(userFromStorage.getName(), userFromStorage.getDepartment(), userFromStorage.getRole());
-        }
+        getUserFromStorage();
 
         /*--------- listeners ---------*/
         login.setOnClickListener(v -> {
@@ -65,23 +58,13 @@ public class ActivityLogin extends AppCompatActivity {
             } else {
                 tiPassword.setError(null);
                 tiUsername.setError(null);
-                // TODO: make sure space is ignored (trim?)
-                loginVM.login(String.valueOf(etUsername.getText()), String.valueOf(etPassword.getText()));
+                loginVM.login(String.valueOf(etUsername.getText()).trim(), String.valueOf(etPassword.getText()));
             }
         });
 
         loginVM.setLoginListener((loggedIn, errorMessage, user) -> {
-            if (loggedIn) {
-
-                // save the logged in user into local storage so no need to relog in every time the app starts
-                SharedPreferences.Editor prefsEditor = sharedPref.edit();
-                prefsEditor.putString(NAME, user.getName());
-                prefsEditor.putString(DEPARTMENT, user.getDepartment());
-                prefsEditor.putString(ROLE, user.getRole());
-                prefsEditor.apply();
-
-                startActivityAfterLogin(user.getName(), user.getDepartment(), user.getRole());
-            } else {
+            if (loggedIn) login(user);
+            else {
                 Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
                 if (errorMessage.equals("Wrong password")) tiPassword.setError("Wrong password");
                 else tiUsername.setError("Wrong name");
@@ -90,15 +73,11 @@ public class ActivityLogin extends AppCompatActivity {
 
         // removes error messages
         etPassword.setOnKeyListener((view1, i, keyEvent) -> {
-            if(isFieldEmpty(String.valueOf(etPassword.getText()))) {
-                tiPassword.setError(null);
-            }
+            if(isFieldEmpty(String.valueOf(etPassword.getText()))) tiPassword.setError(null);
             return false;
         });
         etUsername.setOnKeyListener((view1, i, keyEvent) -> {
-            if(isFieldEmpty(String.valueOf(etUsername.getText()))) {
-                tiUsername.setError(null);
-            }
+            if(isFieldEmpty(String.valueOf(etUsername.getText()))) tiUsername.setError(null);
             return false;
         });
     }
@@ -109,10 +88,34 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void startActivityAfterLogin(String name, String department, String role) {
+        // intent to BaseActivity with name, role and department as extras
         Intent intent = new Intent(this, BaseActivity.class);
         intent.putExtra(NAME, name);
         intent.putExtra(DEPARTMENT, department);
         intent.putExtra(ROLE, role);
         startActivity(intent);
+    }
+
+    private void getUserFromStorage() {
+        // if the user is already logged in (saved in shared preferences), the user will skip the login screen and go straight to the baseActivity
+        sharedPref = getPreferences(Context.MODE_PRIVATE);
+        Employee userFromStorage = new Employee(null, null, null, null);
+        if (sharedPref.contains(NAME) && sharedPref.contains(ROLE) && sharedPref.contains(DEPARTMENT)) {
+            userFromStorage.setDepartment(sharedPref.getString(DEPARTMENT, null));
+            userFromStorage.setName(sharedPref.getString(NAME, null));
+            userFromStorage.setRole(sharedPref.getString(ROLE, null));
+            startActivityAfterLogin(userFromStorage.getName(), userFromStorage.getDepartment(), userFromStorage.getRole());
+        }
+    }
+
+    private void login(Employee user) {
+        // save the logged in user into local storage so no need to relog in every time the app starts
+        SharedPreferences.Editor prefsEditor = sharedPref.edit();
+        prefsEditor.putString(NAME, user.getName());
+        prefsEditor.putString(DEPARTMENT, user.getDepartment());
+        prefsEditor.putString(ROLE, user.getRole());
+        prefsEditor.apply();
+
+        startActivityAfterLogin(user.getName(), user.getDepartment(), user.getRole());
     }
 }

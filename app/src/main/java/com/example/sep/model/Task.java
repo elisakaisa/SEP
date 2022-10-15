@@ -3,10 +3,10 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class Task implements Serializable {
-    Integer taskId;
-    String  belongsToEvent, department, assignedBy,team, assignedTo, projectReference,
+    private Integer taskId;
+    private String  belongsToEvent, department, assignedBy,team, assignedTo, projectReference,
             taskDescription, taskPriority, budgetForTask, taskPlanning;
-    Boolean requestExtraBudget, requestExtraResources;
+    private Boolean requestExtraBudget, requestExtraResources;
 
     public Task (int taskId,
                  String belongsToEvent,

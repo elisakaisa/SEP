@@ -36,7 +36,7 @@ public class TaskListViewModel extends AndroidViewModel {
 
     private void loadTasks() {
         // asynchronous call to load the task
-        // Deserialize taskList here
+        // Deserialize taskList
         try{
             FileInputStream fin = getApplication().getApplicationContext().openFileInput(BaseActivity.TASK_LIST_FILE);
             ObjectInputStream oin = new ObjectInputStream(fin);

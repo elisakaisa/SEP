@@ -8,7 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -21,9 +20,9 @@ import android.widget.Spinner;
 import com.example.sep.database.Employees;
 import com.example.sep.model.Employee;
 import com.example.sep.model.Task;
+import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.eventVM.EventViewModel;
-import com.example.sep.viewModel.taskVM.TaskItemViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
@@ -48,9 +47,6 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     String role;
     String departmentName;
 
-
-
-    private TaskItemViewModel mViewModel;
 
     public static FragmentCreateTask newInstance() {
         return new FragmentCreateTask();
@@ -93,7 +89,6 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
             eventId = String.valueOf(eventItem.getId());
         });
 
-
         subTeamMembersSpinner.setOnItemSelectedListener(this);
         taskPrioritySpinner.setOnItemSelectedListener(this);
 
@@ -107,13 +102,10 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
+            public void onTabUnselected(TabLayout.Tab tab) {}
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
+            public void onTabReselected(TabLayout.Tab tab) {}
         });
 
         if (assignedToTeam == null){
@@ -128,16 +120,11 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
-        if(adapterView.getId() == R.id.spinner_priority)
-        {
+        if(adapterView.getId() == R.id.spinner_priority) {
             taskPriority = String.valueOf(adapterView.getItemAtPosition(position));
-        }
-        else if(adapterView.getId() == R.id.spinner_sub_team_people)
-        {
+        } else if (adapterView.getId() == R.id.spinner_sub_team_people) {
             assignedToMember = String.valueOf(adapterView.getItemAtPosition(position));
         }
-
-
     }
 
     @Override
@@ -164,15 +151,13 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
                 Boolean.FALSE
                 );
         saveResultsTaskList(newTask);
-        FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.content_container, new FragmentTaskListManager(), "");
-        fragmentTransaction.commit();
+        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskListManager());
     }
 
     private void saveResultsTaskList(Task task) {
         BaseActivity.taskList.addTask(task);
         try {
-            FileOutputStream fos = getActivity().openFileOutput(BaseActivity.TASK_LIST_FILE, Context.MODE_PRIVATE);
+            FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.TASK_LIST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(BaseActivity.taskList);
             oos.close();
@@ -205,6 +190,5 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
         taskPrioritySpinner.setAdapter(adapterPriorities);
 
     }
-
 
 }

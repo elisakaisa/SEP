@@ -37,13 +37,11 @@ public class BaseActivity extends AppCompatActivity {
     public static final String RES_REQUEST_FILE = "recruitmentlist.ser";
 
     /* -------- BOTTOM NAV ---------*/
-    BottomNavigationView bottomNavigationViewFM;
-    BottomNavigationView bottomNavigationViewFiM;
+    private BottomNavigationView bottomNavigationViewFM;
+    private BottomNavigationView bottomNavigationViewFiM;
+    private BottomNavigationViewModel bottomNavVM;
 
-    String name;
-    String role;
-    String department;
-    BottomNavigationViewModel bottomNavVM;
+    private String name, role, department;
 
 
     @Override
@@ -71,18 +69,17 @@ public class BaseActivity extends AppCompatActivity {
         department = intent.getStringExtra(ActivityLogin.DEPARTMENT);
         role = intent.getStringExtra(ActivityLogin.ROLE);
 
+        /*----------- ROLE & DEP ------------*/
         RoleTransfer.setRole(role);
         RoleTransfer.setDepartment(department);
         RoleTransfer.setName(name);
-
         String s = "Welcome " + name;
         tv_username.setText(s);
         tv_role.setText(role);
 
-        // default fragment
-        if ((role != null) & (department != null)) {
-            setDefaultFragment(role, department);
-        } else {
+        /*-------- DEFAULT FRAGMENT ---------*/
+        if ((role != null) & (department != null)) setDefaultFragment(role, department);
+        else {
             Toast.makeText(this, "An error occurred, please try later", Toast.LENGTH_SHORT).show();
             logOut();
         }
@@ -93,11 +90,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setDefaultFragment(String role, String department) {
-        // TODO add all user cases
-        // TODO make bottom nav function
         // method to select the correct default fragment and visible menus based on the logged in user
         switch (department) {
-            case Employees.ADMINISTRATION:  // administration department
+            case Employees.ADMINISTRATION:
                 if (role.equals("HR Assistant") || role.equals("Senior HR Manager")) { // HR
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
                 } else { // customer Service and marketing
@@ -119,7 +114,6 @@ public class BaseActivity extends AppCompatActivity {
             case Employees.SERVICE_DEP:
             case Employees.PRODUCTION:
                 bottomNavigationViewFM.setVisibility(View.INVISIBLE);
-
 
                 if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
@@ -145,17 +139,17 @@ public class BaseActivity extends AppCompatActivity {
 
 
     private void logOut() {
-        // remove user from local storage
+        // method to remove user from local storage and intent to LoginActivity
         ActivityLogin.sharedPref.edit().remove(ActivityLogin.NAME).apply();
         ActivityLogin.sharedPref.edit().remove(ActivityLogin.DEPARTMENT).apply();
         ActivityLogin.sharedPref.edit().remove(ActivityLogin.ROLE).apply();
-
         startActivity(new Intent(this, ActivityLogin.class));
         finish();
     }
 
     @SuppressLint("NonConstantResourceId")
     private boolean listenerFM(MenuItem menuItem) {
+        // listener for the bottom nav menu of the financial manager
         switch (menuItem.getItemId()){
             case R.id.nav_events:
                 setDefaultFragment(role, department);
@@ -169,7 +163,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @SuppressLint("NonConstantResourceId")
     private boolean listenerFiM(MenuItem menuItem) {
-        // TODO implement correct fragments
+        // listener for the bottom nav menu of the field managers
         switch (menuItem.getItemId()){
             case R.id.nav_events_fim:
                 setDefaultFragment(role, department);

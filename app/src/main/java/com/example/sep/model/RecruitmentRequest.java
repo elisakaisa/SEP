@@ -3,8 +3,8 @@ package com.example.sep.model;
 import java.io.Serializable;
 
 public class RecruitmentRequest implements Serializable {
-    String contractType, requestingDepartment, yearsOfExperience, jobTitle, jobDescription, status;
-    int eventId;
+    private String contractType, requestingDepartment, yearsOfExperience, jobTitle, jobDescription, status;
+    private int eventId;
 
     // status
     public static final String PENDING = "Pending";

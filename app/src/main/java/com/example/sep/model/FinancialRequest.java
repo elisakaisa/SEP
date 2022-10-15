@@ -4,8 +4,8 @@ import java.io.Serializable;
 
 public class FinancialRequest implements Serializable {
 
-    String projectReference, requestingDepartment, reason;
-    int requiredAmount;
+    private String projectReference, requestingDepartment, reason;
+    private int requiredAmount;
 
     public FinancialRequest(String projectRef, String department, int amount, String reason) {
         this.projectReference = projectRef;
