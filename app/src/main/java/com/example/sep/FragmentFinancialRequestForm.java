@@ -136,7 +136,7 @@ public class FragmentFinancialRequestForm extends Fragment {
         FinancialRequest newRequest = new FinancialRequest(
                 String.valueOf(etRecordNumber.getText()),
                 chosenDepartment,
-                String.valueOf(etRequiredAmount.getText()),
+                Integer.parseInt(String.valueOf(etRequiredAmount.getText())),
                 String.valueOf(etReason.getText())
         );
         saveResultsList(newRequest);

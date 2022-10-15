@@ -76,7 +76,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_required_amount_fin_view2"
-                    android:text="@{requestVM.request.requiredAmount}"
+                    android:text="@{String.valueOf(requestVM.request.requiredAmount)}"
                     android:padding="4dp"/>
 
             </TableRow>

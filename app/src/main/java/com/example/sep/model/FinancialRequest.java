@@ -4,9 +4,10 @@ import java.io.Serializable;
 
 public class FinancialRequest implements Serializable {
 
-    String projectReference, requestingDepartment, requiredAmount, reason;
+    String projectReference, requestingDepartment, reason;
+    int requiredAmount;
 
-    public FinancialRequest(String projectRef, String department, String amount, String reason) {
+    public FinancialRequest(String projectRef, String department, int amount, String reason) {
         this.projectReference = projectRef;
         this.requestingDepartment = department;
         this.requiredAmount = amount;
@@ -29,11 +30,11 @@ public class FinancialRequest implements Serializable {
         this.requestingDepartment = requestingDepartment;
     }
 
-    public String getRequiredAmount() {
+    public int getRequiredAmount() {
         return requiredAmount;
     }
 
-    public void setRequiredAmount(String requiredAmount) {
+    public void setRequiredAmount(int requiredAmount) {
         this.requiredAmount = requiredAmount;
     }
 

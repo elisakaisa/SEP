@@ -26,8 +26,8 @@ public class RecruitmentRequestItemAdapter extends RecyclerView.Adapter<Recruitm
 
     @Override
     public void onBindViewHolder(@NonNull RecruitmentRequestItemAdapter.RecruitmentRequestViewHolder holder, int position) {
-        holder.iJobTitle.setText(mRequestItem.get(position).getiJobTitle());
-        holder.iStatus.setText(mRequestItem.get(position).getiStatus());
+        holder.iJobTitle.setText(mRequestItem.get(position).getJobTitle());
+        holder.iStatus.setText(mRequestItem.get(position).getStatus());
     }
 
     @Override

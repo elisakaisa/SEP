@@ -23,15 +23,15 @@ public class RecruitmentRequestItem implements Serializable {
         return idx;
     }
 
-    public RecruitmentRequest getiRequest() {
+    public RecruitmentRequest getRequest() {
         return iRequest;
     }
 
-    public String getiJobTitle() {
+    public String getJobTitle() {
         return iJobTitle;
     }
 
-    public String getiStatus() {
+    public String getStatus() {
         return iStatus;
     }
 }
