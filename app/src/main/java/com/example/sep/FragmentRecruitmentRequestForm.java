@@ -72,10 +72,6 @@ public class FragmentRecruitmentRequestForm extends Fragment {
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
         /* ------- LISTENERS --------*/
-        //eventVM.getEvent().observe(requireActivity(), eventItem -> {
-            //tvEventId.setText(eventItem.getId());
-       // }); //TODO: see if we want to have the eventID here
-
         btnSubmit.setOnClickListener(v -> {
             if (!isFieldEmpty(String.valueOf(etJobTitle.getText()))) tiJobTitle.setError("Job title required");
             if (!isFieldEmpty(String.valueOf(etYearsOfExperience.getText()))) tiYearsOfExperience.setError("Years of experience required");
@@ -121,7 +117,6 @@ public class FragmentRecruitmentRequestForm extends Fragment {
     }
 
     private void submitRequest() {
-        // Todo: add event id
         RecruitmentRequest newRequest = new RecruitmentRequest(
                 chosenContractType,
                 chosenDepartment,

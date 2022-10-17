@@ -58,7 +58,7 @@ public class FragmentFinancialRequestsList extends Fragment {
         fabAdd = view.findViewById(R.id.fab_add_request);
 
         // TODO: delete this button, request onhly added from task details
-        fabAdd.setVisibility(View.VISIBLE);
+        fabAdd.setVisibility(View.INVISIBLE);
 
         /*------------ VM ------------*/
         FinancialRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(FinancialRequestListViewModel.class);

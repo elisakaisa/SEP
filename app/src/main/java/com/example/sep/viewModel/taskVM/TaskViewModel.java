@@ -6,27 +6,22 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.sep.model.Task;
-import com.example.sep.view.eventRecyclerView.EventItem;
-import com.example.sep.view.taskRecyclerView.TaskItem;
 
-public class TaskItemViewModel extends ViewModel {
+public class TaskViewModel extends ViewModel {
 
-    private MutableLiveData<TaskItem> task;
+    private MutableLiveData<Task> task;
 
     public int identifierTask;
 
-    public LiveData<TaskItem> getTask(){
+    public LiveData<Task> getTask(){
         if (task == null) {
             task = new MutableLiveData<>();
-            loadTask();
         }
         return task;
 
     }
 
-    private void loadTask(){}
-
-    public void setTask(TaskItem taskObj) {
+    public void setTask(Task taskObj) {
         if(task == null) {
             task = new MutableLiveData<>();
         }

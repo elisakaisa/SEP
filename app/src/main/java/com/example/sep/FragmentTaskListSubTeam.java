@@ -3,7 +3,6 @@ package com.example.sep;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,7 +16,7 @@ import com.example.sep.utils.HelperFunctions;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
 import com.example.sep.viewModel.RoleTransfer;
-import com.example.sep.viewModel.taskVM.TaskItemViewModel;
+import com.example.sep.viewModel.taskVM.TaskViewModel;
 import com.example.sep.viewModel.taskVM.TaskListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -33,7 +32,7 @@ public class FragmentTaskListSubTeam extends Fragment {
 
     private RecyclerView rv_tasks;
     private ArrayList<TaskItem> itemList;
-    private TaskItemViewModel taskVM;
+    private TaskViewModel taskVM;
     private TaskListViewModel taskListVM;
 
     private FloatingActionButton fabAddTask;
@@ -63,7 +62,7 @@ public class FragmentTaskListSubTeam extends Fragment {
         fabAddTask.setVisibility(View.INVISIBLE);
 
         /*------------ VM ------------*/
-        taskVM = new ViewModelProvider(requireActivity()).get(TaskItemViewModel.class);
+        taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
         taskListVM = new ViewModelProvider(requireActivity()).get(TaskListViewModel.class);
 
         taskListVM.getTask().observe(requireActivity(), tasks -> {
@@ -91,7 +90,8 @@ public class FragmentTaskListSubTeam extends Fragment {
             RecyclerView.ViewHolder viewHolder = (RecyclerView.ViewHolder) view.getTag();
             int position = viewHolder.getAdapterPosition();
             TaskItem taskItem = itemList.get(position);
-            taskVM.setTask(taskItem);
+            taskVM.setTask(taskItem.getTask());
+            taskVM.setIdentifierTask(taskItem.getTaskID());
 
             HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskDetails());
         }

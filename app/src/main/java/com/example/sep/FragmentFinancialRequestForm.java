@@ -15,7 +15,7 @@ import android.widget.RadioGroup;
 import com.example.sep.database.FinancialRequestList;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.utils.HelperFunctions;
-import com.example.sep.viewModel.taskVM.TaskItemViewModel;
+import com.example.sep.viewModel.taskVM.TaskViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -64,9 +64,9 @@ public class FragmentFinancialRequestForm extends Fragment {
         radioGroup = view.findViewById(R.id.radioGroup);
 
         /*--------- VM -----------*/
-        TaskItemViewModel taskVM = new ViewModelProvider(requireActivity()).get(TaskItemViewModel.class);
+        TaskViewModel taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
         taskVM.getTask().observe(requireActivity(), taskItem -> {
-            eventId = taskItem.getTask().getBelongsToEvent();
+            eventId = taskItem.getBelongsToEvent();
         });
 
         /*------ LISTENERS --------*/

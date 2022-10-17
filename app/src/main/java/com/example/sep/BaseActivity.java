@@ -118,7 +118,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
                     bottomNavigationViewFiM.setVisibility(View.VISIBLE);
-                    bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true); // todo: check which one should be default
+                    bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true);
                 } else { //Sub-teams
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
                     bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
