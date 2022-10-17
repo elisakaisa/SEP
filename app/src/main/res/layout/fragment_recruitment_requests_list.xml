@@ -6,6 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentRecruitmentRequestsList">
 
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/tv_top"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="tsdyujgwdiugf"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_requests"
         android:layout_width="match_parent"
@@ -17,7 +23,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_top"
         app:layout_constraintBottom_toTopOf="parent" >
 
     </androidx.recyclerview.widget.RecyclerView>
