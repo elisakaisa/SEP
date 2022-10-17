@@ -151,7 +151,7 @@
                     android:text="@string/expected_budget" />
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/expected_budget"
+                    android:id="@+id/ti_expected_budget"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:boxBackgroundMode="filled"

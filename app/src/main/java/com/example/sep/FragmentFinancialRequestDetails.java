@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.sep.databinding.FragmentFinancialRequestDetailsBinding;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.utils.HelperFunctions;
+import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.financialRequestVM.FinancialRequestViewModel;
 import com.google.android.material.button.MaterialButton;
 
@@ -53,8 +54,16 @@ public class FragmentFinancialRequestDetails extends Fragment {
         MaterialButton btnDelete = view.findViewById(R.id.btn_fin_request_details_delete);
         MaterialButton btnApprove = view.findViewById(R.id.btn_fin_request_details_approve);
 
+        // only the financial manager can approve the financial requests
+        if (!RoleTransfer.getRole().equals("Financial manager")) {
+            btnApprove.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.INVISIBLE);
+        }
+
+        /* --------- VM ---------*/
         FinancialRequestViewModel financialRequestVM = new ViewModelProvider(requireActivity()).get(FinancialRequestViewModel.class);
 
+        /* ---- LISTENERS ------*/
         financialRequestVM.getRequest().observe(requireActivity(), request -> {
             binding.setRequestVM(financialRequestVM);
             mRequest = request;
@@ -68,30 +77,34 @@ public class FragmentFinancialRequestDetails extends Fragment {
     }
 
     private void onApprove() {
-        //if (RoleTransfer.getRole().equals("Senior Customer Service Officer") || RoleTransfer.getRole().equals("Administration department manager")) {
+        if (RoleTransfer.getRole().equals("Financial manager")) {
             if (mRequest != null) {
-                // TODO: approve request
-                //event.addLevel();
+                mRequest.setStatus(FinancialRequest.APPROVED);
                 BaseActivity.fRequestList.updateEvent(mRequest, itemIdentifier);
 
                 //Update list in local storage
-                saveResultList();
-                Toast.makeText(getActivity(), "Event is approved", Toast.LENGTH_SHORT).show();
+                saveFinancialRequestList();
+                Toast.makeText(getActivity(), "Request is approved", Toast.LENGTH_SHORT).show();
                 HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestsList());
             }
-        //}
+        }
     }
 
     private void onDelete() {
-        BaseActivity.fRequestList.deleteFinancialRequest(itemIdentifier);
-        //Update list in local storage
-        saveResultList();
-        Toast.makeText(getActivity(), "Request is deleted", Toast.LENGTH_SHORT).show();
+        if (RoleTransfer.getRole().equals("Financial manager")) {
+            if (mRequest != null) {
+                mRequest.setStatus(FinancialRequest.DISMISSED);
+                BaseActivity.fRequestList.updateEvent(mRequest, itemIdentifier);
 
-        HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentEventList());
+                //Update list in local storage
+                saveFinancialRequestList();
+                Toast.makeText(getActivity(), "Request is dismissed", Toast.LENGTH_SHORT).show();
+                HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestsList());
+            }
+        }
     }
 
-    private void saveResultList() {
+    private void saveFinancialRequestList() {
         try {
             FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

@@ -19,7 +19,10 @@ public class EventList implements Serializable {
         return theEvents;
     }
 
-    public void addEvent(Event event) { theEvents.add(event); }
+    public void addEvent(Event event) {
+        if (theEvents == null) theEvents = new ArrayList<>();
+        theEvents.add(event);
+    }
     public void deleteEvent(Integer idx) { theEvents.remove(idx.intValue());}
 
     public void updateEvent(Event event, Integer idx) {

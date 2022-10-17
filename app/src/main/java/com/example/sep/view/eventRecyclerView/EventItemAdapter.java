@@ -26,10 +26,10 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
 
     @Override
     public void onBindViewHolder(@NonNull EventItemViewHolder holder, int position) {
-        EventItem currentItem = mEventItem.get(position);
         holder.iClientName.setText(mEventItem.get(position).getClientName());
-        holder.iLevel.setText(String.valueOf(mEventItem.get(position).getLevel()));
+        holder.iLevel.setText(stringLevelFromInt(mEventItem.get(position).getLevel()));
         holder.iStatus.setText(mEventItem.get(position).getStatus());
+        holder.iEventType.setText(mEventItem.get(position).getEventType());
     }
 
     @Override
@@ -38,13 +38,14 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
     }
 
     public class EventItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView iClientName, iLevel, iStatus;
+        public TextView iClientName, iLevel, iStatus, iEventType;
 
         public EventItemViewHolder(@NonNull View itemView) {
             super(itemView);
             iClientName = itemView.findViewById(R.id.tv_cell_client_name);
             iLevel = itemView.findViewById(R.id.tv_cell_level);
-            iStatus = itemView.findViewById(R.id.tv_cell_event_status);
+            iStatus = itemView.findViewById(R.id.tv_cell_status);
+            iEventType = itemView.findViewById(R.id.tv_cell_event_type);
 
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);
@@ -57,5 +58,24 @@ public class EventItemAdapter extends RecyclerView.Adapter<EventItemAdapter.Even
 
     public void setOnItemClickListener(View.OnClickListener itemClickListener){
         mOnItemClickListener = itemClickListener;
+    }
+
+    private String stringLevelFromInt(int iLevel) {
+        String sLevel = null;
+        switch (iLevel) {
+            case 0:
+                sLevel = "created by CS";
+                break;
+            case 1:
+                sLevel = "approved by SCS";
+                break;
+            case 2:
+                sLevel = "reviewed by FM";
+                break;
+            case 3:
+                sLevel = "approved by AM";
+                break;
+        }
+        return sLevel;
     }
 }

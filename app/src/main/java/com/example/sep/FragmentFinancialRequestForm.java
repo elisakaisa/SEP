@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.sep.database.FinancialRequestList;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.utils.HelperFunctions;
+import com.example.sep.viewModel.taskVM.TaskViewModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -28,6 +31,7 @@ public class FragmentFinancialRequestForm extends Fragment {
     private RadioGroup radioGroup;
 
     private String chosenDepartment = "Administration";
+    private String eventId = null;
 
     public FragmentFinancialRequestForm() {
         // Required empty public constructor
@@ -58,6 +62,12 @@ public class FragmentFinancialRequestForm extends Fragment {
         MaterialButton btnCancel = view.findViewById(R.id.btn_financial_request_cancel);
         MaterialButton btnSubmit = view.findViewById(R.id.btn_financial_request_submit);
         radioGroup = view.findViewById(R.id.radioGroup);
+
+        /*--------- VM -----------*/
+        TaskViewModel taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
+        taskVM.getTask().observe(requireActivity(), taskItem -> {
+            eventId = taskItem.getBelongsToEvent();
+        });
 
         /*------ LISTENERS --------*/
         btnSubmit.setOnClickListener(v -> {
@@ -96,13 +106,13 @@ public class FragmentFinancialRequestForm extends Fragment {
     }
 
     private void submitRequest() {
-        // Todo: take record number from event
-
         FinancialRequest newRequest = new FinancialRequest(
+                eventId,
                 String.valueOf(etRecordNumber.getText()),
                 chosenDepartment,
                 Integer.parseInt(String.valueOf(etRequiredAmount.getText())),
-                String.valueOf(etReason.getText())
+                String.valueOf(etReason.getText()),
+                FinancialRequest.PENDING
         );
         saveResultsList(newRequest);
         HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestsList());
@@ -114,6 +124,7 @@ public class FragmentFinancialRequestForm extends Fragment {
     }
 
     private void saveResultsList(FinancialRequest request) {
+        if (BaseActivity.fRequestList == null) BaseActivity.fRequestList = new FinancialRequestList();
         BaseActivity.fRequestList.addFinancialRequest(request);
         try {
             FileOutputStream fos = requireActivity().openFileOutput(BaseActivity.FIN_REQUEST_FILE, Context.MODE_PRIVATE);

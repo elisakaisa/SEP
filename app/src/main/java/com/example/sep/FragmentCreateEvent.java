@@ -16,6 +16,7 @@ import com.example.sep.model.Event;
 import com.example.sep.utils.HelperFunctions;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
@@ -25,7 +26,6 @@ public class FragmentCreateEvent extends Fragment {
     /*-------- HOOKS -----------*/
     private TextInputEditText etRecordNumber, etClientName, etEventType, etAttendees,
                         etBudget, etDateFrom, etDateTo, etComments;
-    private CheckBox cbDecorations, cbFood, cbParties, cbDrinks, cbPhoto;
 
     /*------- VARIABLES --------*/
     private boolean decorations, food, parties, drinks, photo = false;
@@ -54,11 +54,18 @@ public class FragmentCreateEvent extends Fragment {
         etDateTo = view.findViewById(R.id.et_to);
         etDateFrom = view.findViewById(R.id.et_from);
         etComments = view.findViewById(R.id.et_comments);
-        cbDecorations = view.findViewById(R.id.cb_decorations);
-        cbFood = view.findViewById(R.id.cb_food);
-        cbParties = view.findViewById(R.id.cb_parties);
-        cbDrinks = view.findViewById(R.id.cb_drinks);
-        cbPhoto = view.findViewById(R.id.cb_photo);
+        TextInputLayout tiRecordNumber = view.findViewById(R.id.ti_record_number);
+        TextInputLayout tiClientName = view.findViewById(R.id.ti_client_name);
+        TextInputLayout tiEventType = view.findViewById(R.id.ti_event_type);
+        TextInputLayout tiAttendees = view.findViewById(R.id.ti_attendees);
+        TextInputLayout tiBudget = view.findViewById(R.id.ti_expected_budget);
+        TextInputLayout tiDateTo = view.findViewById(R.id.ti_to);
+        TextInputLayout tiDateFrom = view.findViewById(R.id.ti_from);
+        CheckBox cbDecorations = view.findViewById(R.id.cb_decorations);
+        CheckBox cbFood = view.findViewById(R.id.cb_food);
+        CheckBox cbParties = view.findViewById(R.id.cb_parties);
+        CheckBox cbDrinks = view.findViewById(R.id.cb_drinks);
+        CheckBox cbPhoto = view.findViewById(R.id.cb_photo);
         MaterialButton btnCancel = view.findViewById(R.id.btn_create_event_cancel);
         MaterialButton btnSubmit = view.findViewById(R.id.btn_create_event_submit);
 
@@ -73,7 +80,16 @@ public class FragmentCreateEvent extends Fragment {
         cbDrinks.setOnClickListener(v -> drinks = onCheckboxClicked(drinks));
         cbPhoto.setOnClickListener(v -> photo = onCheckboxClicked(photo));
         //Buttons
-        btnSubmit.setOnClickListener(v -> submitEvent());
+        btnSubmit.setOnClickListener(v -> {
+            if (!isFieldEmpty(String.valueOf(etRecordNumber.getText()))) tiRecordNumber.setError("Record number required");
+            if (!isFieldEmpty(String.valueOf(etClientName.getText()))) tiClientName.setError("Client name required");
+            if (!isFieldEmpty(String.valueOf(etEventType.getText()))) tiEventType.setError("Event type required");
+            if (!isFieldEmpty(String.valueOf(etAttendees.getText()))) tiAttendees.setError("Number of attendees required");
+            if (!isFieldEmpty(String.valueOf(etBudget.getText()))) tiBudget.setError("Expected budget required");
+            if (!isFieldEmpty(String.valueOf(etDateFrom.getText()))) tiDateFrom.setError("Date required");
+            if (!isFieldEmpty(String.valueOf(etDateTo.getText()))) tiDateTo.setError("Date required");
+            else submitEvent();
+        });
         btnCancel.setOnClickListener(v -> {
             // clear all inputs
             etRecordNumber.setText("");
@@ -85,6 +101,36 @@ public class FragmentCreateEvent extends Fragment {
             etDateFrom.setText("");
             etComments.setText("");
         });
+
+        // clear error messages
+        etRecordNumber.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etRecordNumber.getText()))) tiRecordNumber.setError(null);
+            return false;
+        }));
+        etClientName.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etClientName.getText()))) tiClientName.setError(null);
+            return false;
+        }));
+        etEventType.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etEventType.getText()))) tiEventType.setError(null);
+            return false;
+        }));
+        etAttendees.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etAttendees.getText()))) tiAttendees.setError(null);
+            return false;
+        }));
+        etBudget.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etBudget.getText()))) tiBudget.setError(null);
+            return false;
+        }));
+        etDateFrom.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etDateFrom.getText()))) tiDateFrom.setError(null);
+            return false;
+        }));
+        etDateTo.setOnKeyListener(((view1, i, keyEvent) -> {
+            if (!isFieldEmpty(String.valueOf(etDateTo.getText()))) tiDateTo.setError(null);
+            return false;
+        }));
 
         return view;
     }
@@ -128,6 +174,11 @@ public class FragmentCreateEvent extends Fragment {
 
     private boolean onCheckboxClicked(boolean preferences) {
         return !preferences;
+    }
+
+    private Boolean isFieldEmpty(String text) {
+        // for error messages in text fields
+        return text != null && text.length() > 1;
     }
 
     private void datePickerDialog(TextInputEditText textInputEditText){
