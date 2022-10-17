@@ -1,5 +1,8 @@
 package com.example.sep.view.taskRecyclerView;
 
+import static com.example.sep.database.Employees.PRODUCTION_MANAGER;
+import static com.example.sep.database.Employees.SERVICE_MANAGER;
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +35,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TaskItemAdapter.TaskItemViewHolder holder, int position) {
-        if (Objects.equals(role, "Production department manager")|| Objects.equals(role, "Service department manager"))
+        if (Objects.equals(role, PRODUCTION_MANAGER)|| Objects.equals(role, SERVICE_MANAGER))
         {
             holder.view1.setText(mTaskItem.get(position).getAssignedTeam());
             holder.view2.setText(mTaskItem.get(position).getAssignedTo());

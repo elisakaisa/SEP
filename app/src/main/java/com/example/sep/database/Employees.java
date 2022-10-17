@@ -19,6 +19,11 @@ public class Employees {
     public static final String SERVICE_DEP = "Service";
     public static final String TOP_MANAGEMENT = "Top management";
 
+    // managers
+    public static final String PRODUCTION_MANAGER = "Production department manager";
+    public static final String SERVICE_MANAGER = "Services department manager";
+
+
     // Sub-teams
     public static final String DECOR = "Decorating Architect";
     public static final String PHOTO = "Photographer";
@@ -47,7 +52,7 @@ public class Employees {
     private final Employee Acc2 = new Employee("Sophia", FINANCIAL,"Accountant", "password");
 
     // Production department
-    private final Employee PM = new Employee("Jack", PRODUCTION, "Production department manager", "password");
+    private final Employee PM = new Employee("Jack", PRODUCTION, PRODUCTION_MANAGER, "password");
     private final Employee Photo1 = new Employee("Tobias", PRODUCTION,PHOTO, "password");
     private final Employee Photo2 = new Employee("Magdalena", PRODUCTION,PHOTO, "password");
     private final Employee Audio1 = new Employee("Antony", PRODUCTION,MUSIC, "password");
@@ -62,7 +67,7 @@ public class Employees {
     private final Employee Network4 = new Employee("Robert", PRODUCTION,"Technician", "password");
 
     // Services department
-    private final Employee SM = new Employee("Natalie", SERVICE_DEP,"Services department manager", "password");
+    private final Employee SM = new Employee("Natalie", SERVICE_DEP,SERVICE_MANAGER, "password");
     private final Employee Chef = new Employee("Helen", SERVICE_DEP,FOOD, "password");
     private final Employee SW = new Employee("Kate", SERVICE_DEP,SERVICE, "password");
 

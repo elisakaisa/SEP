@@ -1,5 +1,7 @@
 package com.example.sep;
 
+import static com.example.sep.database.Employees.PRODUCTION_MANAGER;
+import static com.example.sep.database.Employees.SERVICE_MANAGER;
 import static java.lang.Integer.parseInt;
 
 import android.content.Context;
@@ -73,7 +75,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
         productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
         serviceSubTeamsTabLayout = view.findViewById(R.id.tabs_service);
 
-        if (role.equals("Production department manager")) {
+        if (role.equals(PRODUCTION_MANAGER)) {
             productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
             serviceSubTeamsTabLayout.setVisibility(View.INVISIBLE);
             if (assignedToTeam == null){
@@ -81,7 +83,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
                 setSpinnerSubTeam(assignedToTeam);
             }
 
-        } else if (role.equals("Services department manager")) {
+        } else if (role.equals(SERVICE_MANAGER)) {
             serviceSubTeamsTabLayout.setVisibility(View.VISIBLE);
             productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
             if (assignedToTeam == null){
