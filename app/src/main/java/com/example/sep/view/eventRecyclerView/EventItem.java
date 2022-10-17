@@ -9,12 +9,11 @@ import com.example.sep.model.Event;
 import java.io.Serializable;
 
 public class EventItem implements Serializable {
-    int idx;
-    Event iEvent;
+    private int idx;
+    private Event iEvent;
 
-    String iStatus;
-    String iClientName;
-    int iLevel;
+    private String iStatus, iClientName, iEventType;
+    private int iLevel;
 
     public EventItem(Event event, int idx) {
         iEvent = event;
@@ -22,6 +21,7 @@ public class EventItem implements Serializable {
         iClientName = event.getClientName();
         iLevel = event.getLevel();
         iStatus = event.getStatus();
+        iEventType = event.getEventType();
 
         this.idx = idx;
     }
@@ -31,6 +31,7 @@ public class EventItem implements Serializable {
     }
     public int getLevel() { return iLevel; }
     public String getStatus() { return iStatus; }
+    public String getEventType() { return iEventType; }
 
     public Event getEvent(){
         return iEvent;

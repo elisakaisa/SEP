@@ -104,5 +104,6 @@
     <string name="create_recruitment_request">Create recruitment request</string>
     <string name="recruitment_request_details">Recruitment request details</string>
     <string name="updated_budget">Updated Budget</string>
+    <string name="event_list">Event list</string>
 
 </resources>
