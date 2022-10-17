@@ -63,24 +63,34 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
 
         View view = inflater.inflate(R.layout.fragment_create_task, container, false);
 
-        productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
-        serviceSubTeamsTabLayout = view.findViewById(R.id.tabs_service);
-
-        if (role.equals("Production department manager")) {
-            productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
-            serviceSubTeamsTabLayout.setVisibility(View.INVISIBLE);
-
-        } else if (role.equals("Services department manager")) {
-            serviceSubTeamsTabLayout.setVisibility(View.VISIBLE);
-            productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
-        }
-
         projectReferenceEditText = view.findViewById(R.id.project_reference_text_input);
         taskDescriptionEditText =  view.findViewById(R.id.description_text_input);
         subTeamMembersSpinner =  view.findViewById(R.id.spinner_sub_team_people);
         taskPrioritySpinner =  view.findViewById(R.id.spinner_priority);
         assignBudgetEditText = view.findViewById(R.id.initial_budget_task_text_input);
         submitTaskButton =  view.findViewById(R.id.btn_submit_task);
+
+        productionSubTeamsTabLayout = view.findViewById(R.id.tabs_production);
+        serviceSubTeamsTabLayout = view.findViewById(R.id.tabs_service);
+
+        if (role.equals("Production department manager")) {
+            productionSubTeamsTabLayout.setVisibility(View.VISIBLE);
+            serviceSubTeamsTabLayout.setVisibility(View.INVISIBLE);
+            if (assignedToTeam == null){
+                assignedToTeam = "Decor";
+                setSpinnerSubTeam(assignedToTeam);
+            }
+
+        } else if (role.equals("Services department manager")) {
+            serviceSubTeamsTabLayout.setVisibility(View.VISIBLE);
+            productionSubTeamsTabLayout.setVisibility(View.INVISIBLE);
+            if (assignedToTeam == null){
+                assignedToTeam = "Food";
+                setSpinnerSubTeam(assignedToTeam);
+            }
+        }
+
+
 
         EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
 
@@ -108,10 +118,21 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
             public void onTabReselected(TabLayout.Tab tab) {}
         });
 
-        if (assignedToTeam == null){
-            assignedToTeam = "Decor";
-            setSpinnerSubTeam(assignedToTeam);
-        }
+        serviceSubTeamsTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab!=null){
+                    assignedToTeam = String.valueOf(tab.getText());
+                    setSpinnerSubTeam(assignedToTeam);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
 
         submitTaskButton.setOnClickListener(v -> submitTask());
         return view;
