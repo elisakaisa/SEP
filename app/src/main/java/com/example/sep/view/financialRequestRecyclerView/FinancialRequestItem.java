@@ -6,13 +6,14 @@ public class FinancialRequestItem {
     private int idx;
     private FinancialRequest iRequest;
     
-    private String iAmount, iDepartment;
+    private String iAmount, iStatus, iEventId;
 
     public FinancialRequestItem(FinancialRequest request, int idx) {
         iRequest = request;
         
-        iDepartment = request.getRequestingDepartment();
+        iEventId = request.getEventId();
         iAmount = String.valueOf(request.getRequiredAmount());
+        iStatus = request.getStatus();
         
         this.idx = idx;
     }
@@ -25,9 +26,10 @@ public class FinancialRequestItem {
         return iAmount;
     }
 
-    public String getDepartment() {
-        return iDepartment;
+    public String getStatus() {
+        return iStatus;
     }
+    public String getEventId() { return iEventId; }
 
     public FinancialRequest getRequest() {
         return iRequest;

@@ -57,7 +57,7 @@ public class FragmentFinancialRequestsList extends Fragment {
         rvRequests = view.findViewById(R.id.rv_requests);
         fabAdd = view.findViewById(R.id.fab_add_request);
 
-        // TODO: set who can add requests, see how this can be done
+        // TODO: delete this button, request onhly added from task details
         fabAdd.setVisibility(View.VISIBLE);
 
         /*------------ VM ------------*/

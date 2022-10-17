@@ -18,7 +18,10 @@ public class RecruitmentRequestList implements Serializable {
         return theRequests;
     }
 
-    public void addRecruitmentRequest(RecruitmentRequest recruitmentRequest) { theRequests.add(recruitmentRequest); }
+    public void addRecruitmentRequest(RecruitmentRequest recruitmentRequest) {
+        if (theRequests == null) theRequests = new ArrayList<>();
+        theRequests.add(recruitmentRequest);
+    }
     public void deleteRecruitmentRequest(Integer idx) { theRequests.remove(idx.intValue()); }
 
     public void updateRequest(RecruitmentRequest recruitmentRequest, Integer idx) {

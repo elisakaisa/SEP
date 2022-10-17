@@ -19,7 +19,10 @@ public class TaskList implements Serializable {
         return theTasks;
     }
 
-    public void addTask(Task task) { theTasks.add(task); }
+    public void addTask(Task task) {
+        if (theTasks == null) theTasks = new ArrayList<>();
+        theTasks.add(task);
+    }
     public void deleteTask(Integer idx) { theTasks.remove(idx.intValue());}
 
     public void updateTask(Task task, Integer idx) {

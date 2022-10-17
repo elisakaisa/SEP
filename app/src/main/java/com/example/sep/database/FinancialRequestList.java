@@ -17,7 +17,10 @@ public class FinancialRequestList implements Serializable {
         return theRequests;
     }
 
-    public void addFinancialRequest(FinancialRequest financialRequest) { theRequests.add(financialRequest); }
+    public void addFinancialRequest(FinancialRequest financialRequest) {
+        if (theRequests == null) theRequests = new ArrayList<>();
+        theRequests.add(financialRequest);
+    }
     public void deleteFinancialRequest(Integer idx) { theRequests.remove(idx.intValue());}
 
     public void updateEvent(FinancialRequest request, Integer idx) {

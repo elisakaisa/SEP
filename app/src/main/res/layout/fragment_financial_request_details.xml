@@ -42,6 +42,20 @@
                 android:gravity="center">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_fin_view"
+                    android:text="@string/event_id"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_fin_view2"
+                    android:text="@{requestVM.request.eventId}"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_record_number_fin_view"
                     android:text="@string/record_number"
                     android:padding="4dp"/>
@@ -106,7 +120,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_approved_by_fin_view2"
-                    android:text="@string/pending"
+                    android:text="@{requestVM.request.status}"
                     android:padding="4dp"/>
 
             </TableRow>
