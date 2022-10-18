@@ -96,6 +96,7 @@ public class FragmentFinancialRequestDetails extends Fragment {
                 mRequest.setStatus(FinancialRequest.DISMISSED);
                 BaseActivity.fRequestList.updateEvent(mRequest, itemIdentifier);
 
+
                 //Update list in local storage
                 saveFinancialRequestList();
                 Toast.makeText(getActivity(), "Request is dismissed", Toast.LENGTH_SHORT).show();

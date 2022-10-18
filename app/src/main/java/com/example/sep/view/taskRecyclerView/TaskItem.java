@@ -10,7 +10,7 @@ public class TaskItem implements Serializable {
     Integer idx;
     Task iTask;
     String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority, iBelongsToEvent;
-    Boolean iExtraBudgetRequest, iExtraResourceRequest;
+    String iExtraBudgetRequest, iExtraResourceRequest, iTaskPlanningStatus;
 
     public TaskItem(Task task, Integer idx) {
         iTask = task;
@@ -22,6 +22,7 @@ public class TaskItem implements Serializable {
         iAssignedToTeam = task.getTeam();
         iPriority = task.getTaskPriority();
         iSender = task.getAssignedBy();
+        iTaskPlanningStatus = task.getTaskPlanningStatus();
         this.idx = idx;
     }
 
@@ -51,18 +52,25 @@ public class TaskItem implements Serializable {
     public String getTaskPriority(){return iPriority;}
     public Integer getTaskID(){return idx;}
 
-    public Boolean getExtraBudgetRequest() {
+    public String getExtraBudgetRequest() {
         return iExtraBudgetRequest;
     }
-    public void setExtraBudgetRequest(Boolean iExtraBudgetRequest) {
+    public void setExtraBudgetRequest(String iExtraBudgetRequest) {
         this.iExtraBudgetRequest = iExtraBudgetRequest;
     }
 
-    public Boolean getExtraResourcesRequest() {
+    public String getExtraResourcesRequest() {
         return iExtraResourceRequest;
     }
-    public void setExtraResourcesRequest(Boolean iExtraResourcesRequest) {
+    public void setExtraResourcesRequest(String iExtraResourcesRequest) {
         this.iExtraResourceRequest = iExtraResourcesRequest;
+    }
+
+    public String getTaskPlanningStatus() {
+        return iTaskPlanningStatus;
+    }
+    public void settTaskPlanningStatus(String iTaskPlanningStatus) {
+        this.iTaskPlanningStatus = iTaskPlanningStatus;
     }
 
 

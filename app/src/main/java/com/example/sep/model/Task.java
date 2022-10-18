@@ -5,8 +5,22 @@ import java.io.Serializable;
 public class Task implements Serializable {
     private Integer taskId;
     private String  belongsToEvent, department, assignedBy,team, assignedTo, projectReference,
-            taskDescription, taskPriority, budgetForTask, taskPlanning;
-    private Boolean requestExtraBudget, requestExtraResources;
+            taskDescription, taskPriority, budgetForTask, taskPlanningStatus;
+    private String requestExtraBudget, requestExtraResources;
+
+    //Task -> event id, subteam, assigned person, planning status (pending, planned ok, planned extra budget), budget request, recruitment request (no need, pending, done)
+
+    // Task planning status
+    public static final String PLANNING_PENDING = "Pending";
+    public static final String PLANNING_OK = "OK";
+    public static final String PLANNING_EXTRA_BUDGET = "Extra Budget";
+
+    public static final String REQUESTS_CHECK = "TBD";
+    public static final String REQUESTS_NO_NEED = "No need";
+    public static final String REQUESTS_PENDING = "Pending";
+    public static final String REQUESTS_SUBMITTED = "Submitted";
+    public static final String REQUESTS_ACCEPTED = "Accepted";
+
 
     public Task (int taskId,
                  String belongsToEvent,
@@ -17,10 +31,10 @@ public class Task implements Serializable {
                  String projectReference,
                  String taskDescription,
                  String taskPriority,
-                 String taskPlanning,
+                 String taskPlanningStatus,
                  String budgetForTask,
-                 Boolean requestExtraBudget,
-                 Boolean requestExtraResources){
+                 String requestExtraBudget,
+                 String requestExtraResources){
 
         this.taskId = taskId;
         this.belongsToEvent = belongsToEvent;
@@ -30,7 +44,7 @@ public class Task implements Serializable {
         this.assignedTo = assignedTo;
         this.projectReference = projectReference;
         this.taskDescription = taskDescription;
-        this.taskPlanning = taskPlanning;
+        this.taskPlanningStatus = taskPlanningStatus;
         this.taskPriority = taskPriority;
 
         this.budgetForTask = budgetForTask;
@@ -70,11 +84,16 @@ public class Task implements Serializable {
     public void setBudgetForTask(String budgetForTask) {
         this.budgetForTask = budgetForTask;
     }
-    public Boolean getRequestExtraBudget() { return requestExtraBudget; }
 
-    public void setExtraBudgetRequest(Boolean requestExtraBudget) {
+    public String getTaskPlanningStatus() { return taskPlanningStatus; }
+    public void setTaskPlanningStatus(String taskPlanningStatus) {
+        this.taskPlanningStatus = taskPlanningStatus;
+    }
+
+    public String getRequestExtraBudget() { return requestExtraBudget; }
+    public void setExtraBudgetRequest(String requestExtraBudget) {
         this.requestExtraBudget = requestExtraBudget;
     }
-    public Boolean getRequestExtraResources() { return requestExtraResources; }
+    public String getRequestExtraResources() { return requestExtraResources; }
 
 }

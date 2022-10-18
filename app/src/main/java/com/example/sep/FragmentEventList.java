@@ -78,7 +78,7 @@ public class  FragmentEventList extends Fragment {
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;
             case "Production department manager":
-            case "Service department manager":
+            case "Services department manager":
                 accessLevel = 4;
                 fabAdd.setVisibility(View.INVISIBLE);
                 break;

@@ -14,6 +14,7 @@ import com.example.sep.model.Task;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.view.taskRecyclerView.TaskItem;
 import com.example.sep.view.taskRecyclerView.TaskItemAdapter;
+import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.bottomNavigationVM.BottomNavigationViewModel;
 import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.taskVM.TaskViewModel;
@@ -37,6 +38,7 @@ public class FragmentTaskListManager extends Fragment {
     private BottomNavigationViewModel bottomNavVM;
     private FloatingActionButton fabAddTask;
     private String eventId, navPage;
+    private String departmentName;
 
 
     public FragmentTaskListManager() {
@@ -56,9 +58,10 @@ public class FragmentTaskListManager extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_task_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_task_list_manager, container, false);
         rv_tasks = view.findViewById(R.id.rv_tasks);
         fabAddTask = view.findViewById(R.id.fab_add_task);
+        departmentName = RoleTransfer.getDepartment();
 
 
         /*------------ VM ------------*/
@@ -81,13 +84,18 @@ public class FragmentTaskListManager extends Fragment {
             Integer i = 0;
             for (Task singleTask : tasks){
                 if (Objects.equals(navPage, "Events")){
-                    if (Objects.equals(singleTask.getBelongsToEvent(), eventId)){
+                    if (Objects.equals(singleTask.getBelongsToEvent(), eventId) &&
+                            Objects.equals(singleTask.getDepartment(), departmentName)){
                         itemTaskList.add(new TaskItem(singleTask, i));
                         i++;
                     }
                 } else if (Objects.equals(navPage, "Tasks")){
-                    itemTaskList.add(new TaskItem(singleTask, i));
-                    i++;
+                    fabAddTask.setVisibility(View.INVISIBLE);
+                    if (Objects.equals(singleTask.getDepartment(), departmentName)){
+                        itemTaskList.add(new TaskItem(singleTask, i));
+                        i++;
+                    }
+
                 }
 
             }

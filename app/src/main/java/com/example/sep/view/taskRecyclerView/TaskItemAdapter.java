@@ -1,5 +1,8 @@
 package com.example.sep.view.taskRecyclerView;
 
+import static com.example.sep.database.Employees.PRODUCTION_MANAGER;
+import static com.example.sep.database.Employees.SERVICE_MANAGER;
+
 import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,19 +35,21 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TaskItemAdapter.TaskItemViewHolder holder, int position) {
-        if (Objects.equals(role, "Production department manager")|| Objects.equals(role, "Service department manager"))
+        if (Objects.equals(role, PRODUCTION_MANAGER)|| Objects.equals(role, SERVICE_MANAGER))
         {
-            holder.view1.setText(mTaskItem.get(position).getAssignedTeam());
-            holder.view2.setText(mTaskItem.get(position).getAssignedTo());
-            holder.view3.setText(String.valueOf(mTaskItem.get(position).getBudgetAssigned()));
-            holder.view4.setText(String.valueOf(mTaskItem.get(position).getExtraBudgetRequest()));
-            holder.view5.setText(String.valueOf(mTaskItem.get(position).getExtraResourcesRequest()));
+            holder.view1.setText(mTaskItem.get(position).getBelongsToEvent());
+            holder.view2.setText(mTaskItem.get(position).getAssignedTeam());
+            holder.view3.setText(mTaskItem.get(position).getAssignedTo());
+            holder.view4.setText(String.valueOf(mTaskItem.get(position).getTaskPlanningStatus()));
+            holder.view5.setText(String.valueOf(mTaskItem.get(position).getExtraBudgetRequest()));
+            holder.view6.setText(String.valueOf(mTaskItem.get(position).getExtraResourcesRequest()));
         } else {
-            holder.view1.setText(String.valueOf(mTaskItem.get(position).getTaskID()));
-            holder.view2.setText(mTaskItem.get(position).getTaskPriority());
-            holder.view3.setText(mTaskItem.get(position).getAssignedBy());
-            holder.view4.setText("View");
-            holder.view5.setText("");
+            holder.view1.setText(mTaskItem.get(position).getBelongsToEvent());
+            holder.view2.setText(String.valueOf(mTaskItem.get(position).getTaskID()));
+            holder.view3.setText(mTaskItem.get(position).getTaskPriority());
+            holder.view4.setText(mTaskItem.get(position).getAssignedBy());
+            holder.view5.setText("View");
+            holder.view6.setText("");
         }
 
 
@@ -57,7 +62,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
 
     public class TaskItemViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView view1, view2, view3, view4, view5;
+        public TextView view1, view2, view3, view4, view5, view6;
 
         public TaskItemViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -66,6 +71,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
             view3 = itemView.findViewById(R.id.tv_3);
             view4 = itemView.findViewById(R.id.tv_4);
             view5 = itemView.findViewById(R.id.tv_5);
+            view6 = itemView.findViewById(R.id.tv_6);
 
             itemView.setTag(this);
             itemView.setOnClickListener(mOnItemClickListener);

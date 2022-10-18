@@ -106,5 +106,13 @@
     <string name="updated_budget">Updated Budget</string>
     <string name="event_list">Event list</string>
     <string name="financial_requests_list">Financial requests list</string>
+    <string name="sub_team">Sub-team</string>
+    <string name="assigned">Assigned</string>
+    <string name="planning_status">Planning Status</string>
+    <string name="budget_request">Budget Request</string>
+    <string name="recruit_request">Recruit Request</string>
+    <string name="task_list">Task List</string>
+    <string name="task_id">Task ID</string>
+    <string name="sender">Sender</string>
 
 </resources>
