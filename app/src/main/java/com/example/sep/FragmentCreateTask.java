@@ -2,6 +2,8 @@ package com.example.sep;
 
 import static com.example.sep.database.Employees.PRODUCTION_MANAGER;
 import static com.example.sep.database.Employees.SERVICE_MANAGER;
+import static com.example.sep.model.Task.PLANNING_PENDING;
+import static com.example.sep.model.Task.REQUESTS_CHECK;
 import static java.lang.Integer.parseInt;
 
 import android.content.Context;
@@ -167,10 +169,10 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
                 String.valueOf(projectReferenceEditText.getText()),
                 String.valueOf(taskDescriptionEditText.getText()),
                 taskPriority,
-                "",
+                PLANNING_PENDING,
                 String.valueOf(assignBudgetEditText.getText()),
-                Boolean.FALSE,
-                Boolean.FALSE
+                REQUESTS_CHECK,
+                REQUESTS_CHECK
                 );
         saveResultsTaskList(newTask);
         HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskListManager());

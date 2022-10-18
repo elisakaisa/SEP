@@ -1,5 +1,10 @@
 package com.example.sep;
 
+import static com.example.sep.model.Task.PLANNING_EXTRA_BUDGET;
+import static com.example.sep.model.Task.PLANNING_OK;
+import static com.example.sep.model.Task.REQUESTS_NO_NEED;
+import static com.example.sep.model.Task.REQUESTS_PENDING;
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -33,6 +38,7 @@ public class FragmentTaskDetails extends Fragment {
     private Task task;
     TextInputEditText tvTaskExtraBudget;
     private int itemIdentifierTask;
+    CheckBox cbTaskBudgetRequest;
 
 
     public FragmentTaskDetails() {
@@ -67,7 +73,7 @@ public class FragmentTaskDetails extends Fragment {
         TableRow trBudget2 = view.findViewById(R.id.row_budget_2);
 
         TextInputEditText tvTaskPlanning = view.findViewById(R.id.et_task_plan);
-        CheckBox cbTaskBudgetRequest = view.findViewById(R.id.cb_budget);
+        cbTaskBudgetRequest = view.findViewById(R.id.cb_budget);
         tvTaskExtraBudget = view.findViewById(R.id.et_extra_budget);
         MaterialButton btnSubmitTaskPlanning = view.findViewById(R.id.btn_submit_task_planning);
         MaterialButton btnResourcesRequest = view.findViewById(R.id.btn_resources_request);
@@ -136,9 +142,15 @@ public class FragmentTaskDetails extends Fragment {
     }
 
     private void submitTaskPlanning(){
+        if (cbTaskBudgetRequest.isChecked()){
+            task.setTaskPlanningStatus(PLANNING_EXTRA_BUDGET);
+            task.setExtraBudgetRequest(REQUESTS_PENDING);
+            task.setBudgetForTask(String.valueOf(tvTaskExtraBudget.getText()));
+        }else{
+            task.setTaskPlanningStatus(PLANNING_OK);
+            task.setExtraBudgetRequest(REQUESTS_NO_NEED);
+        }
 
-        task.setExtraBudgetRequest(Boolean.TRUE);
-        task.setBudgetForTask(String.valueOf(tvTaskExtraBudget.getText()));
         BaseActivity.taskList.updateTask(task, itemIdentifierTask);
 
         //Update list in local storage
