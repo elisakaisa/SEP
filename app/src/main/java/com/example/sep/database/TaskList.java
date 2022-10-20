@@ -23,10 +23,11 @@ public class TaskList implements Serializable {
         if (theTasks == null) theTasks = new ArrayList<>();
         theTasks.add(task);
     }
-    public void deleteTask(Integer idx) { theTasks.remove(idx.intValue());}
 
-    public void updateTask(Task task, Integer idx) {
-        deleteTask(idx);
+    public void deleteTask(Task task) { theTasks.remove(task); }
+
+    public void updateTask(Task task) {
+        deleteTask(task);
         addTask(task);
     }
 

@@ -31,7 +31,6 @@ public class FragmentFinancialRequestsList extends Fragment {
 
     private RecyclerView rvRequests;
     private ArrayList<FinancialRequestItem> itemList;
-    private FloatingActionButton fabAdd;
     private FinancialRequestViewModel requestVM;
 
     public FragmentFinancialRequestsList() {
@@ -55,10 +54,6 @@ public class FragmentFinancialRequestsList extends Fragment {
 
         /*------------ UI ------------*/
         rvRequests = view.findViewById(R.id.rv_requests);
-        fabAdd = view.findViewById(R.id.fab_add_request);
-
-        // TODO: delete this button, request onhly added from task details
-        fabAdd.setVisibility(View.INVISIBLE);
 
         /*------------ VM ------------*/
         FinancialRequestListViewModel requestsVM = new ViewModelProvider(requireActivity()).get(FinancialRequestListViewModel.class);
@@ -76,10 +71,6 @@ public class FragmentFinancialRequestsList extends Fragment {
             rvRequests.setLayoutManager(new LinearLayoutManager(getActivity()));
             rvRequests.setAdapter(requestItemAdapter);
             requestItemAdapter.setOnItemClickListener(onItemClickListener);
-        });
-
-        fabAdd.setOnClickListener(v -> {
-            HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentFinancialRequestForm());
         });
 
         return view;

@@ -118,7 +118,9 @@ public class BaseActivity extends AppCompatActivity {
                 if (role.equals("Production department manager") || role.equals("Services department manager")) { // managers
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
                     bottomNavigationViewFiM.setVisibility(View.VISIBLE);
+                    // bottom Navigation variables
                     bottomNavigationViewFiM.getMenu().getItem(0).setChecked(true);
+                    bottomNavVM.setSelectedNavigationPage("Events");
                 } else { //Sub-teams
                     HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentTaskListSubTeam());
                     bottomNavigationViewFiM.setVisibility(View.INVISIBLE);
@@ -127,7 +129,7 @@ public class BaseActivity extends AppCompatActivity {
 
             case Employees.TOP_MANAGEMENT:
                 // TODO: decide which fragment is viewed
-                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentRecruitmentRequestsList());
+                HelperFunctions.loadFragment(getSupportFragmentManager(), new FragmentEventList());
                 break;
 
             default:  // any other roles

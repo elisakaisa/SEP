@@ -136,7 +136,6 @@ public class FragmentCreateEvent extends Fragment {
     }
 
     private void submitEvent() {
-        // TODO add safety feature if numbers empty
         // TODO: check that date to and from are coherent
         Event newEvent = new Event(
                 BaseActivity.eventList.setNewEventId(),

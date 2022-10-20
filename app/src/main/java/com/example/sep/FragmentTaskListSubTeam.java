@@ -91,7 +91,6 @@ public class FragmentTaskListSubTeam extends Fragment {
             int position = viewHolder.getAdapterPosition();
             TaskItem taskItem = itemList.get(position);
             taskVM.setTask(taskItem.getTask());
-            taskVM.setIdentifierTask(taskItem.getTaskID());
 
             HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskDetails());
         }
