@@ -44,7 +44,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
             holder.view5.setText(String.valueOf(mTaskItem.get(position).getExtraBudgetRequest()));
             holder.view6.setText(String.valueOf(mTaskItem.get(position).getExtraResourcesRequest()));
         } else {
-            holder.view1.setText(mTaskItem.get(position).getBelongsToEvent());
+            holder.view1.setText(String.valueOf(mTaskItem.get(position).getBelongsToEvent()));
             holder.view2.setText(String.valueOf(mTaskItem.get(position).getTaskID()));
             holder.view3.setText(mTaskItem.get(position).getTaskPriority());
             holder.view4.setText(mTaskItem.get(position).getAssignedBy());
