@@ -114,5 +114,6 @@
     <string name="task_list">Task List</string>
     <string name="task_id">Task ID</string>
     <string name="sender">Sender</string>
+    <string name="recruitment_request_list">Recruitment request list</string>
 
 </resources>
