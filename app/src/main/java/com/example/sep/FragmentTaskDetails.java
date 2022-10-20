@@ -39,7 +39,6 @@ import java.io.ObjectOutputStream;
 public class FragmentTaskDetails extends Fragment {
     private Task task;
     TextInputEditText tvTaskExtraBudget;
-    private int itemIdentifierTask;
     CheckBox cbTaskBudgetRequest;
 
 
@@ -131,8 +130,6 @@ public class FragmentTaskDetails extends Fragment {
 
         });
 
-        itemIdentifierTask = taskVM.getIdentifierTask();
-
         cbTaskBudgetRequest.setOnClickListener(v -> tvTaskExtraBudget.setVisibility(View.VISIBLE));
 
         btnSubmitTaskPlanning.setOnClickListener(v -> submitTaskPlanning());
@@ -152,7 +149,7 @@ public class FragmentTaskDetails extends Fragment {
             task.setExtraBudgetRequest(REQUESTS_NO_NEED);
         }
 
-        BaseActivity.taskList.updateTask(task, itemIdentifierTask);
+        BaseActivity.taskList.updateTask(task);
 
         //Update list in local storage
         saveResultsTaskList();

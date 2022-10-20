@@ -33,7 +33,20 @@ To run the app, there are 2 options:
 
 ## Known issues
 
-- 
+- none known
+
+## Possible Improvements and extensions
+
+- filtering the Events/Tasks/Requests or reordering them (requires to transform the delete function in the database classes to something similar than in TaskList)
+- Adding a backend that deals with the logging in, and storing the events/tasks/requests
+- budget checks: making sure that the budget assigned to different tasks is not bigger than the event budget
+- displaying archived events in a separate tab
+- Adding a way to add information to the event following the approval of the event and the physical meeting involving the client, the customer service and the financial manager
+- Adding a way to update and archive the event once the event has been done
+- Schedule and calendar with events and employer availabilities --> making sure an Employee cannot be scheduled on wo events/tasks at tzhe same time
+- Improving the forms so that they take better or more relevant data
+- Improving the UI
+- more instrumented tests and UI tests
 
 ## Authors
 

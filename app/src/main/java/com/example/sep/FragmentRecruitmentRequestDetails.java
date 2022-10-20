@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.sep.database.Employees;
 import com.example.sep.databinding.FragmentRecruitmentRequestDetailsBinding;
 import com.example.sep.model.RecruitmentRequest;
 import com.example.sep.utils.HelperFunctions;
@@ -57,14 +58,16 @@ public class FragmentRecruitmentRequestDetails extends Fragment {
         MaterialButton btnApprove = view.findViewById(R.id.btn_rec_request_details_approve);
         MaterialButton btnDismiss = view.findViewById(R.id.btn_rec_request_details_delete);
         switch (RoleTransfer.getRole()) {
-            case "Production department manager":
-            case "Services department manager":
+            case Employees.PRODUCTION_MANAGER:
+            case Employees.SERVICE_MANAGER:
             case "HR Assistant":
                 btnApprove.setVisibility(View.INVISIBLE);
                 btnDismiss.setVisibility(View.INVISIBLE);
+                break;
             case "Senior HR Manager":
                 btnApprove.setVisibility(View.VISIBLE);
                 btnDismiss.setVisibility(View.VISIBLE);
+                break;
         }
 
         /*---------- VM ----------*/

@@ -11,8 +11,6 @@ public class TaskViewModel extends ViewModel {
 
     private MutableLiveData<Task> task;
 
-    public int identifierTask;
-
     public LiveData<Task> getTask(){
         if (task == null) {
             task = new MutableLiveData<>();
@@ -27,10 +25,5 @@ public class TaskViewModel extends ViewModel {
         }
         task.postValue(taskObj);
     }
-    public void setIdentifierTask(int idx) {
-        identifierTask = idx;
-    }
-
-    public int getIdentifierTask() { return identifierTask; }
 
 }

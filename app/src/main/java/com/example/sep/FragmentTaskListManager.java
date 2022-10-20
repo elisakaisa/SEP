@@ -120,7 +120,6 @@ public class FragmentTaskListManager extends Fragment {
             int position = viewHolder.getAdapterPosition();
             TaskItem taskItem = itemTaskList.get(position);
             taskVM.setTask(taskItem.getTask());
-            taskVM.setIdentifierTask(taskItem.getTaskID());
 
             HelperFunctions.loadFragment(requireActivity().getSupportFragmentManager(), new FragmentTaskDetails());
         }
