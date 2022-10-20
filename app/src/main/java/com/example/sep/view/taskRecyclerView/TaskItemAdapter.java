@@ -37,7 +37,7 @@ public class TaskItemAdapter extends RecyclerView.Adapter<TaskItemAdapter.TaskIt
     public void onBindViewHolder(@NonNull TaskItemAdapter.TaskItemViewHolder holder, int position) {
         if (Objects.equals(role, PRODUCTION_MANAGER)|| Objects.equals(role, SERVICE_MANAGER))
         {
-            holder.view1.setText(mTaskItem.get(position).getBelongsToEvent());
+            holder.view1.setText(String.valueOf(mTaskItem.get(position).getBelongsToEvent()));
             holder.view2.setText(mTaskItem.get(position).getAssignedTeam());
             holder.view3.setText(mTaskItem.get(position).getAssignedTo());
             holder.view4.setText(String.valueOf(mTaskItem.get(position).getTaskPlanningStatus()));

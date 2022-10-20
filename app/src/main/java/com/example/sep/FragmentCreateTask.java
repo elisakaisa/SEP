@@ -43,7 +43,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
     MaterialButton submitTaskButton;
     TabLayout productionSubTeamsTabLayout, serviceSubTeamsTabLayout;
 
-    String eventId;
+    int eventId;
     String taskPriority;
     String assignedToMember;
     String assignedToTeam;
@@ -100,7 +100,7 @@ public class FragmentCreateTask extends Fragment implements AdapterView.OnItemSe
 
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(requireActivity(), eventItem -> {
-            eventId = String.valueOf(eventItem.getId());
+            eventId = eventItem.getId();
         });
 
         subTeamMembersSpinner.setOnItemSelectedListener(this);

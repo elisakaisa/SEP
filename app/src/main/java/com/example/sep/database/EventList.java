@@ -8,6 +8,7 @@ import com.example.sep.model.Event;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class EventList implements Serializable {
     private ArrayList<Event> theEvents;
@@ -37,5 +38,10 @@ public class EventList implements Serializable {
             maxId = theEvents.stream().max(Comparator.comparing(Event::getId)).get().getId();
         }
         return maxId + 1;
+    }
+
+    public Event findEventById(int id) {
+        //method to find the event by its id
+        return theEvents.stream().filter(a -> a.getId() == id).collect(Collectors.toList()).get(0);
     }
 }

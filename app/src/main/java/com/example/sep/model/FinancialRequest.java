@@ -4,15 +4,15 @@ import java.io.Serializable;
 
 public class FinancialRequest implements Serializable {
 
-    private String projectReference, requestingDepartment, reason, eventId, status;
-    private int requiredAmount;
+    private String projectReference, requestingDepartment, reason, status;
+    private int requiredAmount, eventId;
 
     // status
     public static final String PENDING = "Pending";
     public static final String APPROVED = "Approved";
     public static final String DISMISSED = "Dismissed";
 
-    public FinancialRequest(String eventId, String projectRef, String department, int amount, String reason, String status) {
+    public FinancialRequest(int eventId, String projectRef, String department, int amount, String reason, String status) {
         this.eventId = eventId;
         this.projectReference = projectRef;
         this.requestingDepartment = department;
@@ -53,7 +53,7 @@ public class FinancialRequest implements Serializable {
         this.reason = reason;
     }
 
-    public String getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
@@ -65,7 +65,7 @@ public class FinancialRequest implements Serializable {
         this.status = status;
     }
 
-    public void setEventId(String eventId) {
+    public void setEventId(int eventId) {
         this.eventId = eventId;
     }
 }

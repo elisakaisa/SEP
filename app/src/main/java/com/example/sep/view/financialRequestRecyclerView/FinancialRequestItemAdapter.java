@@ -27,7 +27,7 @@ public class FinancialRequestItemAdapter extends RecyclerView.Adapter<FinancialR
     @Override
     public void onBindViewHolder(@NonNull FinancialRequestItemAdapter.FinancialRequestViewHolder holder, int position) {
 
-        holder.iEventId.setText(mRequestItem.get(position).getEventId());
+        holder.iEventId.setText(String.valueOf(mRequestItem.get(position).getEventId()));
         holder.iAmount.setText(mRequestItem.get(position).getAmount());
         holder.iStatus.setText(mRequestItem.get(position).getStatus());
     }

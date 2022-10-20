@@ -31,7 +31,7 @@ public class FragmentFinancialRequestForm extends Fragment {
     private RadioGroup radioGroup;
 
     private String chosenDepartment = "Administration";
-    private String eventId = null;
+    private int eventId = -1;
 
     public FragmentFinancialRequestForm() {
         // Required empty public constructor

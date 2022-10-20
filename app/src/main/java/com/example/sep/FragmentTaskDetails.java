@@ -17,8 +17,10 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TableRow;
 
+import com.example.sep.model.Event;
 import com.example.sep.model.Task;
 import com.example.sep.utils.HelperFunctions;
+import com.example.sep.viewModel.eventVM.EventListViewModel;
 import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.taskVM.TaskViewModel;
@@ -110,23 +112,22 @@ public class FragmentTaskDetails extends Fragment {
 
         /* ------- VM --------*/
         TaskViewModel taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
-        EventViewModel eventVM = new ViewModelProvider(requireActivity()).get(EventViewModel.class);
+        EventListViewModel eventListVM = new ViewModelProvider(requireActivity()).get(EventListViewModel.class);
 
         /* ------- LISTENERS --------*/
-        eventVM.getEvent().observe(requireActivity(), event -> {
-            tvEventType.setText(event.getEventType());
-            tvEventFrom.setText(event.getFromDate());
-            tvEventTo.setText(event.getToDate());
-            tvEventAttendees.setText(String.valueOf(event.getAttendees()));
-        });
-
-        taskVM.getTask().observe(requireActivity(), taskItem -> {
+         taskVM.getTask().observe(requireActivity(), taskItem -> {
             task = taskItem;
 
             tvTaskBudget.setText(task.getBudgetForTask());
             tvTaskDescription.setText(task.getTaskDescription());
-            tvEventId.setText(task.getBelongsToEvent());
-            // TODO: instead of getting the event data from eventVM, get it by searching in EventList with eventId
+            tvEventId.setText(String.valueOf(task.getBelongsToEvent()));
+
+            // Get the event information
+            Event event = eventListVM.findViewById(task.getBelongsToEvent());
+            tvEventType.setText(event.getEventType());
+            tvEventFrom.setText(event.getFromDate());
+            tvEventTo.setText(event.getToDate());
+            tvEventAttendees.setText(String.valueOf(event.getAttendees()));
 
         });
 

@@ -37,8 +37,8 @@ public class FragmentTaskListManager extends Fragment {
     private TaskListViewModel taskListVM;
     private BottomNavigationViewModel bottomNavVM;
     private FloatingActionButton fabAddTask;
-    private String eventId, navPage;
-    private String departmentName;
+    private int eventId;
+    private String departmentName, navPage;
 
 
     public FragmentTaskListManager() {
@@ -76,7 +76,7 @@ public class FragmentTaskListManager extends Fragment {
         });
 
         eventVM.getEvent().observe(requireActivity(), eventItem -> {
-            eventId = String.valueOf(eventItem.getId());
+            eventId = eventItem.getId();
         });
 
         taskListVM.getTask().observe(requireActivity(), tasks -> {

@@ -7,9 +7,9 @@ import java.io.Serializable;
 
 public class TaskItem implements Serializable {
 
-    Integer idx;
+    int idx, iBelongsToEvent;
     Task iTask;
-    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority, iBelongsToEvent;
+    String iAssignedToTeam, iAssignedTo, iBudgetAssigned, iSender, iPriority;
     String iExtraBudgetRequest, iExtraResourceRequest, iTaskPlanningStatus;
 
     public TaskItem(Task task, Integer idx) {
@@ -34,7 +34,7 @@ public class TaskItem implements Serializable {
         return iTask;
     }
 
-    public String getBelongsToEvent() {return iBelongsToEvent;}
+    public int getBelongsToEvent() {return iBelongsToEvent;}
 
     public String getAssignedTeam() {
         return iAssignedToTeam;

@@ -63,17 +63,21 @@ public class TestVariables {
             Event.PRELIMINARY);
 
     public static FinancialRequest fr1 = new FinancialRequest(
+            4,
             "rfrf",
-            "production",
+            "services",
             1000,
-            "just give me a reason"
+            "just give me a reason",
+            FinancialRequest.APPROVED
     );
 
     public static FinancialRequest fr2 = new FinancialRequest(
-            "aaa",
+            1,
+            "jej",
             "services",
             2000,
-            "just a little bit enough"
+            "just a little bit enough",
+            FinancialRequest.PENDING
     );
 
     public static RecruitmentRequest rr1 = new RecruitmentRequest(

@@ -1,7 +1,6 @@
 package com.example.sep.viewModel.eventVM;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -48,5 +47,9 @@ public class EventListViewModel extends AndroidViewModel {
             BaseActivity.eventList = new EventList();
             events.setValue(BaseActivity.eventList.getTheEvents());
         }
+    }
+
+    public Event findViewById(int id)  {
+        return BaseActivity.eventList.findEventById(id);
     }
 }

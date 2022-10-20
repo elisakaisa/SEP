@@ -31,11 +31,6 @@ public class FinancialRequestItemTest {
     }
 
     @Test
-    public void getDepartment() {
-        assertEquals(requestItem2.getDepartment(), TestVariables.fr2.getRequestingDepartment());
-    }
-
-    @Test
     public void getRequest() {
         assertEquals(requestItem1.getRequest(), TestVariables.fr1);
         assertEquals(requestItem2.getRequest(), TestVariables.fr2);

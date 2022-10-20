@@ -48,7 +48,7 @@
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tv_event_id_fin_view2"
-                    android:text="@{requestVM.request.eventId}"
+                    android:text="@{String.valueOf(requestVM.request.eventId)}"
                     android:padding="4dp"/>
 
             </TableRow>

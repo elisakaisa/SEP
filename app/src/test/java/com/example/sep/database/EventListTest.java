@@ -48,4 +48,12 @@ public class EventListTest {
         assertEquals(cEventList.getTheEvents().get(0).getId(), TestVariables.event1.getId());
         assertNotEquals(cEventList.getTheEvents().get(0).getId(), 1);
     }
+
+    @Test
+    public void findEventById() {
+        addEventTest();
+        Event searchedEvent = cEventList.findEventById(4);
+        assertEquals(searchedEvent.getEventType(), TestVariables.event2.getEventType());
+        assertEquals(searchedEvent.getId(), TestVariables.event2.getId());
+    }
 }
