@@ -103,7 +103,12 @@ public class FragmentEventDetails extends Fragment {
 
         /* ------- LISTENERS --------*/
         eventVM.getEvent().observe(requireActivity(), event -> {
-            if (event.getLevel() == 1 || event.getLevel() == 3) btnApprove.setEnabled(false);
+            if (    (event.getLevel() != 0 && RoleTransfer.getRole().equals("Senior Customer Service Officer")) ||
+                    (event.getLevel() == 1 ) ||
+                    (event.getLevel() == 3 )) {
+                btnApprove.setEnabled(false);
+                btnDelete.setEnabled(false);
+            }
             itemIdentifier = eventVM.getIdentifier();
 
             binding.setEventVM(eventVM);
