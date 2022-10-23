@@ -4,6 +4,7 @@ import com.example.sep.model.Employee;
 import com.example.sep.model.Event;
 import com.example.sep.model.FinancialRequest;
 import com.example.sep.model.RecruitmentRequest;
+import com.example.sep.model.Task;
 
 public class TestVariables {
     public static Event event1 = new Event(
@@ -105,5 +106,37 @@ public class TestVariables {
             "Department",
             "Role",
             "password"
+    );
+
+    public static Task task1 = new Task(
+            2,
+            34,
+            "services",
+            "Jack",
+            "photo",
+            "Magy",
+            "cgc",
+            "yada yada",
+            "high",
+            Task.PLANNING_PENDING,
+            "2300",
+            Task.REQUESTS_NO_NEED,
+            Task.REQUESTS_CHECK
+    );
+
+    public static Task task2 = new Task(
+            4,
+            12,
+            "production",
+            "Jack",
+            "Decoration",
+            "Magy",
+            "cgc",
+            "yada yada",
+            "high",
+            Task.PLANNING_PENDING,
+            "200",
+            Task.REQUESTS_NO_NEED,
+            Task.REQUESTS_CHECK
     );
 }

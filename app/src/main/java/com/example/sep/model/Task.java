@@ -96,4 +96,7 @@ public class Task implements Serializable {
     }
     public String getRequestExtraResources() { return requestExtraResources; }
 
+    public void setRequestExtraResources(String requestExtraResources) {
+        this.requestExtraResources = requestExtraResources;
+    }
 }

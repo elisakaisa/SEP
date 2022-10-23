@@ -22,6 +22,7 @@ public class FinancialRequestListTest {
 
     @Test
     public void addFinancialRequest() {
+        // check if requests are added in init
         assertEquals(cRequestList.getTheRequests().size(), 2);
     }
 

@@ -140,6 +140,7 @@ public class FragmentTaskDetails extends Fragment {
     }
 
     private void submitTaskPlanning(){
+        Task oldTask = task;
         if (cbTaskBudgetRequest.isChecked()){
             task.setTaskPlanningStatus(PLANNING_EXTRA_BUDGET);
             task.setExtraBudgetRequest(REQUESTS_PENDING);
@@ -149,7 +150,7 @@ public class FragmentTaskDetails extends Fragment {
             task.setExtraBudgetRequest(REQUESTS_NO_NEED);
         }
 
-        BaseActivity.taskList.updateTask(task);
+        BaseActivity.taskList.updateTask(oldTask, task);
 
         //Update list in local storage
         saveResultsTaskList();

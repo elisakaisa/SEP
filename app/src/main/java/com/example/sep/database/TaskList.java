@@ -26,9 +26,9 @@ public class TaskList implements Serializable {
 
     public void deleteTask(Task task) { theTasks.remove(task); }
 
-    public void updateTask(Task task) {
-        deleteTask(task);
-        addTask(task);
+    public void updateTask(Task oldTask, Task newTask) {
+        deleteTask(oldTask);
+        addTask(newTask);
     }
 
     public int setNewTaskId() {
