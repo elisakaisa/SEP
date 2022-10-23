@@ -21,7 +21,6 @@ import com.example.sep.model.Event;
 import com.example.sep.model.Task;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.eventVM.EventListViewModel;
-import com.example.sep.viewModel.eventVM.EventViewModel;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.taskVM.TaskViewModel;
 import com.google.android.material.button.MaterialButton;
@@ -122,7 +121,7 @@ public class FragmentTaskDetails extends Fragment {
             tvEventId.setText(String.valueOf(task.getBelongsToEvent()));
 
             // Get the event information
-            Event event = eventListVM.findViewById(task.getBelongsToEvent());
+            Event event = eventListVM.findTaskById(task.getBelongsToEvent());
             tvEventType.setText(event.getEventType());
             tvEventFrom.setText(event.getFromDate());
             tvEventTo.setText(event.getToDate());

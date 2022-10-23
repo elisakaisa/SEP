@@ -79,7 +79,7 @@ public class FragmentTaskListManager extends Fragment {
             eventId = eventItem.getId();
         });
 
-        taskListVM.getTask().observe(requireActivity(), tasks -> {
+        taskListVM.getTasks().observe(requireActivity(), tasks -> {
             itemTaskList = new ArrayList<>();
             Integer i = 0;
             for (Task singleTask : tasks){

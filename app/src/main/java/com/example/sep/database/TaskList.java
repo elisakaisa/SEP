@@ -8,6 +8,7 @@ import com.example.sep.model.Task;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class TaskList implements Serializable {
     private ArrayList<Task> theTasks;
@@ -38,5 +39,10 @@ public class TaskList implements Serializable {
             maxId = theTasks.stream().max(Comparator.comparing(Task::getId)).get().getId();
         }
         return maxId + 1;
+    }
+
+    public Task findTaskById(int id) {
+        // method to return the task by its id
+        return theTasks.stream().filter(a -> a.getId() == id).collect(Collectors.toList()).get(0);
     }
 }

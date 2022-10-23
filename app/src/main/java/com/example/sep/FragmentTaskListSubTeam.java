@@ -65,7 +65,7 @@ public class FragmentTaskListSubTeam extends Fragment {
         taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
         taskListVM = new ViewModelProvider(requireActivity()).get(TaskListViewModel.class);
 
-        taskListVM.getTask().observe(requireActivity(), tasks -> {
+        taskListVM.getTasks().observe(requireActivity(), tasks -> {
             itemList = new ArrayList<>();
             Integer i = 0;
             for (Task singleEvent : tasks){

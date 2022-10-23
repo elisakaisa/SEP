@@ -15,9 +15,12 @@ import android.widget.Toast;
 import com.example.sep.database.Employees;
 import com.example.sep.databinding.FragmentRecruitmentRequestDetailsBinding;
 import com.example.sep.model.RecruitmentRequest;
+import com.example.sep.model.Task;
 import com.example.sep.utils.HelperFunctions;
 import com.example.sep.viewModel.RoleTransfer;
 import com.example.sep.viewModel.recruitmentRequestVM.RecruitmentRequestViewModel;
+import com.example.sep.viewModel.taskVM.TaskListViewModel;
+import com.example.sep.viewModel.taskVM.TaskViewModel;
 import com.google.android.material.button.MaterialButton;
 
 import java.io.FileOutputStream;
@@ -72,12 +75,14 @@ public class FragmentRecruitmentRequestDetails extends Fragment {
 
         /*---------- VM ----------*/
         RecruitmentRequestViewModel recruitmentRequestVM = new ViewModelProvider(requireActivity()).get(RecruitmentRequestViewModel.class);
+        TaskViewModel taskVM = new ViewModelProvider(requireActivity()).get(TaskViewModel.class);
 
         /*------ LISTENERS ------*/
         recruitmentRequestVM.getRequest().observe(requireActivity(), request -> {
             binding.setRequestVM(recruitmentRequestVM);
             mRequest = request;
             itemIdentifier = recruitmentRequestVM.getIdentifier();
+
         });
 
         btnDismiss.setOnClickListener(v -> onDismiss());

@@ -49,7 +49,7 @@ public class EventListViewModel extends AndroidViewModel {
         }
     }
 
-    public Event findViewById(int id)  {
+    public Event findTaskById(int id)  {
         if (BaseActivity.eventList == null) getEvent();
         return BaseActivity.eventList.findEventById(id);
     }

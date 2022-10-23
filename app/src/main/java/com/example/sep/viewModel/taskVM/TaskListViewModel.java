@@ -25,7 +25,7 @@ public class TaskListViewModel extends AndroidViewModel {
     }
 
 
-    public LiveData<List<Task>> getTask() {
+    public LiveData<List<Task>> getTasks() {
         if(tasks == null) {
             tasks = new MutableLiveData<>();
             loadTasks();
@@ -49,5 +49,10 @@ public class TaskListViewModel extends AndroidViewModel {
             BaseActivity.taskList = new TaskList();
             tasks.setValue(BaseActivity.taskList.getTheTasks());
         }
+    }
+
+    public Task findTaskById(int id) {
+        if (BaseActivity.taskList == null) getTasks();
+        return BaseActivity.taskList.findTaskById(id);
     }
 }
