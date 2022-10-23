@@ -1,5 +1,7 @@
 package com.example.sep;
 
+import static com.example.sep.database.Employees.PRODUCTION_MANAGER;
+import static com.example.sep.database.Employees.SERVICE_MANAGER;
 import static com.example.sep.model.Task.PLANNING_EXTRA_BUDGET;
 import static com.example.sep.model.Task.PLANNING_OK;
 import static com.example.sep.model.Task.REQUESTS_NO_NEED;
@@ -81,8 +83,8 @@ public class FragmentTaskDetails extends Fragment {
         MaterialButton btnFinancialRequest = view.findViewById(R.id.btn_financial_request);
 
         switch (RoleTransfer.getRole()) {
-            case "Service department manager":
-            case "Production department manager":
+            case SERVICE_MANAGER:
+            case PRODUCTION_MANAGER:
                 tvTaskPlanning.setVisibility(View.INVISIBLE);
                 cbTaskBudgetRequest.setVisibility(View.INVISIBLE);
                 tvTaskExtraBudget.setVisibility(View.INVISIBLE);
