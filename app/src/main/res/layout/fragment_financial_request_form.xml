@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentCreateEvent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_financial_request"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/financial_request"
+            android:textAlignment="center"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+        <TableLayout
+            android:id="@+id/table_financial_request"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_financial_request">
+
+            <TableRow
+                android:gravity="center"
+                android:background="@drawable/table_border">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_requesting_dep"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="@string/requesting_department" />
+
+                <!--displaying a radio group on below line-->
+                <RadioGroup
+                    android:id="@+id/radioGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp">
+
+                    <!--adding a radio button -->
+                    <RadioButton
+                        android:id="@+id/rb_administration"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="@string/administration"
+                        android:textAlignment="viewStart" />
+                    <RadioButton
+                        android:id="@+id/rb_financial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/financial"
+                        android:textAlignment="viewStart" />
+                    <RadioButton
+                        android:id="@+id/rb_production"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/production"
+                        android:textAlignment="viewStart" />
+                    <RadioButton
+                        android:id="@+id/rb_services"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="@string/services"
+                        android:textAlignment="viewStart" />
+
+                </RadioGroup>
+
+            </TableRow>
+
+            <TableRow
+                android:gravity="center">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_financial_req_record_number"
+                    android:text="@string/record_number"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_financial_req_record_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    android:hint="@string/record_number">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_financial_req_record_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:gravity="center">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_required_amount"
+                    android:text="@string/required_amount"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_required_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    android:hint="@string/sek">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_required_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:gravity="center">
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_reason"
+                    android:text="@string/reason"/>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_reason"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:hint="@string/reason">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_reason"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </TableRow>
+
+
+        </TableLayout>
+
+
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_financial_request_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            app:layout_constraintEnd_toStartOf="@id/btn_financial_request_submit"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_financial_request"
+            app:cornerRadius="20dp"
+            android:backgroundTint="?colorSecondary"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_financial_request_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_financial_request_cancel"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_financial_request"
+            app:cornerRadius="20dp"/>
+
+        <Space
+            app:layout_constraintTop_toBottomOf="@id/btn_financial_request_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="16dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

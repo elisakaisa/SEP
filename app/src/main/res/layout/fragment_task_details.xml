@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".FragmentTaskDetails">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_event_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/task_details"
+            android:textAlignment="center"
+            android:textSize="20sp"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TableLayout
+            android:id="@+id/table_task_details"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:stretchColumns="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_event_details">
+
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_view_title"
+                    android:text="@string/event_id"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_id_view"
+                    android:text="@string/event_id"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_type_view_title"
+                    android:text="@string/event_type"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_event_type_view"
+                    android:text="@string/event_type"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_from_view_title"
+                    android:text="@string/from"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_from_view"
+                    android:text="@string/from"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_to_view_title"
+                    android:text="@string/to"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_to_view"
+                    android:text="@string/to"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_attendees_view_title"
+                    android:text="@string/expected_number_of_attendees_two_lines"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_attendees_view"
+                    android:text="@string/attendees"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_budget_view_title"
+                    android:text="@string/expected_budget"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_budget_view"
+                    android:text="@string/sek"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_task_details_title"
+                    android:text="@string/task_description"
+                    android:padding="4dp"/>
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_approved_by_view"
+                    android:text="@string/decoration"
+                    android:padding="4dp"/>
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/row_empty"
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:padding="4dp"
+
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/row_planning"
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:text="@string/planning"
+                    android:padding="4dp"
+
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_task_plan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    android:hint="@string/instructions_task_planning">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_task_plan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+            <TableRow
+                android:id="@+id/row_budget"
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:text="Budget Request" />
+
+                <CheckBox
+                    android:id="@+id/cb_budget"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:checked="false"
+                     />
+            </TableRow>
+
+
+            <TableRow
+                android:id="@+id/row_budget_2"
+                android:gravity="center">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:text="@string/updated_budget"
+                    android:padding="4dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/ti_extra_budget"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:boxBackgroundMode="filled"
+                    app:boxBackgroundColor="?colorPrimaryVariant"
+                    android:padding="4dp"
+                    android:hint="@string/sek">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/et_extra_budget"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </TableRow>
+        </TableLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_submit_task_planning"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/submit"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_task_details"
+            app:cornerRadius="20dp"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_financial_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/financial_request"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/table_task_details"
+            app:cornerRadius="20dp" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_resources_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/resources_request"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/btn_financial_request"
+            app:cornerRadius="20dp"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

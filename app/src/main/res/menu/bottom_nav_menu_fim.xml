@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_events_fim"
+        android:icon="@drawable/ic_baseline_event_24"
+        android:title="@string/events" />
+
+    <item
+        android:id="@+id/nav_tasks_fim"
+        android:icon="@drawable/ic_baseline_checklist_24"
+        android:title="@string/tasks" />
+
+    <item
+        android:id="@+id/nav_fin_requests_fim"
+        android:icon="@drawable/ic_baseline_attach_money_24"
+        android:title="@string/financial" />
+
+    <item
+        android:id="@+id/nav_res_requests_fim"
+        android:icon="@drawable/ic_baseline_people_alt_24"
+        android:title="@string/resources" />
+
+</menu>

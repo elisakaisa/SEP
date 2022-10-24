@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- more user friendly black for night mode -->
+    <color name="dark_grey">#121212</color>
+
+    <!-- added some theme colors here, feel free to change if you have a better palette -->
+    <color name="darker_white">#FFFBFA</color>
+    <color name="salmon_50">#FFEAE6</color>
+    <color name="salmon_100">#FEDBD0</color>
+    <color name="salmon_300">#FBB8AC</color>
+    <color name="salmon_900">#442C2E</color>
 </resources>

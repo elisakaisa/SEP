@@ -1,3 +1,119 @@
 <resources>
     <string name="app_name">SEP</string>
+    <string name="home">Home</string>
+    <string name="login">Login</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">Password</string>
+    <string name="name">Name</string>
+    <string name="welcome_text">Welcome to SEP</string>
+    <string name="welcome">Welcome</string>
+    <string name="log_out">Log out</string>
+    <string name="submit">Submit</string>
+    <string name="priority">Priority</string>
+    <string name="food">Food</string>
+    <string name="service">Service</string>
+    <string name="music">Music</string>
+    <string name="design">Design</string>
+    <string name="data">Data</string>
+
+
+    <string-array name="priority_options">
+        <item>high</item>
+        <item>medium</item>
+    </string-array>
+
+
+    <string name="request_for_event_planning">Request for event planning</string>
+    <string name="record_number">Record number</string>
+    <string name="client_name">Client name</string>
+    <string name="event_type">Event type</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="expected_number_of_attendees_two_lines">Expected number\nof attendees</string>
+    <string name="attendees">Attendees</string>
+    <string name="expected_budget">Expected budget</string>
+    <string name="decorations">Decorations</string>
+    <string name="breakfast_lunch_dinner">Breakfast, lunch, dinner</string>
+    <string name="parties">Parties</string>
+    <string name="soft_hot_drinks">Soft/hot drinks</string>
+    <string name="video_filming">Video/filming</string>
+    <string name="preferences">Preferences</string>
+    <string name="sek">SEK</string>
+    <string name="yy_mm_dd">YY-MM-DD</string>
+    <string name="comments">Comments</string>
+    <string name="any_additional_information">Any additional information</string>
+    <string name="cancel">Cancel</string>
+    <string name="create_event">Create event</string>
+    <string name="event">Event</string>
+    <string name="delete">Delete</string>
+    <string name="event_details">Event details</string>
+    <string name="approve">Approve</string>
+    <string name="review">Review</string>
+    <string name="add_comment">Add comment</string>
+    <string name="approved_by">Approved by</string>
+    <string name="fm_review">FM review</string>
+    <string name="not_yet_reviewed">not yet reviewed</string>
+
+    <string name="events">Events</string>
+    <string name="financial_requests">Financial requests</string>
+    <string name="financial_request">Financial request</string>
+    <string name="requesting_department">Requesting\ndepartment</string>
+    <string name="administration">Administration</string>
+    <string name="financial">Financial</string>
+    <string name="production">Production</string>
+    <string name="services">Services</string>
+    <string name="required_amount">Required amount</string>
+    <string name="reason">Reason</string>
+    <string name="create_financial_request">Create Financial request</string>
+    <string name="financial_request_details">Financial request details</string>
+    <string name="department">Department</string>
+    <string name="status">Status</string>
+    <string name="pending">Pending</string>
+
+    <string name="decoration_for_job_fair">Decoration for Job Fair</string>
+    <string name="priority_level">High</string>
+    <string name="task_sender">Jack</string>
+    <string name="task_details">Task details</string>
+    <string name="initial_budget_task">Assigned budget</string>
+    <string name="task_description">Task description</string>
+    <string name="decoration">Decoration...</string>
+    <string name="instructions_task_planning">Please enter your arrangements</string>
+    <string name="extra_budget">Extra Budget</string>
+    <string name="check_tasks">Check Tasks</string>
+    <string name="add_task">Add Task</string>
+    <string name="No">False</string>
+    <string name="no_request">False</string>
+    <string name="subteam">Decor</string>
+    <string name="person_in_sub_team">Magy</string>
+    <string name="tasks">Tasks</string>
+    <string name="resources_requests">Resources\nrequests</string>
+    <string name="resources">Resources</string>
+    <string name="planning">Planning</string>
+    <string name="resources_request">Resources request</string>
+    <string name="event_id">Event ID</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="recruitment_request">Recruitment request</string>
+    <string name="contract_type">Contract type</string>
+    <string name="full_time">Full time</string>
+    <string name="part_time">Part time</string>
+    <string name="years_of_experience">Years of experience</string>
+    <string name="years">Years</string>
+    <string name="job_title">Job title</string>
+    <string name="description">Description</string>
+    <string name="create_recruitment_request">Create recruitment request</string>
+    <string name="recruitment_request_details">Recruitment request details</string>
+    <string name="updated_budget">Updated Budget</string>
+    <string name="event_list">Event list</string>
+    <string name="financial_requests_list">Financial requests list</string>
+    <string name="sub_team">Sub-team</string>
+    <string name="assigned">Assigned</string>
+    <string name="planning_status">Planning Status</string>
+    <string name="budget_request">Budget Request</string>
+    <string name="recruit_request">Recruit Request</string>
+    <string name="task_list">Task List</string>
+    <string name="task_id">Task ID</string>
+    <string name="sender">Sender</string>
+    <string name="recruitment_request_list">Recruitment request list</string>
+
 </resources>
